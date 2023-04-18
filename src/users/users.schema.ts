@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory, SchemaOptions } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { Document } from 'mongoose';
+import { userCartDto } from './dto/user.cart.dto';
 
 const options: SchemaOptions = {
   collection: 'users',
@@ -22,7 +23,6 @@ export class User extends Document {
   })
   @IsEmail()
   @IsNotEmpty()
-  //인자 입증을 위한 validation을 (라이브러리 다운) 추가해줘야한다.
   email: string;
 
   @ApiProperty({
@@ -37,32 +37,6 @@ export class User extends Document {
   @IsNotEmpty()
   name: string;
 
-  @ApiProperty({
-    example: 1,
-    description: 'strong',
-    required: true,
-  })
-  @Prop({
-    default: 1,
-    required: true,
-  })
-  @IsString()
-  @IsNotEmpty()
-  strong: number;
-
-  @ApiProperty({
-    example: 8,
-    description: 'money',
-    required: true,
-  })
-  @Prop({
-    default: 1,
-    required: true,
-  })
-  @IsString()
-  @IsNotEmpty()
-  money: number;
-
   @Prop({
     required: true,
   })
@@ -70,25 +44,58 @@ export class User extends Document {
   @IsNotEmpty()
   password: string;
 
+  @ApiProperty({
+    example: '대전 동구 가양동',
+    description: 'email',
+  })
+  @Prop({
+    required: true,
+  })
+  @IsString()
+  address: string;
+
+  @ApiProperty({
+    example: '010-0000-0000',
+    description: 'phoneNumber',
+  })
+  @IsString()
+  phoneNumber: string;
+
+  @ApiProperty({
+    example: '[productId: "sample", quantity: "100"]',
+    description: 'cart',
+  })
+  cart: userCartDto[];
+
+  @ApiProperty({
+    example: 'test',
+    description: 'orderId',
+    required: true,
+  })
+  orderId: string[];
+
   readonly readOnlyData: {
     id: string;
     email: string;
     name: string;
-    strong: number;
-    money: number;
+    address: string;
+    phoneNumber: string;
+    cart: userCartDto[];
+    orderId: string[];
   };
 }
 
 export const _UsersSchema = SchemaFactory.createForClass(User);
 
-//필터링해서 클라이언트에 전달해준다고 생각하면 된다.
 _UsersSchema.virtual('readOnlyData').get(function (this: User) {
   return {
     id: this.id,
     email: this.email,
     name: this.name,
-    strong: this.strong,
-    money: this.money,
+    address: this.address,
+    phoneNumber: this.phoneNumber,
+    cart: this.cart,
+    orderId: this.orderId,
   };
 });
 
