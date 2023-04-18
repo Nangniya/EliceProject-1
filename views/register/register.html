@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <script
+      defer
+      src="https://kit.fontawesome.com/9daa42bcef.js"
+      crossorigin="anonymous"
+    ></script> <!--fontawesome-->
+    <link rel="stylesheet" href="register.css">
+</head>
+<body>
+  <div class="main-background">
+    <div class="login-form-container">
+      <form class="login-form-box" id="loginForm">
+        <div class="login-title">Register</div>
+        <div class="input-container">
+            <label class="label" for="fullNameInput">이름</label>
+            <input
+              class="input"
+              id="fullNameInput"
+              type="text"
+              placeholder="박인수"
+              autocomplete="on"
+            />
+            <label class="label" for="emailInput">이메일</label>
+            <input
+              class="input"
+              id="emailInput"
+              type="email"
+              placeholder="abc@gmail.com"
+              autocomplete="on"
+            />
+            <lable class="label" for="passwordInput">비밀번호</lable>
+            <input
+              class="input"
+              id="passwordInput"
+              type="password"
+              placeholder="********"
+              autocomplete="on"
+            />
+            <label class="label" for="passwordConfirmInput">비밀번호 확인</label>
+            <input
+              class="input"
+              id="passwordConfirmInput"
+              type="password"
+              placeholder="********"
+              autocomplete="off"
+            />
+        </div>
+        <button class="submit-button" id="submitButton">
+          REGISTER
+        </button>
+      </form>
+    </div>
+  </div>
+<script src="register.js"></script>
+</body>
+</html>
