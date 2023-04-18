@@ -1,5 +1,5 @@
 import { PickType } from '@nestjs/swagger';
-import { Products } from './products.schema';
+import { Products } from '../products.schema';
 
 export class ProductRequestDto extends PickType(Products, [
   'name',
