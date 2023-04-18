@@ -1,3 +1,5 @@
+submitButton.addEventListener("click", handleSubmit);
+
 const validateEmail = (email) => {
     return String(email)
     .toLowerCase()
@@ -38,16 +40,7 @@ const emailInput = document.querySelector("#emailInput");
 const passwordInput = document.querySelector("#passwordInput");
 const submitButton = document.querySelector("#submitButton");
 
-addAllElements();
-addAllEvents();
 
-// html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-async function addAllElements() {}
-
-// 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-function addAllEvents() {
-  submitButton.addEventListener("click", handleSubmit);
-}
 
 // 로그인 진행
 async function handleSubmit(e) {
