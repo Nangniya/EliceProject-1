@@ -1,12 +1,39 @@
-import * as Api from "/api.js";
-import { validateEmail } from "/useful-functions.js";
-//export const validateEmail = (email) => {
-//  return String(email)
-//    .toLowerCase()
-//    .match(
-//      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-//    );
-//};
+async function post(url, data) {
+  // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
+  // 예시: {name: "Kim"} => {"name": "Kim"}
+  const bodyData = JSON.stringify(data);
+  console.log(`%cPOST 요청: ${url}`, "color: #296aba;");
+  console.log(`%cPOST 요청 데이터: ${bodyData}`, "color: #296aba;");
+
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+    body: bodyData,
+  });
+
+  // 응답 코드가 4XX 계열일 때 (400, 403 등)
+  if (!res.ok) {
+    const errorContent = await res.json();
+    const { reason } = errorContent;
+
+    throw new Error(reason);
+  }
+
+  const result = await res.json();
+
+  return result;
+}
+
+const validateEmail = (email) => {
+  return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+};
 
 // 요소(element), input 혹은 상수
 const emailInput = document.querySelector("#emailInput");
@@ -28,12 +55,12 @@ function addAllEvents() {
 async function handleSubmit(e) {
   e.preventDefault();
 
-  const email = emailInput.value;
-  const password = passwordInput.value;
+  const emailValue = emailInput.value;
+  const passwordValue = passwordInput.value;
 
   // 잘 입력했는지 확인
-  const isEmailValid = validateEmail(email);
-  const isPasswordValid = password.length >= 4;
+  const isEmailValid = validateEmail(emailValue);
+  const isPasswordValid = passwordValue.length >= 4;
 
   if (!isEmailValid || !isPasswordValid) {
     return alert(
@@ -43,14 +70,13 @@ async function handleSubmit(e) {
 
   // 로그인 api 요청
   try {
-    const data = { email, password };
+    const data = { email : emailValue, password : passwordValue};
 
-    const result = await Api.post("/api/login", data);
+    const result = await post("/api/users/login", data);
     const token = result.token;
 
-    // 로그인 성공, 토큰을 세션 스토리지에 저장
-    // 물론 다른 스토리지여도 됨
-    sessionStorage.setItem("token", token);
+    // 로그인 성공, 토큰을 로컬 스토리지에 저장
+    localStorage.setItem("token", token);
 
     alert(`정상적으로 로그인되었습니다.`);
 
