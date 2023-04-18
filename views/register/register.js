@@ -10,14 +10,11 @@ async function post(apiUrl, data) {
 // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
 // 예시: {name: "Kim"} => {"name": "Kim"}
 const bodyData = JSON.stringify(data);
-console.log(`%cPOST 요청: ${apiUrl}`, "color: #296aba;");
-console.log(`%cPOST 요청 데이터: ${bodyData}`, "color: #296aba;");
 
 const res = await fetch(apiUrl, {
   method: "POST",
   headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
+    "Content-Type": "application/json"
   },
   body: bodyData,
 });
@@ -86,7 +83,7 @@ async function handleSubmit(e) {
   try {
     const data = { email, name, password };
 
-    await post("http://localhost:8000/users/signup", data);
+    await post("http://localhost:8000/api/users/signup", data);
 
     alert(`정상적으로 회원가입되었습니다.`);
 
