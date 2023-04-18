@@ -15,4 +15,12 @@ export class ProductsService {
     const product = await this.productsRepository.getDetailProduct(id);
     return product;
   }
+
+  async getRecentProduct() {
+    return await this.productsRepository.getRecentProduct();
+  }
+
+  async getCategory(body) {
+    return await this.productsRepository.getCategory(body);
+  }
 }

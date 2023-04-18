@@ -18,4 +18,17 @@ export class ProductRepository {
     const product = await this.productsModel.findById(productId);
     return product;
   }
+
+  async getRecentProduct() {
+    const products = await this.productsModel
+      .find()
+      .sort({ createdAt: -1 })
+      .limit(3);
+    return products;
+  }
+  async getCategory(category) {
+    console.log(category);
+    const products = await this.productsModel.find(category);
+    return products;
+  }
 }

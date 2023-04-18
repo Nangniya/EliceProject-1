@@ -51,6 +51,9 @@ export class Products extends Document {
     example: 'sofa',
     description: 'category',
   })
+  @Prop({
+    required: true,
+  })
   @IsString()
   @IsNotEmpty()
   category: string;
@@ -71,6 +74,9 @@ export class Products extends Document {
     example: 'this is the best sofa',
     description: 'content',
   })
+  @Prop({
+    required: true,
+  })
   @IsString()
   @IsNotEmpty()
   content: string;
@@ -79,6 +85,11 @@ export class Products extends Document {
     example: 'this is the best sofa',
     description: 'review',
   })
+  @Prop({
+    required: true,
+    default: [],
+  })
+  @IsNotEmpty()
   review: ProductReviewDto[];
 
   @ApiProperty({

@@ -14,7 +14,7 @@ export class ProductsController {
   }
 
   @ApiOperation({ summary: 'id에 해당하는 상품 불러오기' })
-  @Get(':id')
+  @Get('id/:id')
   async getDetailProduct(@Param('id') id: string) {
     return await this.productsService.getDetailProduct(id);
   }
@@ -27,13 +27,13 @@ export class ProductsController {
 
   @ApiOperation({ summary: '최근에 등록된 상품 3개' })
   @Get('recent')
-  getRecentProduct() {
-    return;
+  async getRecentProduct() {
+    return await this.productsService.getRecentProduct();
   }
 
   @ApiOperation({ summary: '같은 카테고리 상품 9개' })
   @Post('category')
-  getCategory(@Body() body: string) {
-    return;
+  async getCategory(@Body() body: string) {
+    return await this.productsService.getCategory(body);
   }
 }
