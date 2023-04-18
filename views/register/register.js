@@ -1,39 +1,40 @@
 const validateEmail = (email) => {
-    return String(email)
-    .toLowerCase()
-    .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
+  return String(email)
+  .toLowerCase()
+  .match(
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  );
 };
 
-async function post(url, data) {
-  // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
-  // 예시: {name: "Kim"} => {"name": "Kim"}
-  const bodyData = JSON.stringify(data);
-  console.log(`%cPOST 요청: ${url}`, "color: #296aba;");
-  console.log(`%cPOST 요청 데이터: ${bodyData}`, "color: #296aba;");
+async function post(apiUrl, data) {
+// JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
+// 예시: {name: "Kim"} => {"name": "Kim"}
+const bodyData = JSON.stringify(data);
+console.log(`%cPOST 요청: ${apiUrl}`, "color: #296aba;");
+console.log(`%cPOST 요청 데이터: ${bodyData}`, "color: #296aba;");
 
-  const res = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
-    body: bodyData,
-  });
+const res = await fetch(apiUrl, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  },
+  body: bodyData,
+});
 
-  // 응답 코드가 4XX 계열일 때 (400, 403 등)
-  if (!res.ok) {
-    const errorContent = await res.json();
-    const { reason } = errorContent;
+// 응답 코드가 4XX 계열일 때 (400, 403 등)
+if (!res.ok) {
+  const errorContent = await res.json();
+  const { reason } = errorContent;
 
-    throw new Error(reason);
-  }
-
-  const result = await res.json();
-
-  return result;
+  throw new Error(reason);
 }
+
+const result = await res.json();
+
+return result;
+}
+
 
 
 // 요소(element), input 혹은 상수
@@ -58,16 +59,16 @@ function addAllEvents() {
 async function handleSubmit(e) {
   e.preventDefault();
 
-  const fullName = fullNameInput.value;
-  const emailValue = emailInput.value;
-  const passwordValue = passwordInput.value;
+  const name = fullNameInput.value;
+  const email = emailInput.value;
+  const password = passwordInput.value;
   const passwordConfirm = passwordConfirmInput.value;
 
   // 잘 입력했는지 확인
-  const isFullNameValid = fullName.length >= 2;
-  const isEmailValid = validateEmail(emailValue);
-  const isPasswordValid = passwordValue.length >= 4;
-  const isPasswordSame = passwordValue === passwordConfirm;
+  const isFullNameValid = name.length >= 2;
+  const isEmailValid = validateEmail(email);
+  const isPasswordValid = password.length >= 4;
+  const isPasswordSame = password === passwordConfirm;
 
   if (!isFullNameValid || !isPasswordValid) {
     return alert("이름은 2글자 이상, 비밀번호는 4글자 이상이어야 합니다.");
@@ -83,16 +84,17 @@ async function handleSubmit(e) {
 
   // 회원가입 api 요청
   try {
-    const data = { name : fullName, email : emailValue, password : passwordValue };
+    const data = { email, name, password };
 
-    await post("/api/users/signup", data);
+    await post("http://localhost:8000/users/signup", data);
 
     alert(`정상적으로 회원가입되었습니다.`);
 
     // 로그인 페이지 이동
-    window.location.href = "/login";
+    window.location.href = "users/login";
   } catch (err) {
     console.error(err.stack);
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
   }
 }
+

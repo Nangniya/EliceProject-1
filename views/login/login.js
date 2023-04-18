@@ -1,11 +1,19 @@
-async function post(url, data) {
+const validateEmail = (email) => {
+    return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+};
+
+async function post(apiUrl, data) {
   // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
   // 예시: {name: "Kim"} => {"name": "Kim"}
   const bodyData = JSON.stringify(data);
-  console.log(`%cPOST 요청: ${url}`, "color: #296aba;");
+  console.log(`%cPOST 요청: ${apiUrl}`, "color: #296aba;");
   console.log(`%cPOST 요청 데이터: ${bodyData}`, "color: #296aba;");
 
-  const res = await fetch(url, {
+  const res = await fetch(apiUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -27,13 +35,6 @@ async function post(url, data) {
   return result;
 }
 
-const validateEmail = (email) => {
-  return String(email)
-    .toLowerCase()
-    .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
-};
 
 // 요소(element), input 혹은 상수
 const emailInput = document.querySelector("#emailInput");
@@ -55,12 +56,12 @@ function addAllEvents() {
 async function handleSubmit(e) {
   e.preventDefault();
 
-  const emailValue = emailInput.value;
-  const passwordValue = passwordInput.value;
+  const email = emailInput.value;
+  const password = passwordInput.value;
 
   // 잘 입력했는지 확인
-  const isEmailValid = validateEmail(emailValue);
-  const isPasswordValid = passwordValue.length >= 4;
+  const isEmailValid = validateEmail(email);
+  const isPasswordValid = password.length >= 4;
 
   if (!isEmailValid || !isPasswordValid) {
     return alert(
@@ -70,9 +71,9 @@ async function handleSubmit(e) {
 
   // 로그인 api 요청
   try {
-    const data = { email : emailValue, password : passwordValue};
+    const data = { email, password };
 
-    const result = await post("/api/users/login", data);
+    const result = await post("http://localhost:8000/users/login", data);
     const token = result.token;
 
     // 로그인 성공, 토큰을 로컬 스토리지에 저장
@@ -89,3 +90,4 @@ async function handleSubmit(e) {
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
   }
 }
+
