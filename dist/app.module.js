@@ -17,6 +17,7 @@ const logger_middleware_1 = require("./common/logger/logger.middleware");
 const mongoose = require("mongoose");
 const auth_module_1 = require("./auth/auth.module");
 const products_module_1 = require("./products/products.module");
+const orders_module_1 = require("./orders/orders.module");
 let AppModule = class AppModule {
     constructor() {
         this.isDev = process.env.MODE === 'dev' ? true : false;
@@ -41,6 +42,7 @@ AppModule = __decorate([
             users_module_1.UsersModule,
             auth_module_1.AuthModule,
             products_module_1.ProductsModule,
+            orders_module_1.OrdersModule,
         ],
     })
 ], AppModule);

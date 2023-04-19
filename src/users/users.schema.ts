@@ -48,9 +48,6 @@ export class User extends Document {
     example: '대전 동구 가양동',
     description: 'email',
   })
-  @Prop({
-    required: true,
-  })
   @IsString()
   address: string;
 

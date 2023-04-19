@@ -1,7 +1,8 @@
 import { Prop, Schema, SchemaFactory, SchemaOptions } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { Document } from 'mongoose';
+import { ProductReviewDto } from './dto/prodcut.review.dto';
 
 const options: SchemaOptions = {
   collection: 'products',
@@ -19,7 +20,7 @@ export class Products extends Document {
   @Prop({
     required: true,
   })
-  @IsEmail()
+  @IsString()
   @IsNotEmpty()
   name: string;
 
@@ -31,7 +32,7 @@ export class Products extends Document {
   @Prop({
     required: true,
   })
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
   quantity: number;
 
@@ -43,13 +44,18 @@ export class Products extends Document {
     required: true,
   })
   @IsString()
+  @IsNotEmpty()
   manufacture: string;
 
   @ApiProperty({
     example: 'sofa',
     description: 'category',
   })
+  @Prop({
+    required: true,
+  })
   @IsString()
+  @IsNotEmpty()
   category: string;
 
   @ApiProperty({
@@ -60,7 +66,7 @@ export class Products extends Document {
   @Prop({
     required: true,
   })
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
   price: number;
 
@@ -68,8 +74,50 @@ export class Products extends Document {
     example: 'this is the best sofa',
     description: 'content',
   })
+  @Prop({
+    required: true,
+  })
   @IsString()
+  @IsNotEmpty()
   content: string;
+
+  @ApiProperty({
+    example: 'this is the best sofa',
+    description: 'review',
+  })
+  @Prop({
+    required: true,
+    default: [],
+  })
+  @IsNotEmpty()
+  review: ProductReviewDto[];
+
+  @ApiProperty({
+    example: 1000,
+    description: 'prodcut reviewCNT',
+    required: true,
+  })
+  @Prop({
+    required: true,
+    default: 0,
+  })
+  @IsNumber()
+  @IsNotEmpty()
+  reviewCNT: number;
 }
 
-export const UsersSchema = SchemaFactory.createForClass(Products);
+export const ProductsSchema = SchemaFactory.createForClass(Products);
+
+ProductsSchema.virtual('readOnlyData').get(function (this: Products) {
+  return {
+    id: this.id,
+    name: this.name,
+    quantity: this.quantity,
+    manufacture: this.manufacture,
+    category: this.category,
+    price: this.price,
+    content: this.content,
+    review: this.review,
+    reviewCnt: this.reviewCNT,
+  };
+});

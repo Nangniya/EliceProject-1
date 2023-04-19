@@ -60,9 +60,6 @@ __decorate([
         example: '대전 동구 가양동',
         description: 'email',
     }),
-    (0, mongoose_1.Prop)({
-        required: true,
-    }),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], User.prototype, "address", void 0);
