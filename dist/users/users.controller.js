@@ -23,6 +23,7 @@ const users_service_1 = require("./users.service");
 const user_decorator_1 = require("../common/decorators/user.decorator");
 const success_interceptor_1 = require("../common/interceptor/success.interceptor");
 const http_exception_filter_1 = require("../common/exception/http-exception.filter");
+const user_cart_dto_1 = require("./dto/user.cart.dto");
 let UsersController = class UsersController {
     constructor(usersService, authService) {
         this.usersService = usersService;
@@ -32,11 +33,17 @@ let UsersController = class UsersController {
         return user.readOnlyData;
     }
     async sighUp(body) {
-        console.log(body);
         return await this.usersService.signUp(body);
     }
     logIn(data) {
         return this.authService.jwtLogIn(data);
+    }
+    addToCart(body) {
+        const cartData = {
+            productId: body.productId,
+            quantity: body.quantity,
+        };
+        return this.usersService.addToCart(body.userId, cartData);
     }
 };
 __decorate([
@@ -72,6 +79,18 @@ __decorate([
     __metadata("design:paramtypes", [login_request_dto_1.LoginRequestDto]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "logIn", null);
+__decorate([
+    (0, swagger_1.ApiOperation)({ summary: '유저 장바구니 추가하기' }),
+    (0, swagger_1.ApiBody)({
+        description: '유저 장바구니 추가하기',
+        type: user_cart_dto_1.addCartDto,
+    }),
+    (0, common_1.Post)('addToCart'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [user_cart_dto_1.addCartDto]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "addToCart", null);
 UsersController = __decorate([
     (0, common_1.Controller)('users'),
     (0, common_1.UseInterceptors)(success_interceptor_1.SuccessInterceptor),

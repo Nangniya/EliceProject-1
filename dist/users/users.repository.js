@@ -41,6 +41,11 @@ let UsersRepository = class UsersRepository {
         const user = await this.userModel.findById(userId);
         return user;
     }
+    async addToCart(id, cartData) {
+        const user = await this.userModel.findById(id);
+        user.cart.push(cartData);
+        return user.save();
+    }
 };
 UsersRepository = __decorate([
     (0, common_1.Injectable)(),

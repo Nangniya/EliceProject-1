@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userCartDto = void 0;
+exports.addCartDto = exports.userCartDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class userCartDto {
@@ -33,4 +33,17 @@ __decorate([
     __metadata("design:type", Number)
 ], userCartDto.prototype, "quantity", void 0);
 exports.userCartDto = userCartDto;
+class addCartDto extends (0, swagger_1.PickType)(userCartDto, [
+    'productId',
+    'quantity',
+]) {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        example: '643e1ada43da3cb65097f989',
+        description: 'userId',
+    }),
+    __metadata("design:type", String)
+], addCartDto.prototype, "userId", void 0);
+exports.addCartDto = addCartDto;
 //# sourceMappingURL=user.cart.dto.js.map

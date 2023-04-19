@@ -69,6 +69,10 @@ export class User extends Document {
     description: 'orderId',
     required: true,
   })
+  @Prop({
+    required: true,
+    default: [],
+  })
   orderId: string[];
 
   readonly readOnlyData: {

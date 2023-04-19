@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserRequestDto } from './dto/user.request.dto';
 import { UsersRepository } from './users.repository';
 import * as bcrypt from 'bcrypt';
+import { userCartDto } from './dto/user.cart.dto';
 
 @Injectable()
 export class UsersService {
@@ -13,7 +14,6 @@ export class UsersService {
 
     if (isUserExist) {
       throw new UnauthorizedException('해당하는 이메일은 이미 존재합니다.');
-      // throw new HttpException('해당하는 고양이는 이미 존재합니다.', 403);
     }
 
     const hashedPassedword = await bcrypt.hash(password, 10);
@@ -23,7 +23,10 @@ export class UsersService {
       name,
       password: hashedPassedword,
     });
-    // 전달해 주고 싶은 데이터만 전달하기 위해 virtual을 이용한 가상의 readOnlyData를 보내준다.
     return user.readOnlyData;
+  }
+
+  async addToCart(id: string, cartData: userCartDto) {
+    return await this.usersRepository.addToCart(id, cartData);
   }
 }

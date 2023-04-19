@@ -3,7 +3,7 @@ declare const ReadOnlyUserDto_base: import("@nestjs/common").Type<Pick<User, "na
 export declare class ReadOnlyUserDto extends ReadOnlyUserDto_base {
     id: string;
 }
-export declare class userIdDto {
-    id: string;
+declare const userIdDto_base: import("@nestjs/common").Type<Pick<ReadOnlyUserDto, "id">>;
+export declare class userIdDto extends userIdDto_base {
 }
 export {};

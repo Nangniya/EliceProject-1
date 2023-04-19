@@ -25,14 +25,7 @@ __decorate([
     __metadata("design:type", String)
 ], ReadOnlyUserDto.prototype, "id", void 0);
 exports.ReadOnlyUserDto = ReadOnlyUserDto;
-class userIdDto {
+class userIdDto extends (0, swagger_1.PickType)(ReadOnlyUserDto, ['id']) {
 }
-__decorate([
-    (0, swagger_1.ApiProperty)({
-        example: '643e1ada43da3cb65097f989',
-        description: 'id',
-    }),
-    __metadata("design:type", String)
-], userIdDto.prototype, "id", void 0);
 exports.userIdDto = userIdDto;
 //# sourceMappingURL=user.dto.js.map

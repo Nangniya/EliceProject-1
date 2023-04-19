@@ -84,6 +84,10 @@ __decorate([
         description: 'orderId',
         required: true,
     }),
+    (0, mongoose_1.Prop)({
+        required: true,
+        default: [],
+    }),
     __metadata("design:type", Array)
 ], User.prototype, "orderId", void 0);
 User = __decorate([

@@ -12,10 +12,4 @@ export class ReadOnlyUserDto extends PickType(User, [
   id: string;
 }
 
-export class userIdDto {
-  @ApiProperty({
-    example: '643e1ada43da3cb65097f989',
-    description: 'id',
-  })
-  id: string;
-}
+export class userIdDto extends PickType(ReadOnlyUserDto, ['id'] as const) {}

@@ -31,6 +31,9 @@ let UsersService = class UsersService {
         });
         return user.readOnlyData;
     }
+    async addToCart(id, cartData) {
+        return await this.usersRepository.addToCart(id, cartData);
+    }
 };
 UsersService = __decorate([
     (0, common_1.Injectable)(),
