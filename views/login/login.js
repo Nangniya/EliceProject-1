@@ -73,7 +73,6 @@ async function handleSubmit(e) {
   // 로그인 api 요청
   try {
     const data = { email, password };
-
     const result = await post('http://localhost:8000/users/login', data);
     const token = result.token;
 
