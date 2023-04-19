@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const products_service_1 = require("./products.service");
 const swagger_1 = require("@nestjs/swagger");
 const product_reqest_dto_1 = require("./dto/product.reqest.dto");
+const prdouct_dto_1 = require("./dto/prdouct.dto");
 let ProductsController = class ProductsController {
     constructor(productsService) {
         this.productsService = productsService;
@@ -34,7 +35,7 @@ let ProductsController = class ProductsController {
         return await this.productsService.getRecentProduct();
     }
     async getCategory(body) {
-        return await this.productsService.getCategory(body);
+        return await this.productsService.getCategory(body.category);
     }
 };
 __decorate([
@@ -46,7 +47,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ProductsController.prototype, "productCreate", null);
 __decorate([
-    (0, swagger_1.ApiOperation)({ summary: 'id에 해당하는 상품 불러오기' }),
+    (0, swagger_1.ApiOperation)({ summary: 'product id에 해당하는 상품 불러오기' }),
     (0, common_1.Get)('id/:id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -72,7 +73,7 @@ __decorate([
     (0, common_1.Post)('category'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [prdouct_dto_1.categoryDto]),
     __metadata("design:returntype", Promise)
 ], ProductsController.prototype, "getCategory", null);
 ProductsController = __decorate([

@@ -34,7 +34,7 @@ export declare class ProductsService {
     getRecentProduct(): Promise<(import("mongoose").Document<unknown, {}, Products> & Omit<Products & {
         _id: import("mongoose").Types.ObjectId;
     }, never>)[]>;
-    getCategory(body: any): Promise<(import("mongoose").Document<unknown, {}, Products> & Omit<Products & {
+    getCategory(body: string): Promise<(import("mongoose").Document<unknown, {}, Products> & Omit<Products & {
         _id: import("mongoose").Types.ObjectId;
     }, never>)[]>;
 }

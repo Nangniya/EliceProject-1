@@ -20,7 +20,7 @@ export class ProductsService {
     return await this.productsRepository.getRecentProduct();
   }
 
-  async getCategory(body) {
+  async getCategory(body: string) {
     return await this.productsRepository.getCategory(body);
   }
 }

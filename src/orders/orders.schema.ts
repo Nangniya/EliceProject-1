@@ -98,6 +98,7 @@ export class Order extends Document {
   @ApiProperty({
     example: 10000,
     description: 'price',
+    required: true,
   })
   @Prop({
     required: true,

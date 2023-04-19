@@ -25,6 +25,7 @@
 /// <reference types="mongoose/types/inferschematype" />
 import { ProductsService } from './products.service';
 import { ProductRequestDto } from './dto/product.reqest.dto';
+import { categoryDto } from './dto/prdouct.dto';
 export declare class ProductsController {
     private readonly productsService;
     constructor(productsService: ProductsService);
@@ -34,7 +35,7 @@ export declare class ProductsController {
     getRecentProduct(): Promise<(import("mongoose").Document<unknown, {}, import("./products.schema").Products> & Omit<import("./products.schema").Products & {
         _id: import("mongoose").Types.ObjectId;
     }, never>)[]>;
-    getCategory(body: string): Promise<(import("mongoose").Document<unknown, {}, import("./products.schema").Products> & Omit<import("./products.schema").Products & {
+    getCategory(body: categoryDto): Promise<(import("mongoose").Document<unknown, {}, import("./products.schema").Products> & Omit<import("./products.schema").Products & {
         _id: import("mongoose").Types.ObjectId;
     }, never>)[]>;
 }

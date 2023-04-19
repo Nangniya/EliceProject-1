@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { ApiOperation } from '@nestjs/swagger';
 import { ProductRequestDto } from './dto/product.reqest.dto';
+import { categoryDto } from './dto/prdouct.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -13,7 +14,7 @@ export class ProductsController {
     return await this.productsService.create(data);
   }
 
-  @ApiOperation({ summary: 'id에 해당하는 상품 불러오기' })
+  @ApiOperation({ summary: 'product id에 해당하는 상품 불러오기' })
   @Get('id/:id')
   async getDetailProduct(@Param('id') id: string) {
     return await this.productsService.getDetailProduct(id);
@@ -33,7 +34,7 @@ export class ProductsController {
 
   @ApiOperation({ summary: '같은 카테고리 상품 9개' })
   @Post('category')
-  async getCategory(@Body() body: string) {
-    return await this.productsService.getCategory(body);
+  async getCategory(@Body() body: categoryDto) {
+    return await this.productsService.getCategory(body.category);
   }
 }
