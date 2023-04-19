@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UsersSchema = exports.Products = void 0;
+exports.ProductsSchema = exports.Products = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
@@ -29,7 +29,7 @@ __decorate([
     (0, mongoose_1.Prop)({
         required: true,
     }),
-    (0, class_validator_1.IsEmail)(),
+    (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], Products.prototype, "name", void 0);
@@ -42,7 +42,7 @@ __decorate([
     (0, mongoose_1.Prop)({
         required: true,
     }),
-    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Number)
 ], Products.prototype, "quantity", void 0);
@@ -55,6 +55,7 @@ __decorate([
         required: true,
     }),
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], Products.prototype, "manufacture", void 0);
 __decorate([
@@ -62,7 +63,11 @@ __decorate([
         example: 'sofa',
         description: 'category',
     }),
+    (0, mongoose_1.Prop)({
+        required: true,
+    }),
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], Products.prototype, "category", void 0);
 __decorate([
@@ -74,7 +79,7 @@ __decorate([
     (0, mongoose_1.Prop)({
         required: true,
     }),
-    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Number)
 ], Products.prototype, "price", void 0);
@@ -83,12 +88,55 @@ __decorate([
         example: 'this is the best sofa',
         description: 'content',
     }),
+    (0, mongoose_1.Prop)({
+        required: true,
+    }),
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], Products.prototype, "content", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        example: 'this is the best sofa',
+        description: 'review',
+    }),
+    (0, mongoose_1.Prop)({
+        required: true,
+        default: [],
+    }),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", Array)
+], Products.prototype, "review", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        example: 1000,
+        description: 'prodcut reviewCNT',
+        required: true,
+    }),
+    (0, mongoose_1.Prop)({
+        required: true,
+        default: 0,
+    }),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", Number)
+], Products.prototype, "reviewCNT", void 0);
 Products = __decorate([
     (0, mongoose_1.Schema)(options)
 ], Products);
 exports.Products = Products;
-exports.UsersSchema = mongoose_1.SchemaFactory.createForClass(Products);
+exports.ProductsSchema = mongoose_1.SchemaFactory.createForClass(Products);
+exports.ProductsSchema.virtual('readOnlyData').get(function () {
+    return {
+        id: this.id,
+        name: this.name,
+        quantity: this.quantity,
+        manufacture: this.manufacture,
+        category: this.category,
+        price: this.price,
+        content: this.content,
+        review: this.review,
+        reviewCnt: this.reviewCNT,
+    };
+});
 //# sourceMappingURL=products.schema.js.map

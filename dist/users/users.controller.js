@@ -32,6 +32,7 @@ let UsersController = class UsersController {
         return user.readOnlyData;
     }
     async sighUp(body) {
+        console.log(body);
         return await this.usersService.signUp(body);
     }
     logIn(data) {
