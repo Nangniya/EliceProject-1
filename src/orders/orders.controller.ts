@@ -28,6 +28,7 @@ export class OrdersController {
   @ApiOperation({ summary: '주문 하기' })
   @ApiBody({
     description: '주문하기',
+    type: OrderRequestDto,
   })
   @Post()
   async orderRequest(@Body() body: OrderRequestDto) {
