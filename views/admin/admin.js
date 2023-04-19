@@ -22,22 +22,65 @@ const renderMenuContent = (id) => {
 // 카테고리관리 -> 카테고리 추가, 수정, 삭제
 
 //* 상품관리 js로직
+// 상품조회
 document
   .getElementById("get-product-button")
   .addEventListener("click", getProductList);
 async function getProductList() {
+
+    const productList = document.getElementById("productList");
+    const productElem = document.createElement("div");
+    productElem.innerHTML = `
+        <table class="productTabel table is-striped"> 
+          <thead>
+            <tr>
+              <th id="itemsCategory">카테고리</th>
+              <th id="itemsName">이름</th>
+              <th id="itemsPrice">가격</th>
+              <th id="itemsImg">이미지</th>
+            </tr>
+          </thead>
+          <tbody id="itemsBody">
+          </tbody>
+        </table>
+      `;
+    productList.append(productElem);
+    makeProductList();
+}
+// 상품 데이터 받아오기
+async function makeProductList() {
     console.log("상품조회 api 전송");
     const productListData = await fetch(
       "http://localhost:8000/api/products"
     ).then((res) => res.json());
+    // 리스트가 들어갈 표의 body
+  const itemsBody = document.querySelector("#itemsBody");
+  for (let i = 0; i < productListData.data.length; i++) {
+    const product = productListData.data[i];
+    // 한 행 생성
+    const itemsBody_row = document.createElement("tr");
+    itemsBody_row.id = product._id;
 
-    const productList = document.getElementById("productList");
-    productListData.data.forEach((product) => {
-      const productElem = document.createElement("div");
-      productElem.innerHTML = `${product.name}${product.image}${product.price}<button id="product-delete-btn">삭제</button>`;
-      productList.append(productElem);  
-    });
+    // 행 안에 이름,카테고리,가격,이미지,생성날짜,판매량 추가
+    itemsBody_row.innerHTML = `
+    <td>${product.category}</td>
+    <td>${product.name}</td>
+    <td>${product.price}</td>
+    <td>
+      <img src=${product.image} alt="${product.name} 사진" width="70"/>
+    </td>
+    `;
+
+    itemsBody.appendChild(itemsBody_row);
+  }
+
+  // 상품 삭제 버튼
+  // delItem();
+  // 상품 수정 버튼
+  // modifyItem();
 }
+
+
 
 
 //* 주문관리 js로직
