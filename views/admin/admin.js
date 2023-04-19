@@ -83,9 +83,6 @@ async function makeProductList() {
 
     productBody.appendChild(productBody_row);
   }
-
-  // 상품 삭제 버튼
-   deleteProduct();
   // 상품 수정 버튼
   // modifyProduct();
 }
