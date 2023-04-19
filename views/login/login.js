@@ -1,5 +1,8 @@
+import * as Api from "../api.js";
+
 submitButton.addEventListener("click", handleSubmit);
 
+// 이메일 형식 검사
 const validateEmail = (email) => {
     return String(email)
     .toLowerCase()
@@ -7,33 +10,6 @@ const validateEmail = (email) => {
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
 };
-
-async function post(apiUrl, data) {
-  // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
-  // 예시: {name: "Kim"} => {"name": "Kim"}
-  const bodyData = JSON.stringify(data);
-  const res = await fetch(apiUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
-    body: bodyData,
-  });
-
-  // 응답 코드가 4XX 계열일 때 (400, 403 등)
-  if (!res.ok) {
-    const errorContent = await res.json();
-    const { reason } = errorContent;
-
-    throw new Error(reason);
-  }
-
-  const result = await res.json();
-
-  return result;
-}
-
 
 // 요소(element), input 혹은 상수
 const emailInput = document.querySelector("#emailInput");
@@ -63,7 +39,7 @@ async function handleSubmit(e) {
   try {
     const data = { email, password };
 
-    const result = await post("http://localhost:8000/api/users/login", data);
+    const result = await Api.post("/api/users/login", data);
     const token = result.token;
 
     // 로그인 성공, 토큰을 로컬 스토리지에 저장
