@@ -77,7 +77,7 @@ async function makeProductList() {
     const deleteBtn = productBody_row.querySelector(".deleteBtn");
     deleteBtn.addEventListener("click", () => {
       // 삭제 버튼 클릭 시 상품 삭제 로직 추가
-      deleteProduct(product._id); // 해당 상품의 _id를 인자로 상품 삭제 함수 호출
+      deleteProduct(product._id); // 해당 상품의 id를 인자로 상품 삭제 함수 호출
     });
 
     productBody.appendChild(productBody_row);
@@ -90,7 +90,7 @@ async function makeProductList() {
 // 삭제 버튼 클릭했을 때 상품 삭제시키는 함수
 async function deleteProduct(productId) {
   try {
-    const response = await fetch(`http://localhost:8000/api/products/${productId}`, {
+    const response = await fetch(`http://localhost:8000/api/products/id/${productId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json"
