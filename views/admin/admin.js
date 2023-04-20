@@ -15,8 +15,11 @@ Array.from(navMenus).forEach((menuElem) => {
     const menuId = menuElem.getAttribute("id");
     renderMenuContent(menuId);
 
-    if (menuId === "product-management") { // 상품관리 버튼인 경우
+    //상품관리 버튼인 경우
+    if (menuId === "product") {
       getProductList(); // getProductList 함수 실행
+      const addProductBtn = document.getElementById('add-product-btn');
+      addProductBtn.addEventListener('click', loadModal); //상품추가 버튼에 이벤트리스너 달기
     }
   });
 });
@@ -55,8 +58,8 @@ async function makeProductList() {
     ).then((res) => res.json());
     // 리스트가 들어갈 표의 body
   const productBody = document.querySelector("#productBody");
-  for (let i = 0; i < productListData.data.length; i++) {
-    const product = productListData.data[i];
+  for (let i = 0; i < productListData.length; i++) {
+    const product = productListData[i];
     // 한 행 생성
     const productBody_row = document.createElement("tr");
     productBody_row.id = product.id; //행의 HTML id = 상품의 id로 지정
@@ -77,7 +80,7 @@ async function makeProductList() {
     const deleteBtn = productBody_row.querySelector(".deleteBtn");
     deleteBtn.addEventListener("click", () => {
       // 삭제 버튼 클릭 시 상품 삭제 로직 추가
-      deleteProduct(product._id); // 해당 상품의 id를 인자로 상품 삭제 함수 호출
+      deleteProduct(product.id); // 해당 상품의 id를 인자로 상품 삭제 함수 호출
     });
 
     productBody.appendChild(productBody_row);
@@ -111,7 +114,61 @@ async function deleteProduct(productId) {
   }
 }
 
+// 상품 추가
+// 추가 form 모달창 띄우기
+async function loadModal() {
+  const modalWrapper = document.getElementById('modal-wrapper');
+  modalWrapper.style.display = "flex";
+  // 카테고리값 받아와서 select의 option 값으로 넣기
+  const modalCategory = document.querySelector("#modal-category");
+  const categories = await fetch("http://localhost:8000/api/products/category")
+  .then((res) => res.json()); //get요청으로 카테고리 받아오기
 
+  categories.forEach((category) => {
+    modalCategory.innerHTML += `
+      <option>${category.name}</option>
+    `;
+  });
+
+  document.getElementById('modal-product-add-btn').addEventListener('click', addProduct);  
+}
+
+async function addProduct(){
+  const nameInput = document.querySelector('#modal-nameInput');
+  const quantityInput = document.querySelector('#modal-quantityInput');
+  const manufactureInput = document.querySelector('#modal-manufactureInput');
+  const priceInput = document.querySelector('#modal-priceInput');
+  const contentInput = document.querySelector('#modal-contentInput');
+  const categoryInput = document.querySelector('#modal-categoryInput')
+
+  // 입력값
+  const name = nameInput.value;
+  const quantity =  quantityInput.value;
+  const manufacture = manufactureInput.value;
+  const price = priceInput.value;
+  const content = contentInput.value;
+  const category = categoryInput.value;
+
+  // POST 요청으로 상품 추가
+  try {const response = await fetch('http://localhost:8000/api/products/create',{
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      name, quantity, manufacture, price, content, category
+    })
+  });
+    if (response.ok){
+      alert('추가 성공');
+    } else {
+      console.error("상품 추가 실패:", response.status);
+    }
+  } catch (error) {
+    console.error("상품 추가 실패:", error);
+  }
+
+}
 //* 주문관리 js로직
 
 //* 카테고리 관리 js로직
