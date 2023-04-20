@@ -16,9 +16,7 @@ export class OrdersRepository {
   }
 
   async findOrderByOrderId(orderId: string) {
-    console.log(orderId);
     const order = await this.orderModel.findById(orderId);
-    console.log(order);
     return order;
   }
 

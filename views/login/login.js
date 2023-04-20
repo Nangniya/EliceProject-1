@@ -1,6 +1,6 @@
-import * as Api from "../api.js";
+import * as Api from '../api.js';
 
-submitButton.addEventListener("click", handleSubmit);
+submitButton.addEventListener('click', handleSubmit);
 
 // 이메일 형식 검사
 const validateEmail = (email) => {
@@ -44,7 +44,6 @@ async function post(apiUrl, data) {
 const emailInput = document.querySelector('#emailInput');
 const passwordInput = document.querySelector('#passwordInput');
 const submitButton = document.querySelector('#submitButton');
-
 
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 async function addAllElements() {

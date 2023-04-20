@@ -14,6 +14,10 @@ export class ProductRepository {
     return await this.productsModel.create(product);
   }
 
+  async getAllProducts() {
+    return await this.productsModel.find();
+  }
+
   async getDetailProduct(productId: string): Promise<Products> {
     const product = await this.productsModel.findById(productId);
     return product;
@@ -26,6 +30,7 @@ export class ProductRepository {
       .limit(3);
     return products;
   }
+
   async getCategory(category) {
     const products = await this.productsModel.find(category);
     return products;

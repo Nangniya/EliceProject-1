@@ -9,6 +9,7 @@ import * as mongoose from 'mongoose';
 import { AuthModule } from './auth/auth.module';
 import { ProductsModule } from './products/products.module';
 import { OrdersModule } from './orders/orders.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { OrdersModule } from './orders/orders.module';
     AuthModule,
     ProductsModule,
     OrdersModule,
+    CategoriesModule,
   ],
 })
 export class AppModule implements NestModule {
