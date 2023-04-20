@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, PickType } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class userCartDto {
@@ -17,4 +17,15 @@ export class userCartDto {
   @IsNotEmpty()
   @IsNumber()
   quantity: number;
+}
+
+export class addCartDto extends PickType(userCartDto, [
+  'productId',
+  'quantity',
+] as const) {
+  @ApiProperty({
+    example: '643e1ada43da3cb65097f989',
+    description: 'userId',
+  })
+  userId: string;
 }

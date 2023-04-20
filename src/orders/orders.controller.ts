@@ -17,7 +17,8 @@ export class OrdersController {
 
   @ApiOperation({ summary: '해당 주문 1개 가져오기' })
   @ApiBody({
-    description: 'body: any',
+    type: orderIdDto,
+    description: 'id는 orderid',
   })
   @Post('getByOrderId')
   async getUserOrderInfo(@Body() body: orderIdDto) {
@@ -25,6 +26,10 @@ export class OrdersController {
   }
 
   @ApiOperation({ summary: '주문 하기' })
+  @ApiBody({
+    description: '주문하기',
+    type: OrderRequestDto,
+  })
   @Post()
   async orderRequest(@Body() body: OrderRequestDto) {
     return await this.ordersService.orderRequest(body);
