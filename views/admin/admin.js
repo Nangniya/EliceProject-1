@@ -15,7 +15,8 @@ Array.from(navMenus).forEach((menuElem) => {
     const menuId = menuElem.getAttribute('id');
     renderMenuContent(menuId);
 
-    if (menuId === 'product-management') {
+    if (menuId === 'product') {
+      //product-management 아니고 product
       // 상품관리 버튼인 경우
       getProductList(); // getProductList 함수 실행
     }
@@ -50,14 +51,14 @@ async function getProductList() {
 }
 // 상품 데이터 받아오기
 async function makeProductList() {
-  console.log('상품조회 api 전송');
   const productListData = await fetch(
     'http://localhost:8000/api/products',
   ).then((res) => res.json());
+
   // 리스트가 들어갈 표의 body
   const productBody = document.querySelector('#productBody');
-  for (let i = 0; i < productListData.data.length; i++) {
-    const product = productListData.data[i];
+  for (let i = 0; i < productListData.length; i++) {
+    const product = productListData[i];
     // 한 행 생성
     const productBody_row = document.createElement('tr');
     productBody_row.id = product.id; //행의 HTML id = 상품의 id로 지정

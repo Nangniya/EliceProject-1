@@ -11,6 +11,10 @@ export class ProductsService {
     return await this.productsRepository.create(product);
   }
 
+  async getAllProducts() {
+    return await this.productsRepository.getAllProducts();
+  }
+
   async getDetailProduct(id: string): Promise<Products> {
     const product = await this.productsRepository.getDetailProduct(id);
     return product;

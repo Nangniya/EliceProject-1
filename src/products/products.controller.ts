@@ -14,6 +14,12 @@ export class ProductsController {
     return await this.productsService.create(data);
   }
 
+  @ApiOperation({ summary: '전체 상품 가져오기' })
+  @Get()
+  async getAllProducts() {
+    return await this.productsService.getAllProducts();
+  }
+
   @ApiOperation({ summary: 'product id에 해당하는 상품 불러오기' })
   @Get('id/:id')
   async getDetailProduct(@Param('id') id: string) {
