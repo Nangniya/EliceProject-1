@@ -1,0 +1,15 @@
+.nav-menu-wrapper {
+  display: block;
+  height: 50px;
+  line-height: 50px;
+}
+.nav-menu {
+  display: inline-block;
+  margin: 0px 10px;
+  font-weight: bold;
+}
+section#menu-content-wrapper {
+  border: 1px solid black;
+  width: 100%;
+  height: calc(100vh - 60px);
+}
