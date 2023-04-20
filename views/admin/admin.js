@@ -66,16 +66,21 @@ async function makeProductList() {
 
     // 행 안에 카테고리,이름,가격,이미지 추가
     productBody_row.innerHTML = `
-      <td>${product.category}</td>
-      <td>${product.name}</td>
-      <td>${product.price}</td>
-      <td>
+      <td id="productCategory">${product.category}</td>
+      <td id="productName">${product.name}</td>
+      <td id="productPrice">${product.price}</td>
+      <td id="productImage">
         <img src=${product.image} alt="${product.name} 사진" width="70"/>
       </td>
+      <td id="productQuantity">${product.quantity}</td>
+      <td id="productManufacture">${product.manufacture}</td>
+      <td id="productContent">${product.content}</td>
       <td>
         <button class="deleteBtn">삭제</button>
+        <button class="modifyBtn">수정</button>
       </td>
     `;
+
     // 삭제 버튼 클릭 이벤트 리스너 추가
     const deleteBtn = productBody_row.querySelector(".deleteBtn");
     deleteBtn.addEventListener("click", () => {
@@ -83,10 +88,15 @@ async function makeProductList() {
       deleteProduct(product.id); // 해당 상품의 id를 인자로 상품 삭제 함수 호출
     });
 
+    // 수정 버튼 클릭 이벤트 리스너 추가
+    const modifyBtn = productBody_row.querySelector(".modifyBtn");
+    modifyBtn.addEventListener('click', () => {
+      // 수정 버튼 클릭 시 상품 수정 로직 추가
+      modifyProduct(product.id); // 해당 상품의 id를 인자로 상품 수정 함수 호출
+    })
+
     productBody.appendChild(productBody_row);
   }
-  // 상품 수정 버튼
-  // modifyProduct();
 }
 
 // 상품 삭제
@@ -114,6 +124,12 @@ async function deleteProduct(productId) {
   }
 }
 
+// 상품 수정
+// 수정 버튼 클릭했을 때 상품 수정시키는 함수
+async function modifyProduct(productId) {
+
+}
+
 // 상품 추가
 // 추가 form 모달창 띄우기
 async function loadModal() {
@@ -130,7 +146,10 @@ async function loadModal() {
     `;
   });
 
-  document.getElementById('modal-product-add-btn').addEventListener('click', addProduct);  
+  document.getElementById('modal-product-add-btn').addEventListener('click', addProduct);
+  document.getElementById('modal-cancel-btn').addEventListener('click', () => {
+    modalWrapper.style.display = "none";
+  })  
 }
 
 async function addProduct(e){
