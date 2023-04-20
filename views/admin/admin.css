@@ -1,6 +1,9 @@
 * {
   box-sizing: border-box;
 }
+html {
+  background-color: #e0d5ca;
+}
 .nav-menu-wrapper {
   display: block;
   height: 50px;
@@ -50,4 +53,7 @@ section#menu-content-wrapper {
   margin-top: 20px;
   justify-content: right;
   height: 30px;
+}
+tr {
+  border-bottom: solid 2px #7b6958;
 }

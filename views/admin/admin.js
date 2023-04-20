@@ -37,10 +37,13 @@ async function getProductList() {
         <table class="productTabel table is-striped"> 
           <thead>
             <tr>
-              <th id="productCategory">카테고리</th>
-              <th id="productName">이름</th>
-              <th id="productPrice">가격</th>
-              <th id="productImg">이미지</th>
+              <th>카테고리</th>
+              <th>이름</th>
+              <th>가격</th>
+              <th>이미지</th>
+              <th>수량</th>
+              <th>제조국</th>
+              <th>상세설명</th>
             </tr>
           </thead>
           <tbody id="productBody">
@@ -66,15 +69,15 @@ async function makeProductList() {
 
     // 행 안에 카테고리,이름,가격,이미지 추가
     productBody_row.innerHTML = `
-      <td id="productCategory">${product.category}</td>
-      <td id="productName">${product.name}</td>
-      <td id="productPrice">${product.price}</td>
-      <td id="productImage">
+      <td>${product.category}</td>
+      <td>${product.name}</td>
+      <td>${product.price}</td>
+      <td>
         <img src=${product.image} alt="${product.name} 사진" width="70"/>
       </td>
-      <td id="productQuantity">${product.quantity}</td>
-      <td id="productManufacture">${product.manufacture}</td>
-      <td id="productContent">${product.content}</td>
+      <td>${product.quantity}</td>
+      <td>${product.manufacture}</td>
+      <td>${product.content}</td>
       <td>
         <button class="deleteBtn">삭제</button>
         <button class="modifyBtn">수정</button>
@@ -92,7 +95,6 @@ async function makeProductList() {
     const modifyBtn = productBody_row.querySelector(".modifyBtn");
     modifyBtn.addEventListener('click', () => {
       // 수정 버튼 클릭 시 상품 수정 로직 추가
-      modifyProduct(product.id); // 해당 상품의 id를 인자로 상품 수정 함수 호출
     })
 
     productBody.appendChild(productBody_row);
@@ -128,10 +130,8 @@ async function deleteProduct(productId) {
 }
 
 // 상품 수정
-// 수정 버튼 클릭했을 때 상품 수정시키는 함수
-async function modifyProduct(productId) {
+// 수정 버튼 클릭했을 때 상품 수정 모달창 띄우기
 
-}
 
 // 상품 추가
 // 추가 form 모달창 띄우기
@@ -150,7 +150,8 @@ async function loadModal() {
   });
 
   document.getElementById('modal-product-add-btn').addEventListener('click', addProduct);
-  document.getElementById('modal-cancel-btn').addEventListener('click', () => {
+  document.getElementById('modal-cancel-btn').addEventListener('click', (e) => {
+    e.preventDefault();
     modalWrapper.style.display = "none";
   })  
 }
