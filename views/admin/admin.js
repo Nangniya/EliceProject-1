@@ -120,7 +120,7 @@ async function loadModal() {
   const modalWrapper = document.getElementById('modal-wrapper');
   modalWrapper.style.display = "flex";
   // 카테고리값 받아와서 select의 option 값으로 넣기
-  const modalCategory = document.querySelector("#modal-category");
+  const modalCategory = document.querySelector("#modal-categoryInput");
   const categories = await fetch("http://localhost:8000/api/products/category")
   .then((res) => res.json()); //get요청으로 카테고리 받아오기
 
@@ -133,7 +133,8 @@ async function loadModal() {
   document.getElementById('modal-product-add-btn').addEventListener('click', addProduct);  
 }
 
-async function addProduct(){
+async function addProduct(e){
+  e.preventDefault();
   const nameInput = document.querySelector('#modal-nameInput');
   const quantityInput = document.querySelector('#modal-quantityInput');
   const manufactureInput = document.querySelector('#modal-manufactureInput');
