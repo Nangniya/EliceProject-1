@@ -1,3 +1,5 @@
+const { async } = require("rxjs");
+
 const navMenus = document.getElementsByClassName('nav-menu');
 const menuContentSection = document.getElementById('menu-content-wrapper');
 
@@ -217,15 +219,45 @@ async function getCategoryList() {
   for(let i= 0; i < categoryData.length; i++){
     const element = 
   `<div class="category-list-content">
-  <p class="category-id">${categoryData[i].id}</p>
-  <p class="category-name">${categoryData[i].name}</p>
+  <div class="category-id">${categoryData[i].id}</div>
+  <div class="category-name">${categoryData[i].name}</div>
+  <div class-"category-quantity">${categoryData[i].quantity}</div>
+  <div class="category-btns">
+    <button id="category-delete-btn-${categoryData[i].id}">삭제</button>
+    <button id="category-modify-btn">수정</button>
+  </div>
   </div>`;
     categoryListContainer.insertAdjacentHTML('beforeend', element);
+    const deleteBtn = document.querySelector(`#category-delete-btn-${categoryData[i].id}`);
+    deleteBtn.addEventListener('click', (e) => {
+      const categoryId = e.target.id.split('-').pop(); // id 속성에서 categoryId 추출
+      deleteCategory(categoryId);
+    });
   }
 
 }
+// 카테고리 삭제 함수
+async function deleteCategory(categoryId) {
+  try {
+    const response = await fetch(
+      `http://localhost:8000/api/categories/id/${categoryId}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
 
-
+    if (response.ok) {
+      alert('카테고리 삭제 완료');
+    } else {
+      console.error('카테고리 삭제 실패:', response.status);
+    }
+  } catch (error) {
+    console.error('카테고리 삭제 실패:', error);
+  }
+}
 // 카테고리 추가 모달창 띄우기
 function loadCategoryModal() {
   const categoryModalWrapper = document.getElementById('category-modal-wrapper');

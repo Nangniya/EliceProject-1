@@ -63,6 +63,7 @@ section#menu-content-wrapper {
 .table-title-wrapper {
   border-bottom : solid 2px #7b6958;
   font-weight: bold;
+  align-items: center;
 }
 #add-category-btn {
   border: none;
@@ -108,7 +109,38 @@ section#menu-content-wrapper {
   justify-content: right;
   height: 30px;
 }
-.category-list-content{
+.table-title-wrapper {
+  grid-column: 1 / 5;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 60px;
+  text-align: center;
+  vertical-align: middle;
+}
+.category-grid-container {
+  display: grid;
+}
+.category-list-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.category-btns {
   display: flex;
   justify-content: center;
+}
+.category-btns > button {
+  margin: 0 20px;
+  height: 80%;
+  border: none;
+  background-color: #978676;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+}
+.category-list-content > div {
+  text-align: center;
+  vertical-align: middle;
+  width: 25%;
+  height: 40px;
 }
