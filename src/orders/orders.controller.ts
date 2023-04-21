@@ -1,9 +1,9 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Patch, Post } from '@nestjs/common';
 import { ApiBody, ApiOperation } from '@nestjs/swagger';
 import { OrdersService } from './orders.service';
 import { OrderRequestDto } from './dto/order.request.dto';
 import { userIdDto } from 'src/users/dto/user.dto';
-import { orderIdDto } from './dto/order.dto';
+import { deliveryStatusDto, orderIdDto } from './dto/order.dto';
 
 @Controller('orders')
 export class OrdersController {
@@ -33,5 +33,23 @@ export class OrdersController {
   @Post()
   async orderRequest(@Body() body: OrderRequestDto) {
     return await this.ordersService.orderRequest(body);
+  }
+
+  @ApiOperation({ summary: '배송 상태 변경' })
+  @ApiBody({
+    type: deliveryStatusDto,
+  })
+  @Patch()
+  async updateDeliveryStatus(@Body() body: deliveryStatusDto) {
+    return await this.ordersService.updateDeliveryStatus(body);
+  }
+
+  @ApiOperation({ summary: '주문 취소 하기' })
+  @ApiBody({
+    type: orderIdDto,
+  })
+  @Delete()
+  async deleteOrder(@Body() body: orderIdDto) {
+    return await this.ordersService.deleteOrder(body);
   }
 }

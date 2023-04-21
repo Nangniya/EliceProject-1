@@ -23,4 +23,15 @@ export class OrdersRepository {
   async createOrder(body: OrderRequestDto) {
     return await this.orderModel.create(body);
   }
+
+  async updateDeliveryStatus(_id: string, deliveryStatus: string) {
+    console.log({ _id });
+    const order = await this.orderModel.findById({ _id });
+    order.deliveryStatus = deliveryStatus;
+    return order.save();
+  }
+
+  async deleteOrder(_id: string) {
+    return await this.orderModel.findOneAndDelete({ _id });
+  }
 }
