@@ -54,6 +54,57 @@ section#menu-content-wrapper {
   justify-content: right;
   height: 30px;
 }
-tr {
-  border-bottom: solid 2px #7b6958;
+.table-title {
+  display : inline-block;
+  padding : 20px;
+  border-right : solid 2px #978676;
+  margin : 10px 0 10px 0;
+}
+.table-title-wrapper {
+  border-bottom : solid 2px #7b6958;
+  font-weight: bold;
+}
+#add-category-btn {
+  border: none;
+  background-color: #978676;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+#category-modal-form p {
+  font-weight: bold;
+}
+#category-modal-wrapper {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  flex-direction: column;
+  width: 400px;
+  background-color: #e0d5ca;
+  padding: 30px;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+#category-modal-form > p {
+  text-align: center;
+  font-size: 24px;
+  margin-top: 5px;
+}
+#category-modal-form input {
+  font-size: 15px;
+  width: 100%;
+}
+.modal-form-input p {
+  margin: 5px;
+}
+.modal-btns {
+  display: flex;
+  margin-top: 20px;
+  justify-content: right;
+  height: 30px;
 }

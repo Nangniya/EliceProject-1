@@ -23,7 +23,8 @@
         <button>상품수정</button>
       </div>
       <div id="productList"></div>
-      <div id="modal-wrapper" style="display: none"> <!--상품추가 모달창-->
+      <!--상품추가 모달창-->
+      <div id="modal-wrapper" style="display: none">
         <form id="modal-form">
           <p>상품 추가</p>
           <div class="modal-form-input">
@@ -64,7 +65,31 @@
     <!--주문관리 내용-->
     <div style="display: none" id="order-menu-content">order</div>
     <!--카테고리관리 내용-->
-    <div style="display: none" id="category-menu-content">category</div>
+    <div style="display: none" id="category-menu-content">
+      <div class="table-title-wrapper">
+        <p class="table-title">카테고리 ID</p>
+        <p class="table-title">카테고리 이름</p>
+        <p class="table-title">상품수량</p>
+        <button id="add-category-btn">카테고리 추가</button>
+      </div>
+      <!--카테고리추가 모달창-->
+      <div id="category-modal-wrapper" style="display: none">
+        <form id="category-modal-form">
+          <p>카테고리 추가</p>
+          <div class="modal-form-input">
+            <p>카테고리 이름</p>
+            <input id="category-modal-nameInput" type="text"/>
+          </div>
+          <div class="modal-btns">
+            <button class="modal-btn" id="modal-category-add-btn">추가</button>
+            <button class="modal-btn" id="modal-cancel-btn">취소</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+
   </section>
 </body>
 </html>

@@ -21,6 +21,12 @@ Array.from(navMenus).forEach((menuElem) => {
       const addProductBtn = document.getElementById('add-product-btn');
       addProductBtn.addEventListener('click', loadModal); //상품추가 버튼에 이벤트리스너 달기
     }
+
+    //카테고리관리 버튼인 경우
+    if (menuId === 'category') {
+      const addCategoryBtn = document.getElementById('add-category-btn');
+      addCategoryBtn.addEventListener('click', loadCategoryModal); //카테고리추가 버튼에 이벤트리스너 달기
+    }
   });
 });
 
@@ -201,3 +207,37 @@ async function addProduct(e) {
 //* 주문관리 js로직
 
 //* 카테고리 관리 js로직
+
+// 카테고리 추가 모달창 띄우기
+function loadCategoryModal() {
+  const categoryModalWrapper = document.getElementById('category-modal-wrapper');
+  categoryModalWrapper.style.display = 'flex';
+  document.getElementById('modal-category-add-btn').addEventListener('click', addCategory);
+  document.getElementById('modal-cancel-btn').addEventListener('click', (e) => {
+    e.preventDefault();
+    categoryModalWrapper.style.display = "none";
+  })
+}
+// 카테고리 추가
+async function addCategory(e){
+  e.preventDefault();
+  const categoryNameInput = document.querySelector('#category-modal-nameInput');
+  const name = categoryNameInput.value;
+  // POST 요청으로 카테고리 추가
+  try {
+    const response = await fetch('http://localhost:8000/api/categories/createCategory', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name }),
+    });
+    if (response.ok) {
+      alert('카테고리 추가 성공');
+    } else {
+      console.error('카테고리 추가 실패:', response.status);
+    }
+  } catch (error) {
+    console.error('카테고리 추가 실패:', error);
+  }
+}
