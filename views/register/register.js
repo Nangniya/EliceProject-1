@@ -1,7 +1,3 @@
-import * as Api from '../api.js';
-
-submitButton.addEventListener('click', handleSubmit);
-
 // 이메일 형식 검사
 const validateEmail = (email) => {
   return String(email)
@@ -10,6 +6,15 @@ const validateEmail = (email) => {
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
     );
 };
+
+// 요소(element), input 혹은 상수
+const fullNameInput = document.querySelector('#fullNameInput');
+const emailInput = document.querySelector('#emailInput');
+const passwordInput = document.querySelector('#passwordInput');
+const passwordConfirmInput = document.querySelector('#passwordConfirmInput');
+const submitButton = document.querySelector('#submitButton');
+
+submitButton.addEventListener('click', handleSubmit);
 
 async function post(apiUrl, data) {
   // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
@@ -37,23 +42,6 @@ async function post(apiUrl, data) {
   const result = await res.json();
 
   return result;
-}
-
-// 요소(element), input 혹은 상수
-const fullNameInput = document.querySelector('#fullNameInput');
-const emailInput = document.querySelector('#emailInput');
-const passwordInput = document.querySelector('#passwordInput');
-const passwordConfirmInput = document.querySelector('#passwordConfirmInput');
-const submitButton = document.querySelector('#submitButton');
-
-// html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-async function addAllElements() {
-  return;
-}
-
-// 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-function addAllEvents() {
-  submitButton.addEventListener('click', handleSubmit);
 }
 
 // 회원가입 진행
@@ -87,12 +75,13 @@ async function handleSubmit(e) {
   try {
     const data = { email, name, password };
 
-    await post('http://localhost:8000/api/users/signup', data);
+    const result = await post('http://localhost:8000/api/users/signup', data);
+    console.log(result);
 
     alert(`정상적으로 회원가입되었습니다.`);
 
     // 로그인 페이지 이동
-    window.location.href = 'users/login';
+    window.location.href = 'login/login.html';
   } catch (err) {
     console.error(err.stack);
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
