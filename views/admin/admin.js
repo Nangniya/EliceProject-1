@@ -24,6 +24,7 @@ Array.from(navMenus).forEach((menuElem) => {
 
     //카테고리관리 버튼인 경우
     if (menuId === 'category') {
+      getCategoryList(); //getCategoryList 함수 실행
       const addCategoryBtn = document.getElementById('add-category-btn');
       addCategoryBtn.addEventListener('click', loadCategoryModal); //카테고리추가 버튼에 이벤트리스너 달기
     }
@@ -207,6 +208,23 @@ async function addProduct(e) {
 //* 주문관리 js로직
 
 //* 카테고리 관리 js로직
+
+// 카테고리 조회
+async function getCategoryList() {
+  const categoryData = await fetch(
+    'http://localhost:8000/api/categories').then((res) => res.json());
+  const categoryListContainer = document.querySelector('#category-menu-content');
+  for(let i= 0; i < categoryData.length; i++){
+    const element = 
+  `<div class="category-list-content">
+  <p class="category-id">${categoryData[i].id}</p>
+  <p class="category-name">${categoryData[i].name}</p>
+  </div>`;
+    categoryListContainer.insertAdjacentHTML('beforeend', element);
+  }
+
+}
+
 
 // 카테고리 추가 모달창 띄우기
 function loadCategoryModal() {

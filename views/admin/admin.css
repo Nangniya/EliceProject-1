@@ -108,3 +108,7 @@ section#menu-content-wrapper {
   justify-content: right;
   height: 30px;
 }
+.category-list-content{
+  display: flex;
+  justify-content: center;
+}
