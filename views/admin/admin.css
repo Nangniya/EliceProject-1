@@ -54,6 +54,7 @@ section#menu-content-wrapper {
   justify-content: right;
   height: 30px;
 }
+/*표 헤더*/
 .table-title {
   display : inline-block;
   padding : 20px;
@@ -163,7 +164,6 @@ section#menu-content-wrapper {
   grid-template-rows: 70px;
   text-align: center;
   vertical-align: middle;
-  font-weight: bold;
   border-bottom: #7b6958 solid 2px;
 }
 #add-product-btn {
@@ -178,4 +178,41 @@ section#menu-content-wrapper {
   border-right: #7b6958 solid 2px;
   margin: 0;
   padding: 20px 0;
+}
+
+/*상품 수정 폼*/
+#product-modify-modal-form p {
+  font-weight: bold;
+}
+#product-modify-modal-wrapper {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  flex-direction: column;
+  width: 400px;
+  background-color: #e0d5ca;
+  padding: 30px;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+#product-modify-modal-form > p {
+  text-align: center;
+  font-size: 24px;
+  margin-top: 5px;
+}
+#product-modify-modal-form input {
+  font-size: 15px;
+  width: 100%;
+}
+.modal-form-input p {
+  margin: 5px;
+}
+.modal-btns {
+  display: flex;
+  margin-top: 20px;
+  justify-content: right;
+  height: 30px;
 }

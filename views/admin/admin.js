@@ -61,11 +61,19 @@ async function getProductList() {
   </div>
   </div>`;
     productListContainer.insertAdjacentHTML('beforeend', element);
+    // 삭제 버튼에 이벤트 리스너 부여
     const deleteBtn = document.querySelector(`#product-delete-btn-${productData[i].id}`);
     deleteBtn.addEventListener('click', (e) => {
       const productId = e.target.id.split('-').pop(); // id 속성에서 productId 추출
       deleteProduct(productId);
     });
+    // 수정 버튼에 이벤트 리스너 부여
+    const modifyBtn = document.querySelector(`#product-modify-btn-${productData[i].id}`);
+    modifyBtn.addEventListener('click', (e) => {
+      const productId = e.target.id.split('-').pop(); // id 속성에서 productId 추출
+      modifyProduct(productId);
+    })
+
   }
 
 }
@@ -95,7 +103,85 @@ async function deleteProduct(productId) {
 
 // 상품 수정
 // 수정 버튼 클릭했을 때 상품 수정 모달창 띄우기
+async function modifyProduct(productId) {
+  const modifyModalWrapper = document.getElementById('product-modify-modal-wrapper');
+  modifyModalWrapper.style.display = flex;
+  // 카테고리값 받아와서 select의 option 값으로 넣기
+  const modalCategory = document.querySelector('#product-modify-modal-categoryInput');
+  const categories = await fetch('http://localhost:8000/api/categories').then(
+    (res) => res.json(),
+  ); //get요청으로 카테고리 받아오기
+  categories.forEach((category) => {
+    modalCategory.innerHTML += `
+      <option>${category.name}</option>
+    `;
+  });
 
+  modifyProduct2(productId); // input 값에 현재 데이터 정보 채워넣기
+
+  document.getElementById('modal-product-modify-btn').addEventListener('click', modifyProduct3(productId));
+  document.getElementById('modal-cancel-btn').addEventListener('click', (e) => {
+    e.preventDefault();
+    modifyModalWrapper.style.display = "none";
+  })
+}
+// input 값에 현재 데이터 정보 채워넣는 함수
+async function modifyProduct2(productId){
+  const data = await fetch(`http://localhost:8000/api/products/id/${productId}`).then((res) => res.json());
+
+  const name = document.querySelector('#product-modify-modal-nameInput');
+  const quantity = document.querySelector('#product-modify-modal-quantityInput');
+  const manufacture = document.querySelector('#product-modify-modal-manufactureInput');
+  const price = document.querySelector('#product-modify-modal-priceInput');
+  const content = document.querySelector('#product-modify-modal-contentInput');
+  const category = document.querySelector('#product-modify-modal-categoryInput');
+
+  const inputArray = [name, quantity, manufacture, price, content, category];
+  inputArray.forEach((prop) => {prop.value = data.prop});
+}
+
+// PATCH로 상품수정 요청하는 함수
+async function modifyProduct3(productId) {
+  const nameInput = document.querySelector('#product-modify-modal-nameInput');
+  const quantityInput = document.querySelector('#product-modify-modal-quantityInput');
+  const manufactureInput = document.querySelector('#product-modify-modal-manufactureInput');
+  const priceInput = document.querySelector('#product-modify-modal-priceInput');
+  const contentInput = document.querySelector('#product-modify-modal-contentInput');
+  const categoryInput = document.querySelector('#product-modify-modal-categoryInput');
+
+  // 입력값
+  const name = nameInput.value;
+  const quantity = quantityInput.value;
+  const manufacture = manufactureInput.value;
+  const price = priceInput.value;
+  const content = contentInput.value;
+  const category = categoryInput.value;
+
+  try {
+    const response = await fetch(`http://localhost:8000/api/products/id/${productId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name,
+        quantity: quantity * 1,
+        manufacture,
+        category,
+        price: price * 1,
+        content,
+      }),
+    });
+    if (response.ok) {
+      alert('수정 성공');
+    } else {
+      console.error('상품 수정 실패:', response.status);
+    }
+  } catch (error) {
+    console.error('상품 수정 실패:', error);
+  }
+
+}
 
 // 상품 추가
 // 추가 form 모달창 띄우기
