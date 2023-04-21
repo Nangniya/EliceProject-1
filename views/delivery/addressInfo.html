@@ -9,24 +9,27 @@
         <div class="address-content-table">
             <div class="address-content-table row">
                 <div class="address-content-table column">수령인명</div>
-                <div class="address-content-table column"><input type="text" name="txtUserName" /></div>
+                <div class="address-content-table column"><input type="text" name="txtUserName" id="name"></div>
             </div>
             <div class="address-content-table row">
                 <div class="address-content-table column">전화번호</div>
                 <div class="address-content-table column phone-input">
                     <select id="address-content-select-wrapper"></select>
                     -
-                    <input type="number" name="phone2" />
+                    <input type="number" id="phone2"/>
                     -
-                    <input type="number" name="phone3" />
+                    <input type="number" id="phone3" />
                 </div>
             </div>
             <div class="address-content-table row">
                 <div class="address-content-table column">주소</div>
                 <div class="address-content-table column">
-                    <div><input type="text" name="txtPostNum" /><button id="addressInfoSetting">우편번호 찾기</button></div>
-                    <div><input type="text" name="txtAddress" /></div>
-                    <div><input type="text" name="txtAddressDetail" /></div>
+                    <div>
+                        <input type="text" id="postNum" />
+                        <button id="addressInfoSetting">우편번호 찾기</button>
+                    </div>
+                    <div><input type="text" id="address"/></div>
+                    <div><input type="text" id="addressDetail" /></div>
                 </div>
             </div>
             <div class="address-content-button-wrapper">

@@ -28,3 +28,4 @@ btnAddressInfoSet.addEventListener('click', function() {
     // 배송지 정보 설정하는 새 창 띄우기
     alert('새창 띄우기');
 });
+
