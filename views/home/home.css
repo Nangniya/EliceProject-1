@@ -1,16 +1,29 @@
+.category-item {
+  width: 200px;
+}
+.category {
+  display: none;
+}
+
+.category.show {
+  display: block;
+}
+
+.serchsubmit {
+  width: 100px;
+}
+
 h1 {
   margin: 30px;
   text-align: center;
 }
+
 .navbar-brand {
-  font-size: 50px;
-}
-.container-fluid {
-  display: flex;
-  flex-direction: column;
-}
-.nav-link {
   font-size: 30px;
+}
+
+.nav-link {
+  font-size: 20px;
   margin: 30px;
 }
 

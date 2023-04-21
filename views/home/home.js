@@ -1,24 +1,36 @@
 const serchbtn = document.querySelector('#search');
 const basketbtn = document.querySelector('#basket');
-const loginbtn = document.querySelector('#logout');
+const loginbtn = document.querySelector('#login');
 const mypage = document.querySelector('#mypage');
+const categorybtn = document.querySelector('#categorybtn');
+const category = document.querySelector('#myCategory');
 
-const btn1 = document.querySelector('.button1');
-const btn2 = document.querySelector('.button2');
-const btn3 = document.querySelector('.button3');
-const slide = document.querySelector('.slider-container');
+categorybtn.addEventListener('click', function () {
+  category.classList.toggle('show');
+  fetch('/api/categories')
+    .then((response) => response.json())
+    .then((data) => {
+      var itemsHtml = '';
+      console.log(data);
+      for (var i = 0; i < data.length; i++) {
+        itemsHtml += `<button class="category-item">${data[i].name}</button>
+          `;
+      }
 
-async function fetchText() {
-  let response = await fetch('/api/products/recent');
+      document.querySelector('.items').innerHTML = itemsHtml;
+    })
+    .catch((error) => console.error(error));
+});
 
-  console.log(response.status); // 200
-  console.log(response); // 200
-  console.log(response.body); // 200
-  console.log(response.statusText); // OK
+// async function serchItem() {
+//   let response = await fetch('/api/categories')
+//     .then((response) => response.json())
+//     .then((json) => console.log(json))
+//     .catch((error) => console.log(error));
 
-  if (response.status === 200) {
-    let data = await response.text();
-    // handle data
-  }
-}
-serchbtn.addEventListener('click', fetchText);
+//   if (response.status === 200) {
+//     let data = await response.text();
+//     // handle data
+//   }
+// }
+// serchbtn.addEventListener('click', serchItem);
