@@ -1,8 +1,4 @@
-import {
-  HttpException,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { OrdersRepository } from './orders.repository';
 import { OrderRequestDto } from './dto/order.request.dto';
 import { deliveryStatusDto, orderIdDto } from './dto/order.dto';
