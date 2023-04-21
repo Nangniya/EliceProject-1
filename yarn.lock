@@ -2417,7 +2417,11 @@ express-basic-auth@^1.2.1:
   dependencies:
     basic-auth "^2.0.1"
 
+<<<<<<< HEAD
 express@^4.18.1, express@4.18.2:
+=======
+express@^4.18.1, express@^4.18.2, express@4.18.2:
+>>>>>>> c046eb9b09dad6a25be72cc07d21e309e42edac4
   version "4.18.2"
   resolved "https://registry.npmjs.org/express/-/express-4.18.2.tgz"
   integrity sha512-5/PsL6iGPdfQ/lKM1UuielYgv3BUoJfz1aUwU9vHZ+J7gyvwdQXFEBIEIaxeGf0GIcreATNyBExtalisDbuMqQ==
@@ -2648,11 +2652,6 @@ fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   integrity sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==
-
-fsevents@^2.3.2, fsevents@~2.3.2:
-  version "2.3.2"
-  resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
-  integrity sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==
 
 function-bind@^1.1.1:
   version "1.1.1"
@@ -3572,9 +3571,15 @@ levn@^0.4.1:
     type-check "~0.4.0"
 
 libphonenumber-js@^1.10.14:
+<<<<<<< HEAD
   version "1.10.28"
   resolved "https://registry.npmjs.org/libphonenumber-js/-/libphonenumber-js-1.10.28.tgz"
   integrity sha512-1eAgjLrZA0+2Wgw4hs+4Q/kEBycxQo8ZLYnmOvZ3AlM8ImAVAJgDPlZtISLEzD1vunc2q8s2Pn7XwB7I8U3Kzw==
+=======
+  version "1.10.26"
+  resolved "https://registry.npmjs.org/libphonenumber-js/-/libphonenumber-js-1.10.26.tgz"
+  integrity sha512-oB3l4J5gEhMV+ymmlIjWedsbCpsNRqbEZ/E/MpN2QVyinKNra6DcuXywxSk/72M3DZDoH/6kzurOq1erznBMwQ==
+>>>>>>> c046eb9b09dad6a25be72cc07d21e309e42edac4
 
 lines-and-columns@^1.1.6:
   version "1.2.4"

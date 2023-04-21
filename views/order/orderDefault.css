@@ -1,0 +1,120 @@
+/* Default CSS */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    vertical-align: middle;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+    cursor: pointer;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+.container {
+    width: 960px;
+    margin: 0 auto;
+}
+body {
+    background-color: #D7CCC8;
+}
+
+/* 주문 결제 */
+.order-content-wrapper {
+    width: 1100px;
+    margin: 30px auto;
+    padding: 15px 0px; 
+    background-color: #ffffff;
+
+    border: 1px solid #e0e0e0;
+}
+.order-content-wrapper > h2 {
+    text-align: center;
+    margin: 30px 0px;
+}
+
+/* 주문자 정보 */
+.order-info-container > .user-info-content{
+    width: 870px;
+    border: 1px solid #e0e0e0;
+    margin: 10px auto 30px auto;
+    justify-content: center;
+    align-items: center;
+}
+.order-info-container > .user-info-content > h4 {
+    margin: 30px 0px 10px 30px;
+
+}
+.order-info-container > .user-info-content > ul {
+    margin: 15px 0px 20px 30px;
+
+}
+
+/* 배송지 정보 */
+.order-info-container > .delivery-info-content{
+    width: 870px;
+    border: 1px solid #e0e0e0;
+    margin: 10px auto 30px auto;
+}
+.order-info-container > .delivery-info-content > h4 {
+    margin: 30px 0px 10px 30px;
+
+}
+.order-info-container > .delivery-info-content > ul {
+    margin: 15px 0px 20px 30px;
+}
+
+/* 주문 정보 */ 
+.order-info-container > .order-detail-content {
+    width: 870px;
+    border: 1px solid #e0e0e0;
+    margin: 10px auto 30px auto;   
+}
+.order-info-container > .order-detail-content > h4 {
+    margin: 30px 0px 10px 30px;
+}
+.order-info-container > .order-detail-content > ul {
+    margin: 15px 30px 20px 10px;
+    display: flex;
+    border-bottom: 1px solid #e0e0e0;
+}
+.order-info-container > .order-detail-content > ul > li {
+    height: 100%;
+    padding: 0 20px;
+    box-sizing: border-box; /* 박스 사이즈를 테두리 선까지 포함합니다. */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top : 1px rgba(0, 0, 0, 0) dotted;
+}
+.order-info-container > .order-detail-content > ul > li > img {
+    width:170px;
+    margin: 7px 10px;
+    display:inline-block;
+    margin: 15px 0px 20px 0px;
+}
+
+/* 결제정보 */
+.order-info-container > .pay-info-content{
+    width: 870px;
+    border: 1px solid #e0e0e0;
+    margin: 10px auto 30px auto;
+}
+.order-info-container > .pay-info-content > h4 {
+    margin: 30px 0px 10px 30px;
+}
+.order-info-container > .pay-info-content > ul {
+    margin: 15px 0px 20px 30px;
+}
+
+/* 버튼 그룹 */
+.order-info-container .buttonGroup {
+    text-align: center;
+}
