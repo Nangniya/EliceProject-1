@@ -1,5 +1,12 @@
+#test {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
 .category-item {
   width: 200px;
+  margin: 20px;
 }
 .category {
   display: none;
@@ -32,9 +39,12 @@ h1 {
   justify-content: center;
 }
 .img-slide {
-  width: 80%;
-  height: 400px;
+  width: 70%;
+  height: 300px;
   overflow: hidden;
+}
+.carousel-item > img {
+  object-fit: cover;
 }
 .best-item {
   width: 100%;
@@ -73,52 +83,6 @@ body {
   width: 100%;
   font-size: 50px;
   margin-left: 30px;
-}
-
-#listbtn {
-  border: none;
-  background-color: rgba(0, 0, 0, 0);
-}
-#listbtn:hover {
-  cursor: pointer;
-}
-
-/* //////////////
-
-.slide img {
-  width: 100%;
-  height: 300px;
-}
-
-.slider-container {
-  width: 300vw;
-  transition: transform 0.5s;
-}
-.slide {
-  width: 100vw;
-  float: left;
-}
-
-.btn-container {
-  text-align: center;
-}
-
-.midle-title {
-  justify-content: center;
-  text-align: center;
-  margin: 30px;
-}
-
-.bestItem-container,
-.newItem-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-}
-.bestItem,
-.newItem {
-  margin: 20px;
-  width: 250px;
-  height: 200px;
 }
 
 /* 푸터 CSS */

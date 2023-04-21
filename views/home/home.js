@@ -21,16 +21,3 @@ categorybtn.addEventListener('click', function () {
     })
     .catch((error) => console.error(error));
 });
-
-// async function serchItem() {
-//   let response = await fetch('/api/categories')
-//     .then((response) => response.json())
-//     .then((json) => console.log(json))
-//     .catch((error) => console.log(error));
-
-//   if (response.status === 200) {
-//     let data = await response.text();
-//     // handle data
-//   }
-// }
-// serchbtn.addEventListener('click', serchItem);
