@@ -1,5 +1,3 @@
-const { async } = require("rxjs");
-
 const navMenus = document.getElementsByClassName('nav-menu');
 const menuContentSection = document.getElementById('menu-content-wrapper');
 
@@ -37,79 +35,40 @@ Array.from(navMenus).forEach((menuElem) => {
 // 주문관리 -> 진행된 주문 리스트 생성,  주문 수정
 // 카테고리관리 -> 카테고리 추가, 수정, 삭제
 
+// ****************************************************************************************
 //* 상품관리 js로직
 // 상품조회 : 상품관리 누르면 상품리스트 표 나옴
+
 async function getProductList() {
-  const productList = document.getElementById('productList');
-  const productElem = document.createElement('div');
-  productElem.innerHTML = `
-        <table class="productTabel table is-striped"> 
-          <thead>
-            <tr>
-              <th>카테고리</th>
-              <th>이름</th>
-              <th>가격</th>
-              <th>이미지</th>
-              <th>수량</th>
-              <th>제조국</th>
-              <th>상세설명</th>
-            </tr>
-          </thead>
-          <tbody id="productBody">
-          </tbody>
-        </table>
-      `;
-  productList.append(productElem);
-  makeProductList(); // 상품 데이터 받아와서 띄워주는 함수
-}
-// 상품 데이터 받아오기
-async function makeProductList() {
-  console.log('상품조회 api 전송');
-  const productListData = await fetch(
-    'http://localhost:8000/api/products',
-  ).then((res) => res.json());
-  // 리스트가 들어갈 표의 body
-  const productBody = document.querySelector('#productBody');
-  for (let i = 0; i < productListData.length; i++) {
-    const product = productListData[i];
-    // 한 행 생성
-    const productBody_row = document.createElement('tr');
-    productBody_row.id = product.id; //행의 HTML id = 상품의 id로 지정
-
-    // 행 안에 카테고리,이름,가격,이미지 추가
-    productBody_row.innerHTML = `
-      <td>${product.category}</td>
-      <td>${product.name}</td>
-      <td>${product.price}</td>
-      <td>
-        <img src=${product.image} alt="${product.name} 사진" width="70"/>
-      </td>
-      <td>${product.quantity}</td>
-      <td>${product.manufacture}</td>
-      <td>${product.content}</td>
-      <td>
-        <button class="deleteBtn">삭제</button>
-        <button class="modifyBtn">수정</button>
-      </td>
-    `;
-
-    // 삭제 버튼 클릭 이벤트 리스너 추가
-    const deleteBtn = productBody_row.querySelector('.deleteBtn');
-    deleteBtn.addEventListener('click', () => {
-      // 삭제 버튼 클릭 시 상품 삭제 로직 추가
-      deleteProduct(product.id); // 해당 상품의 id를 인자로 상품 삭제 함수 호출
+  const productData = await fetch(
+    'http://localhost:8000/api/products').then((res) => res.json());
+  const productListContainer = document.querySelector('#productList');
+  for(let i= 0; i < productData.length; i++){
+    const element = 
+  `<div class="product-list-content">
+  <div class="product-category">${productData[i].category}</div>
+  <div class="product-name">${productData[i].name}</div>
+  <div class="product-price">${productData[i].price}</div>
+  <div class="product-image">
+    <img src=${productData.image} alt="${productData.name} 사진" width="70"/>
+  </div>  
+  <div class-"product-quantity">${productData[i].quantity}</div>
+  <div class-"product-manufacture">${productData[i].manufacture}</div>
+  <div class-"product-quantity">${productData[i].content}</div>
+  <div class="product-btns">
+    <button id="product-delete-btn-${productData[i].id}">삭제</button>
+    <button id="product-modify-btn">수정</button>
+  </div>
+  </div>`;
+    productListContainer.insertAdjacentHTML('beforeend', element);
+    const deleteBtn = document.querySelector(`#product-delete-btn-${productData[i].id}`);
+    deleteBtn.addEventListener('click', (e) => {
+      const productId = e.target.id.split('-').pop(); // id 속성에서 productId 추출
+      deleteProduct(productId);
     });
-
-    // 수정 버튼 클릭 이벤트 리스너 추가
-    const modifyBtn = productBody_row.querySelector(".modifyBtn");
-    modifyBtn.addEventListener('click', () => {
-      // 수정 버튼 클릭 시 상품 수정 로직 추가
-    })
-
-    productBody.appendChild(productBody_row);
   }
-}
 
+}
 // 상품 삭제
 // 삭제 버튼 클릭했을 때 상품 삭제시키는 함수
 async function deleteProduct(productId) {
@@ -125,11 +84,7 @@ async function deleteProduct(productId) {
     );
 
     if (response.ok) {
-      // 삭제 성공 시 프론트엔드에서도 해당 상품 삭제
-      const productRow = document.getElementById(productId);
-      if (productRow) {
-        productRow.remove();
-      }
+      alert('상품 삭제 완료');
     } else {
       console.error('상품 삭제 실패:', response.status);
     }
@@ -207,8 +162,12 @@ async function addProduct(e) {
     console.error('상품 추가 실패:', error);
   }
 }
+
+// ****************************************************************************************
 //* 주문관리 js로직
 
+
+// ****************************************************************************************
 //* 카테고리 관리 js로직
 
 // 카테고리 조회
