@@ -62,19 +62,28 @@ async function getProductList() {
   </div>`;
     productListContainer.insertAdjacentHTML('beforeend', element);
     // 삭제 버튼에 이벤트 리스너 부여
+<<<<<<< HEAD
     const deleteBtn = document.querySelector(
       `#product-delete-btn-${productData[i]._id}`,
     );
+=======
+    const deleteBtn = document.querySelector(`#product-delete-btn-${productData[i]._id}`);
+>>>>>>> fd8dc160086fe1e33dac9d6788fd8a02564bcf7c
     deleteBtn.addEventListener('click', (e) => {
       const productId = e.target.id.split('-').pop(); // id 속성에서 productId 추출
       deleteProduct(productId);
     });
     // 수정 버튼에 이벤트 리스너 부여
+<<<<<<< HEAD
     const modifyBtn = document.querySelector(
       `#product-modify-btn-${productData[i]._id}`,
     );
+=======
+    const modifyBtn = document.querySelector(`#product-modify-btn-${productData[i]._id}`);
+>>>>>>> fd8dc160086fe1e33dac9d6788fd8a02564bcf7c
     modifyBtn.addEventListener('click', (e) => {
       const productId = e.target.id.split('-').pop(); // id 속성에서 productId 추출
+      console.log(productId);
       modifyProduct(productId);
     });
   }
@@ -106,10 +115,15 @@ async function deleteProduct(productId) {
 // 상품 수정
 // 수정 버튼 클릭했을 때 상품 수정 모달창 띄우기
 async function modifyProduct(productId) {
+<<<<<<< HEAD
   const modifyModalWrapper = document.getElementById(
     'product-modify-modal-wrapper',
   );
   modifyModalWrapper.style.display = flex;
+=======
+  const modifyModalWrapper = document.getElementById('product-modify-modal-wrapper');
+  modifyModalWrapper.style.display = 'flex';
+>>>>>>> fd8dc160086fe1e33dac9d6788fd8a02564bcf7c
   // 카테고리값 받아와서 select의 option 값으로 넣기
   const modalCategory = document.querySelector(
     '#product-modify-modal-categoryInput',
@@ -125,10 +139,15 @@ async function modifyProduct(productId) {
 
   modifyProduct2(productId); // input 값에 현재 데이터 정보 채워넣기
 
+<<<<<<< HEAD
   document
     .getElementById('modal-product-modify-btn')
     .addEventListener('click', modifyProduct3(productId));
   document.getElementById('modal-cancel-btn').addEventListener('click', (e) => {
+=======
+  document.getElementById('modal-product-modify-btn').addEventListener('click', modifyProduct3(productId));
+  document.getElementById('modify-product-cancel-btn').addEventListener('click', (e) => {
+>>>>>>> fd8dc160086fe1e33dac9d6788fd8a02564bcf7c
     e.preventDefault();
     modifyModalWrapper.style.display = 'none';
   });
@@ -287,6 +306,7 @@ async function addProduct(e) {
 
 // 카테고리 조회
 async function getCategoryList() {
+<<<<<<< HEAD
   const categoryData = await fetch('http://localhost:8000/api/categories').then(
     (res) => res.json(),
   );
@@ -296,20 +316,40 @@ async function getCategoryList() {
   for (let i = 0; i < categoryData.length; i++) {
     const element = `<div class="category-list-content">
   <div class="category-id">${categoryData[i].id}</div>
+=======
+  const categoryData = await fetch(
+    'http://localhost:8000/api/categories').then((res) => res.json());
+  const categoryListContainer = document.querySelector('#category-menu-content');
+  for(let i= 0; i < categoryData.length; i++){
+    const element = 
+  `<div class="category-list-content">
+  <div class="category-id">${categoryData[i]._id}</div>
+>>>>>>> fd8dc160086fe1e33dac9d6788fd8a02564bcf7c
   <div class="category-name">${categoryData[i].name}</div>
   <div class-"category-quantity">${categoryData[i].quantity}</div>
   <div class="category-btns">
-    <button id="category-delete-btn-${categoryData[i].id}">삭제</button>
-    <button id="category-modify-btn">수정</button>
+    <button id="category-delete-btn-${categoryData[i]._id}">삭제</button>
+    <button id="category-modify-btn-${categoryData[i]._id}">수정</button>
   </div>
   </div>`;
     categoryListContainer.insertAdjacentHTML('beforeend', element);
+<<<<<<< HEAD
     const deleteBtn = document.querySelector(
       `#category-delete-btn-${categoryData[i].id}`,
     );
+=======
+
+    const deleteBtn = document.querySelector(`#category-delete-btn-${categoryData[i]._id}`);
+>>>>>>> fd8dc160086fe1e33dac9d6788fd8a02564bcf7c
     deleteBtn.addEventListener('click', (e) => {
       const categoryId = e.target.id.split('-').pop(); // id 속성에서 categoryId 추출
       deleteCategory(categoryId);
+    });
+    
+    const modifyBtn = document.querySelector(`#category-modify-btn-${categoryData[i]._id}`);
+    modifyBtn.addEventListener('click', (e) => {
+      const categoryId = e.target.id.split('-').pop(); // id 속성에서 categoryId 추출
+      modifyCategory(categoryId);
     });
   }
 }
@@ -341,10 +381,15 @@ function loadCategoryModal() {
     'category-modal-wrapper',
   );
   categoryModalWrapper.style.display = 'flex';
+<<<<<<< HEAD
   document
     .getElementById('modal-category-add-btn')
     .addEventListener('click', addCategory);
   document.getElementById('modal-cancel-btn').addEventListener('click', (e) => {
+=======
+  document.getElementById('modal-category-add-btn').addEventListener('click', addCategory);
+  document.getElementById('category-add-cancel-btn').addEventListener('click', (e) => {
+>>>>>>> fd8dc160086fe1e33dac9d6788fd8a02564bcf7c
     e.preventDefault();
     categoryModalWrapper.style.display = 'none';
   });
@@ -375,3 +420,44 @@ async function addCategory(e) {
     console.error('카테고리 추가 실패:', error);
   }
 }
+<<<<<<< HEAD
+=======
+// 카테고리 수정
+// 카테고리 수정 모달창 띄우기
+async function modifyCategory(categoryId) {
+  const categoryModalWrapper = document.getElementById('category-modify-modal-wrapper');
+  categoryModalWrapper.style.display = 'flex';
+
+  document.getElementById('modal-category-modify-btn').addEventListener('click', modifyCategory2(categoryId));
+  document.getElementById('category-modify-cancel-btn').addEventListener('click', (e) => {
+    e.preventDefault();
+    categoryModalWrapper.style.display = "none";
+  })
+  // 현재 카테고리 이름을 input값에 넣기
+  const categoryData = await fetch(
+    `http://localhost:8000/api/categories/id/${categoryId}`).then((res) => res.json());
+   document.querySelector('#modify-category-modal-nameInput').value = categoryData.name; 
+}
+
+// PATCH로 카테고리 수정 요청
+async function modifyCategory2(categoryId) {
+  const categoryName = document.querySelector('#modify-category-modal-nameInput');
+  const name = categoryName.value;
+  try {
+    const response = await fetch(`http://localhost:8000/api/categories/id/${categoryId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name }),
+    });
+    if (response.ok) {
+      alert('카테고리 수정 성공');
+    } else {
+      console.error('카테고리 수정 실패:', response.status);
+    }
+  } catch (error) {
+    console.error('카테고리 수정 실패:', error);
+  }
+}
+>>>>>>> fd8dc160086fe1e33dac9d6788fd8a02564bcf7c
