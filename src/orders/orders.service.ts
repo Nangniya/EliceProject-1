@@ -52,4 +52,8 @@ export class OrdersService {
       );
     }
   }
+
+  async getAllOrder() {
+    return await this.ordersRepository.getAllOrder();
+  }
 }
