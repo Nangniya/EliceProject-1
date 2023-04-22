@@ -125,7 +125,7 @@ async function modifyProduct(productId) {
 
   modifyProduct2(productId); // input 값에 현재 데이터 정보 채워넣기
 
-  document.getElementById('modal-product-modify-btn').addEventListener('click', modifyProduct3(productId));
+  document.getElementById('modal-product-modify-btn').addEventListener('click', (productId) => modifyProduct3(productId));
   document.getElementById('modify-product-cancel-btn').addEventListener('click', (e) => {
     e.preventDefault();
     modifyModalWrapper.style.display = 'none';
@@ -292,15 +292,28 @@ async function getOrderList() {
   <div class="order-receiver">${orderData[i].receiver}</div>
   <div class-"order-message">${orderData[i].deliveryMessage}</div>
   <div class-"order-address">${orderData[i].address}</div>
-  <div class-"order-status">${orderData[i].deliveryStatus}</div>
+  <div class-"order-status">
+    <select id='order-status-${orderData[i]._id}'>
+      <option>주문 진행 중</option>
+      <option>배송 준비 중</option>
+      <option>배송 중</option>
+      <option>배송 완료</option>
+    </select>
+  </div>
     <button id="order-delete-btn-${orderData[i]._id}">삭제</button>
   </div>`;
     orderListContainer.insertAdjacentHTML('beforeend', element);
+
+    const deliveryStatus = document.getElementById(`order-status-${orderData[i]._id}`);
+    deliveryStatus.value = orderData[i].deliveryStatus;
+    // 주문 삭제 이벤트 리스너 부여
     const deleteBtn = document.querySelector(`#order-delete-btn-${orderData[i]._id}`);
     deleteBtn.addEventListener('click', () => deleteOrder(orderData[i]._id));
+    // 주문 수정 이벤트 리스너 부여
+    const selector = document.getElementById(`order-status-${orderData[i]._id}`);
+    selector.addEventListener('change', () => modifyOrder(orderData[i]._id));
   }
-}
-// 주문 삭제
+}  
 async function deleteOrder(orderId){
   try {
     const response = await fetch(`http://localhost:8000/api/orders/id/${orderId}`,
@@ -319,6 +332,28 @@ async function deleteOrder(orderId){
     }
   } catch (error) {
     console.error('주문 삭제 실패:', error);
+  }
+}
+
+// 주문 수정
+async function modifyOrder(orderId) {
+  const orderStatus = document.getElementById(`order-status-${orderId}`);
+  const deliveryStatus = orderStatus.value;
+  try {
+    const response = await fetch('http://localhost:8000/api/orders', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ deliveryStatus, _id: orderId }),
+    });
+    if (response.ok) {
+      alert('주문 수정 성공');
+    } else {
+      console.error('주문 수정 실패:', response.status);
+    }
+  } catch (error) {
+    console.error('주문 수정 실패:', error);
   }
 }
 
@@ -422,7 +457,7 @@ async function modifyCategory(categoryId) {
   const categoryModalWrapper = document.getElementById('category-modify-modal-wrapper');
   categoryModalWrapper.style.display = 'flex';
 
-  document.getElementById('modal-category-modify-btn').addEventListener('click', modifyCategory2(categoryId));
+  document.getElementById('modal-category-modify-btn').addEventListener('click', (categoryId) => modifyCategory2(categoryId));
   document.getElementById('category-modify-cancel-btn').addEventListener('click', (e) => {
     e.preventDefault();
     categoryModalWrapper.style.display = "none";
