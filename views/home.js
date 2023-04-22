@@ -11,7 +11,6 @@ categorybtn.addEventListener('click', function () {
     .then((response) => response.json())
     .then((data) => {
       var itemsHtml = '';
-      console.log(data);
       for (var i = 0; i < data.length; i++) {
         itemsHtml += `<button class="category-item">${data[i].name}</button>
           `;
@@ -21,3 +20,31 @@ categorybtn.addEventListener('click', function () {
     })
     .catch((error) => console.error(error));
 });
+
+window.onload = function () {
+  fetch('/api/products/recent')
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      var itemsHtml = '';
+      for (var i = 0; i < data.length; i++) {
+        itemsHtml += `<button class="category-item">${data[i].name}</button>
+          `;
+      }
+
+      document.querySelector('.new-item-conatiner').innerHTML = itemsHtml;
+    });
+
+  fetch('/api/products/recent')
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      var itemsHtml = '';
+      for (var i = 0; i < data.length; i++) {
+        itemsHtml += `<button class="category-item">${data[i].name}</button>
+          `;
+      }
+
+      document.querySelector('.best-item-conatiner').innerHTML = itemsHtml;
+    });
+};

@@ -216,3 +216,30 @@ section#menu-content-wrapper {
   justify-content: right;
   height: 30px;
 }
+
+#modify-category-modal-form p {
+  font-weight: bold;
+}
+#category-modify-modal-wrapper {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  flex-direction: column;
+  width: 400px;
+  background-color: #e0d5ca;
+  padding: 30px;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+#modify-category-modal-form > p {
+  text-align: center;
+  font-size: 24px;
+  margin-top: 5px;
+}
+#modify-category-modal-form input {
+  font-size: 15px;
+  width: 100%;
+}

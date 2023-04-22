@@ -40,12 +40,12 @@ Array.from(navMenus).forEach((menuElem) => {
 // 상품조회 : 상품관리 누르면 상품리스트 표 나옴
 
 async function getProductList() {
-  const productData = await fetch(
-    'http://localhost:8000/api/products').then((res) => res.json());
+  const productData = await fetch('http://localhost:8000/api/products').then(
+    (res) => res.json(),
+  );
   const productListContainer = document.querySelector('#productList');
-  for(let i= 0; i < productData.length; i++){
-    const element = 
-  `<div class="product-list-content">
+  for (let i = 0; i < productData.length; i++) {
+    const element = `<div class="product-list-content">
   <div class="product-category">${productData[i].category}</div>
   <div class="product-name">${productData[i].name}</div>
   <div class="product-price">${productData[i].price}</div>
@@ -56,26 +56,37 @@ async function getProductList() {
   <div class-"product-manufacture">${productData[i].manufacture}</div>
   <div class-"product-quantity">${productData[i].content}</div>
   <div class="product-btns">
-    <button id="product-delete-btn-${productData[i].id}">삭제</button>
-    <button id="product-modify-btn">수정</button>
+    <button id="product-delete-btn-${productData[i]._id}">삭제</button>
+    <button id="product-modify-btn-${productData[i]._id}">수정</button>
   </div>
   </div>`;
     productListContainer.insertAdjacentHTML('beforeend', element);
     // 삭제 버튼에 이벤트 리스너 부여
-    const deleteBtn = document.querySelector(`#product-delete-btn-${productData[i].id}`);
+<<<<<<< HEAD
+    const deleteBtn = document.querySelector(
+      `#product-delete-btn-${productData[i]._id}`,
+    );
+=======
+    const deleteBtn = document.querySelector(`#product-delete-btn-${productData[i]._id}`);
+>>>>>>> fd8dc160086fe1e33dac9d6788fd8a02564bcf7c
     deleteBtn.addEventListener('click', (e) => {
       const productId = e.target.id.split('-').pop(); // id 속성에서 productId 추출
       deleteProduct(productId);
     });
     // 수정 버튼에 이벤트 리스너 부여
-    const modifyBtn = document.querySelector(`#product-modify-btn-${productData[i].id}`);
+<<<<<<< HEAD
+    const modifyBtn = document.querySelector(
+      `#product-modify-btn-${productData[i]._id}`,
+    );
+=======
+    const modifyBtn = document.querySelector(`#product-modify-btn-${productData[i]._id}`);
+>>>>>>> fd8dc160086fe1e33dac9d6788fd8a02564bcf7c
     modifyBtn.addEventListener('click', (e) => {
       const productId = e.target.id.split('-').pop(); // id 속성에서 productId 추출
+      console.log(productId);
       modifyProduct(productId);
-    })
-
+    });
   }
-
 }
 // 상품 삭제
 // 삭제 버튼 클릭했을 때 상품 삭제시키는 함수
@@ -104,10 +115,19 @@ async function deleteProduct(productId) {
 // 상품 수정
 // 수정 버튼 클릭했을 때 상품 수정 모달창 띄우기
 async function modifyProduct(productId) {
-  const modifyModalWrapper = document.getElementById('product-modify-modal-wrapper');
+<<<<<<< HEAD
+  const modifyModalWrapper = document.getElementById(
+    'product-modify-modal-wrapper',
+  );
   modifyModalWrapper.style.display = flex;
+=======
+  const modifyModalWrapper = document.getElementById('product-modify-modal-wrapper');
+  modifyModalWrapper.style.display = 'flex';
+>>>>>>> fd8dc160086fe1e33dac9d6788fd8a02564bcf7c
   // 카테고리값 받아와서 select의 option 값으로 넣기
-  const modalCategory = document.querySelector('#product-modify-modal-categoryInput');
+  const modalCategory = document.querySelector(
+    '#product-modify-modal-categoryInput',
+  );
   const categories = await fetch('http://localhost:8000/api/categories').then(
     (res) => res.json(),
   ); //get요청으로 카테고리 받아오기
@@ -119,35 +139,60 @@ async function modifyProduct(productId) {
 
   modifyProduct2(productId); // input 값에 현재 데이터 정보 채워넣기
 
-  document.getElementById('modal-product-modify-btn').addEventListener('click', modifyProduct3(productId));
+<<<<<<< HEAD
+  document
+    .getElementById('modal-product-modify-btn')
+    .addEventListener('click', modifyProduct3(productId));
   document.getElementById('modal-cancel-btn').addEventListener('click', (e) => {
+=======
+  document.getElementById('modal-product-modify-btn').addEventListener('click', modifyProduct3(productId));
+  document.getElementById('modify-product-cancel-btn').addEventListener('click', (e) => {
+>>>>>>> fd8dc160086fe1e33dac9d6788fd8a02564bcf7c
     e.preventDefault();
-    modifyModalWrapper.style.display = "none";
-  })
+    modifyModalWrapper.style.display = 'none';
+  });
 }
 // input 값에 현재 데이터 정보 채워넣는 함수
-async function modifyProduct2(productId){
-  const data = await fetch(`http://localhost:8000/api/products/id/${productId}`).then((res) => res.json());
+async function modifyProduct2(productId) {
+  const data = await fetch(
+    `http://localhost:8000/api/products/id/${productId}`,
+  ).then((res) => res.json());
 
   const name = document.querySelector('#product-modify-modal-nameInput');
-  const quantity = document.querySelector('#product-modify-modal-quantityInput');
-  const manufacture = document.querySelector('#product-modify-modal-manufactureInput');
+  const quantity = document.querySelector(
+    '#product-modify-modal-quantityInput',
+  );
+  const manufacture = document.querySelector(
+    '#product-modify-modal-manufactureInput',
+  );
   const price = document.querySelector('#product-modify-modal-priceInput');
   const content = document.querySelector('#product-modify-modal-contentInput');
-  const category = document.querySelector('#product-modify-modal-categoryInput');
+  const category = document.querySelector(
+    '#product-modify-modal-categoryInput',
+  );
 
   const inputArray = [name, quantity, manufacture, price, content, category];
-  inputArray.forEach((prop) => {prop.value = data.prop});
+  inputArray.forEach((prop) => {
+    prop.value = data.prop;
+  });
 }
 
 // PATCH로 상품수정 요청하는 함수
 async function modifyProduct3(productId) {
   const nameInput = document.querySelector('#product-modify-modal-nameInput');
-  const quantityInput = document.querySelector('#product-modify-modal-quantityInput');
-  const manufactureInput = document.querySelector('#product-modify-modal-manufactureInput');
+  const quantityInput = document.querySelector(
+    '#product-modify-modal-quantityInput',
+  );
+  const manufactureInput = document.querySelector(
+    '#product-modify-modal-manufactureInput',
+  );
   const priceInput = document.querySelector('#product-modify-modal-priceInput');
-  const contentInput = document.querySelector('#product-modify-modal-contentInput');
-  const categoryInput = document.querySelector('#product-modify-modal-categoryInput');
+  const contentInput = document.querySelector(
+    '#product-modify-modal-contentInput',
+  );
+  const categoryInput = document.querySelector(
+    '#product-modify-modal-categoryInput',
+  );
 
   // 입력값
   const name = nameInput.value;
@@ -158,20 +203,23 @@ async function modifyProduct3(productId) {
   const category = categoryInput.value;
 
   try {
-    const response = await fetch(`http://localhost:8000/api/products/id/${productId}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `http://localhost:8000/api/products/id/${productId}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          quantity: quantity * 1,
+          manufacture,
+          category,
+          price: price * 1,
+          content,
+        }),
       },
-      body: JSON.stringify({
-        name,
-        quantity: quantity * 1,
-        manufacture,
-        category,
-        price: price * 1,
-        content,
-      }),
-    });
+    );
     if (response.ok) {
       alert('수정 성공');
     } else {
@@ -180,7 +228,6 @@ async function modifyProduct3(productId) {
   } catch (error) {
     console.error('상품 수정 실패:', error);
   }
-
 }
 
 // 상품 추가
@@ -199,11 +246,13 @@ async function loadModal() {
     `;
   });
 
-  document.getElementById('modal-product-add-btn').addEventListener('click', addProduct);
+  document
+    .getElementById('modal-product-add-btn')
+    .addEventListener('click', addProduct);
   document.getElementById('modal-cancel-btn').addEventListener('click', (e) => {
     e.preventDefault();
-    modalWrapper.style.display = "none";
-  })  
+    modalWrapper.style.display = 'none';
+  });
 }
 
 async function addProduct(e) {
@@ -252,34 +301,57 @@ async function addProduct(e) {
 // ****************************************************************************************
 //* 주문관리 js로직
 
-
 // ****************************************************************************************
 //* 카테고리 관리 js로직
 
 // 카테고리 조회
 async function getCategoryList() {
+<<<<<<< HEAD
+  const categoryData = await fetch('http://localhost:8000/api/categories').then(
+    (res) => res.json(),
+  );
+  const categoryListContainer = document.querySelector(
+    '#category-menu-content',
+  );
+  for (let i = 0; i < categoryData.length; i++) {
+    const element = `<div class="category-list-content">
+  <div class="category-id">${categoryData[i].id}</div>
+=======
   const categoryData = await fetch(
     'http://localhost:8000/api/categories').then((res) => res.json());
   const categoryListContainer = document.querySelector('#category-menu-content');
   for(let i= 0; i < categoryData.length; i++){
     const element = 
   `<div class="category-list-content">
-  <div class="category-id">${categoryData[i].id}</div>
+  <div class="category-id">${categoryData[i]._id}</div>
+>>>>>>> fd8dc160086fe1e33dac9d6788fd8a02564bcf7c
   <div class="category-name">${categoryData[i].name}</div>
   <div class-"category-quantity">${categoryData[i].quantity}</div>
   <div class="category-btns">
-    <button id="category-delete-btn-${categoryData[i].id}">삭제</button>
-    <button id="category-modify-btn">수정</button>
+    <button id="category-delete-btn-${categoryData[i]._id}">삭제</button>
+    <button id="category-modify-btn-${categoryData[i]._id}">수정</button>
   </div>
   </div>`;
     categoryListContainer.insertAdjacentHTML('beforeend', element);
-    const deleteBtn = document.querySelector(`#category-delete-btn-${categoryData[i].id}`);
+<<<<<<< HEAD
+    const deleteBtn = document.querySelector(
+      `#category-delete-btn-${categoryData[i].id}`,
+    );
+=======
+
+    const deleteBtn = document.querySelector(`#category-delete-btn-${categoryData[i]._id}`);
+>>>>>>> fd8dc160086fe1e33dac9d6788fd8a02564bcf7c
     deleteBtn.addEventListener('click', (e) => {
       const categoryId = e.target.id.split('-').pop(); // id 속성에서 categoryId 추출
       deleteCategory(categoryId);
     });
+    
+    const modifyBtn = document.querySelector(`#category-modify-btn-${categoryData[i]._id}`);
+    modifyBtn.addEventListener('click', (e) => {
+      const categoryId = e.target.id.split('-').pop(); // id 속성에서 categoryId 추출
+      modifyCategory(categoryId);
+    });
   }
-
 }
 // 카테고리 삭제 함수
 async function deleteCategory(categoryId) {
@@ -305,28 +377,40 @@ async function deleteCategory(categoryId) {
 }
 // 카테고리 추가 모달창 띄우기
 function loadCategoryModal() {
-  const categoryModalWrapper = document.getElementById('category-modal-wrapper');
+  const categoryModalWrapper = document.getElementById(
+    'category-modal-wrapper',
+  );
   categoryModalWrapper.style.display = 'flex';
-  document.getElementById('modal-category-add-btn').addEventListener('click', addCategory);
+<<<<<<< HEAD
+  document
+    .getElementById('modal-category-add-btn')
+    .addEventListener('click', addCategory);
   document.getElementById('modal-cancel-btn').addEventListener('click', (e) => {
+=======
+  document.getElementById('modal-category-add-btn').addEventListener('click', addCategory);
+  document.getElementById('category-add-cancel-btn').addEventListener('click', (e) => {
+>>>>>>> fd8dc160086fe1e33dac9d6788fd8a02564bcf7c
     e.preventDefault();
-    categoryModalWrapper.style.display = "none";
-  })
+    categoryModalWrapper.style.display = 'none';
+  });
 }
 // 카테고리 추가
-async function addCategory(e){
+async function addCategory(e) {
   e.preventDefault();
   const categoryNameInput = document.querySelector('#category-modal-nameInput');
   const name = categoryNameInput.value;
   // POST 요청으로 카테고리 추가
   try {
-    const response = await fetch('http://localhost:8000/api/categories/createCategory', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      'http://localhost:8000/api/categories/createCategory',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name }),
       },
-      body: JSON.stringify({ name }),
-    });
+    );
     if (response.ok) {
       alert('카테고리 추가 성공');
     } else {
@@ -336,3 +420,44 @@ async function addCategory(e){
     console.error('카테고리 추가 실패:', error);
   }
 }
+<<<<<<< HEAD
+=======
+// 카테고리 수정
+// 카테고리 수정 모달창 띄우기
+async function modifyCategory(categoryId) {
+  const categoryModalWrapper = document.getElementById('category-modify-modal-wrapper');
+  categoryModalWrapper.style.display = 'flex';
+
+  document.getElementById('modal-category-modify-btn').addEventListener('click', modifyCategory2(categoryId));
+  document.getElementById('category-modify-cancel-btn').addEventListener('click', (e) => {
+    e.preventDefault();
+    categoryModalWrapper.style.display = "none";
+  })
+  // 현재 카테고리 이름을 input값에 넣기
+  const categoryData = await fetch(
+    `http://localhost:8000/api/categories/id/${categoryId}`).then((res) => res.json());
+   document.querySelector('#modify-category-modal-nameInput').value = categoryData.name; 
+}
+
+// PATCH로 카테고리 수정 요청
+async function modifyCategory2(categoryId) {
+  const categoryName = document.querySelector('#modify-category-modal-nameInput');
+  const name = categoryName.value;
+  try {
+    const response = await fetch(`http://localhost:8000/api/categories/id/${categoryId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name }),
+    });
+    if (response.ok) {
+      alert('카테고리 수정 성공');
+    } else {
+      console.error('카테고리 수정 실패:', response.status);
+    }
+  } catch (error) {
+    console.error('카테고리 수정 실패:', error);
+  }
+}
+>>>>>>> fd8dc160086fe1e33dac9d6788fd8a02564bcf7c

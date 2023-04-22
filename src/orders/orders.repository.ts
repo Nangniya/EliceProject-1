@@ -10,6 +10,10 @@ export class OrdersRepository {
     @InjectModel(Order.name) private readonly orderModel: Model<Order>,
   ) {}
 
+  async getAllOrder() {
+    return await this.orderModel.find();
+  }
+
   async findOrderListByUserId(userId: string) {
     const orders = await this.orderModel.find({ userId });
     return orders;
@@ -25,7 +29,6 @@ export class OrdersRepository {
   }
 
   async updateDeliveryStatus(_id: string, deliveryStatus: string) {
-    console.log({ _id });
     const order = await this.orderModel.findById({ _id });
     order.deliveryStatus = deliveryStatus;
     return order.save();

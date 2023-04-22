@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { ApiBody, ApiOperation } from '@nestjs/swagger';
 import { OrdersService } from './orders.service';
 import { OrderRequestDto } from './dto/order.request.dto';
@@ -45,11 +53,14 @@ export class OrdersController {
   }
 
   @ApiOperation({ summary: '주문 취소 하기' })
-  @ApiBody({
-    type: orderIdDto,
-  })
-  @Delete()
-  async deleteOrder(@Body() body: orderIdDto) {
-    return await this.ordersService.deleteOrder(body);
+  @Delete('id/:id')
+  async deleteOrder(@Param('id') id: string) {
+    return await this.ordersService.deleteOrder(id);
+  }
+
+  @ApiOperation({ summary: '전체 주문 가져오기' })
+  @Get()
+  async getAllOrder() {
+    return await this.ordersService.getAllOrder();
   }
 }

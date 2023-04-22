@@ -42,8 +42,8 @@ export class OrdersService {
     );
   }
 
-  async deleteOrder(body: orderIdDto) {
-    const deletedOrder = await this.ordersRepository.deleteOrder(body.id);
+  async deleteOrder(id: string) {
+    const deletedOrder = await this.ordersRepository.deleteOrder(id);
     if (deletedOrder) {
       return deletedOrder;
     } else {
@@ -51,5 +51,9 @@ export class OrdersService {
         '해당 제품은 이미 삭제되 었거나, 존재하지 않습니다.',
       );
     }
+  }
+
+  async getAllOrder() {
+    return await this.ordersRepository.getAllOrder();
   }
 }
