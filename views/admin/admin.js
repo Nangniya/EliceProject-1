@@ -28,6 +28,11 @@ Array.from(navMenus).forEach((menuElem) => {
       const addCategoryBtn = document.getElementById('add-category-btn');
       addCategoryBtn.addEventListener('click', loadCategoryModal); //카테고리추가 버튼에 이벤트리스너 달기
     }
+
+    //주문관리 버튼인 경우
+    if (menuId === 'order') {
+      getOrderList(); //getCategoryList 함수 실행
+    }
   });
 });
 
@@ -62,25 +67,13 @@ async function getProductList() {
   </div>`;
     productListContainer.insertAdjacentHTML('beforeend', element);
     // 삭제 버튼에 이벤트 리스너 부여
-<<<<<<< HEAD
-    const deleteBtn = document.querySelector(
-      `#product-delete-btn-${productData[i]._id}`,
-    );
-=======
     const deleteBtn = document.querySelector(`#product-delete-btn-${productData[i]._id}`);
->>>>>>> fd8dc160086fe1e33dac9d6788fd8a02564bcf7c
     deleteBtn.addEventListener('click', (e) => {
       const productId = e.target.id.split('-').pop(); // id 속성에서 productId 추출
       deleteProduct(productId);
     });
     // 수정 버튼에 이벤트 리스너 부여
-<<<<<<< HEAD
-    const modifyBtn = document.querySelector(
-      `#product-modify-btn-${productData[i]._id}`,
-    );
-=======
     const modifyBtn = document.querySelector(`#product-modify-btn-${productData[i]._id}`);
->>>>>>> fd8dc160086fe1e33dac9d6788fd8a02564bcf7c
     modifyBtn.addEventListener('click', (e) => {
       const productId = e.target.id.split('-').pop(); // id 속성에서 productId 추출
       console.log(productId);
@@ -115,15 +108,8 @@ async function deleteProduct(productId) {
 // 상품 수정
 // 수정 버튼 클릭했을 때 상품 수정 모달창 띄우기
 async function modifyProduct(productId) {
-<<<<<<< HEAD
-  const modifyModalWrapper = document.getElementById(
-    'product-modify-modal-wrapper',
-  );
-  modifyModalWrapper.style.display = flex;
-=======
   const modifyModalWrapper = document.getElementById('product-modify-modal-wrapper');
   modifyModalWrapper.style.display = 'flex';
->>>>>>> fd8dc160086fe1e33dac9d6788fd8a02564bcf7c
   // 카테고리값 받아와서 select의 option 값으로 넣기
   const modalCategory = document.querySelector(
     '#product-modify-modal-categoryInput',
@@ -139,15 +125,8 @@ async function modifyProduct(productId) {
 
   modifyProduct2(productId); // input 값에 현재 데이터 정보 채워넣기
 
-<<<<<<< HEAD
-  document
-    .getElementById('modal-product-modify-btn')
-    .addEventListener('click', modifyProduct3(productId));
-  document.getElementById('modal-cancel-btn').addEventListener('click', (e) => {
-=======
   document.getElementById('modal-product-modify-btn').addEventListener('click', modifyProduct3(productId));
   document.getElementById('modify-product-cancel-btn').addEventListener('click', (e) => {
->>>>>>> fd8dc160086fe1e33dac9d6788fd8a02564bcf7c
     e.preventDefault();
     modifyModalWrapper.style.display = 'none';
   });
@@ -301,22 +280,53 @@ async function addProduct(e) {
 // ****************************************************************************************
 //* 주문관리 js로직
 
+// 전체 주문 조회
+async function getOrderList() {
+  const orderData = await fetch('http://localhost:8000/api/orders').then((res) => res.json());
+  const orderListContainer = document.querySelector('#order-menu-content');
+  for(let i = 0; i < orderData.length; i++){
+    console.log(orderData[i]);
+    const element = `<div class="order-list-content">
+  <div class="order-id">${orderData[i]._id}</div>
+  <div class="order-date">${orderData[i].updatedAt.slice(0,7)}</div>
+  <div class="order-receiver">${orderData[i].receiver}</div>
+  <div class-"order-message">${orderData[i].deliveryMessage}</div>
+  <div class-"order-address">${orderData[i].address}</div>
+  <div class-"order-status">${orderData[i].deliveryStatus}</div>
+    <button id="order-delete-btn-${orderData[i]._id}">삭제</button>
+  </div>`;
+    orderListContainer.insertAdjacentHTML('beforeend', element);
+    const deleteBtn = document.querySelector(`#order-delete-btn-${orderData[i]._id}`);
+    deleteBtn.addEventListener('click', () => deleteOrder(orderData[i]._id));
+  }
+}
+// 주문 삭제
+async function deleteOrder(orderId){
+  try {
+    const response = await fetch(`http://localhost:8000/api/orders/id/${orderId}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      },
+    );
+
+    if (response.ok) {
+      alert('주문 삭제 완료');
+    } else {
+      console.error('주문 삭제 실패:', response.status);
+    }
+  } catch (error) {
+    console.error('주문 삭제 실패:', error);
+  }
+}
+
 // ****************************************************************************************
 //* 카테고리 관리 js로직
 
 // 카테고리 조회
 async function getCategoryList() {
-<<<<<<< HEAD
-  const categoryData = await fetch('http://localhost:8000/api/categories').then(
-    (res) => res.json(),
-  );
-  const categoryListContainer = document.querySelector(
-    '#category-menu-content',
-  );
-  for (let i = 0; i < categoryData.length; i++) {
-    const element = `<div class="category-list-content">
-  <div class="category-id">${categoryData[i].id}</div>
-=======
   const categoryData = await fetch(
     'http://localhost:8000/api/categories').then((res) => res.json());
   const categoryListContainer = document.querySelector('#category-menu-content');
@@ -324,7 +334,6 @@ async function getCategoryList() {
     const element = 
   `<div class="category-list-content">
   <div class="category-id">${categoryData[i]._id}</div>
->>>>>>> fd8dc160086fe1e33dac9d6788fd8a02564bcf7c
   <div class="category-name">${categoryData[i].name}</div>
   <div class-"category-quantity">${categoryData[i].quantity}</div>
   <div class="category-btns">
@@ -333,14 +342,8 @@ async function getCategoryList() {
   </div>
   </div>`;
     categoryListContainer.insertAdjacentHTML('beforeend', element);
-<<<<<<< HEAD
-    const deleteBtn = document.querySelector(
-      `#category-delete-btn-${categoryData[i].id}`,
-    );
-=======
 
     const deleteBtn = document.querySelector(`#category-delete-btn-${categoryData[i]._id}`);
->>>>>>> fd8dc160086fe1e33dac9d6788fd8a02564bcf7c
     deleteBtn.addEventListener('click', (e) => {
       const categoryId = e.target.id.split('-').pop(); // id 속성에서 categoryId 추출
       deleteCategory(categoryId);
@@ -381,15 +384,8 @@ function loadCategoryModal() {
     'category-modal-wrapper',
   );
   categoryModalWrapper.style.display = 'flex';
-<<<<<<< HEAD
-  document
-    .getElementById('modal-category-add-btn')
-    .addEventListener('click', addCategory);
-  document.getElementById('modal-cancel-btn').addEventListener('click', (e) => {
-=======
   document.getElementById('modal-category-add-btn').addEventListener('click', addCategory);
   document.getElementById('category-add-cancel-btn').addEventListener('click', (e) => {
->>>>>>> fd8dc160086fe1e33dac9d6788fd8a02564bcf7c
     e.preventDefault();
     categoryModalWrapper.style.display = 'none';
   });
@@ -420,8 +416,6 @@ async function addCategory(e) {
     console.error('카테고리 추가 실패:', error);
   }
 }
-<<<<<<< HEAD
-=======
 // 카테고리 수정
 // 카테고리 수정 모달창 띄우기
 async function modifyCategory(categoryId) {
@@ -460,4 +454,3 @@ async function modifyCategory2(categoryId) {
     console.error('카테고리 수정 실패:', error);
   }
 }
->>>>>>> fd8dc160086fe1e33dac9d6788fd8a02564bcf7c

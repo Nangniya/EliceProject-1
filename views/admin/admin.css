@@ -243,3 +243,27 @@ section#menu-content-wrapper {
   font-size: 15px;
   width: 100%;
 }
+/*주문관리 표*/
+.order-table-title-wrapper {
+  grid-column: 1 / 8;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 60px;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: bold;
+  border-bottom: solid 2px #7b6958;
+}
+.order-table-title {
+  border-right: solid 2px #978676;
+}
+.order-list-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 60px;
+  vertical-align: middle;
+  border-bottom: solid 2px #7b6958;
+}
+.order-list-content > div {
+  padding: 5px;
+}
