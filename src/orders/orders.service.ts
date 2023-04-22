@@ -42,8 +42,8 @@ export class OrdersService {
     );
   }
 
-  async deleteOrder(body: orderIdDto) {
-    const deletedOrder = await this.ordersRepository.deleteOrder(body.id);
+  async deleteOrder(id: string) {
+    const deletedOrder = await this.ordersRepository.deleteOrder(id);
     if (deletedOrder) {
       return deletedOrder;
     } else {
