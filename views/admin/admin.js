@@ -84,6 +84,7 @@ async function getProductList() {
 // 상품 삭제
 // 삭제 버튼 클릭했을 때 상품 삭제시키는 함수
 async function deleteProduct(productId) {
+ if(confirm('상품을 삭제하시겠습니까?')){
   try {
     const response = await fetch(
       `http://localhost:8000/api/products/id/${productId}`,
@@ -104,7 +105,7 @@ async function deleteProduct(productId) {
     console.error('상품 삭제 실패:', error);
   }
 }
-
+}
 // 상품 수정
 // 수정 버튼 클릭했을 때 상품 수정 모달창 띄우기
 async function modifyProduct(productId) {
@@ -315,28 +316,31 @@ async function getOrderList() {
   }
 }  
 async function deleteOrder(orderId){
-  try {
-    const response = await fetch(`http://localhost:8000/api/orders/id/${orderId}`,
-      {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      },
-    );
-
-    if (response.ok) {
-      alert('주문 삭제 완료');
-    } else {
-      console.error('주문 삭제 실패:', response.status);
+  if(confirm('주문을 삭제하시겠습니까?')){
+    try {
+      const response = await fetch(`http://localhost:8000/api/orders/id/${orderId}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        },
+      );
+  
+      if (response.ok) {
+        alert('주문 삭제 완료');
+      } else {
+        console.error('주문 삭제 실패:', response.status);
+      }
+    } catch (error) {
+      console.error('주문 삭제 실패:', error);
     }
-  } catch (error) {
-    console.error('주문 삭제 실패:', error);
   }
 }
 
 // 주문 수정
 async function modifyOrder(orderId) {
+  console.log(orderId);
   const orderStatus = document.getElementById(`order-status-${orderId}`);
   const deliveryStatus = orderStatus.value;
   try {
@@ -393,6 +397,7 @@ async function getCategoryList() {
 }
 // 카테고리 삭제 함수
 async function deleteCategory(categoryId) {
+  if(confirm('카테고리를 삭제하시겠습니까?')){
   try {
     const response = await fetch(
       `http://localhost:8000/api/categories/id/${categoryId}`,
@@ -412,6 +417,7 @@ async function deleteCategory(categoryId) {
   } catch (error) {
     console.error('카테고리 삭제 실패:', error);
   }
+}
 }
 // 카테고리 추가 모달창 띄우기
 function loadCategoryModal() {
