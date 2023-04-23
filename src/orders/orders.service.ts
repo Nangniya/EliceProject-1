@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { OrdersRepository } from './orders.repository';
 import { OrderRequestDto } from './dto/order.request.dto';
-import { deliveryStatusDto, orderIdDto } from './dto/order.dto';
+import { deliveryStatusDto } from './dto/order.dto';
 
 @Injectable()
 export class OrdersService {
@@ -36,10 +36,15 @@ export class OrdersService {
     }
   }
   async updateDeliveryStatus(body: deliveryStatusDto) {
-    return await this.ordersRepository.updateDeliveryStatus(
+    const order = await this.ordersRepository.updateDeliveryStatus(
       body.id,
       body.deliveryStatus,
     );
+    if (order) {
+      return order;
+    } else {
+      throw new UnauthorizedException('해당하는 주문이 없습니다.');
+    }
   }
 
   async deleteOrder(id: string) {

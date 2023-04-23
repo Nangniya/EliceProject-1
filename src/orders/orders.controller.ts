@@ -47,7 +47,7 @@ export class OrdersController {
   @ApiBody({
     type: deliveryStatusDto,
   })
-  @Patch()
+  @Patch('delivery')
   async updateDeliveryStatus(@Body() body: deliveryStatusDto) {
     return await this.ordersService.updateDeliveryStatus(body);
   }
