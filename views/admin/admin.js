@@ -65,7 +65,8 @@ async function getProductList() {
   </div>
   </div>`;
     productListContainer.insertAdjacentHTML('beforeend', element);
-    if (!productData[i].image) {
+    console.log(productData[i].imgUrl.length);
+    if (!productData[i].imgUrl.length) {
       const imageBox = document.querySelector(
         `#product-image-${productData[i]._id}`,
       );
@@ -75,7 +76,8 @@ async function getProductList() {
       const imageBox = document.querySelector(
         `#product-image-${productData[i]._id}`,
       );
-      imageBox.innerHTML = `<img src=${productData[i].image} alt="${productData[i].name} 사진" width="70"/>`;
+      console.log(productData[i].imgUrl[0]);
+      imageBox.innerHTML = `<img src=${productData[i].imgUrl[0]} alt="${productData[i].name} 사진" width="70"/>`;
     }
     // 삭제 버튼에 이벤트 리스너 부여
     const deleteBtn = document.querySelector(

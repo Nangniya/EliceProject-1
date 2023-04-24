@@ -4,9 +4,11 @@ import { ValidationPipe } from '@nestjs/common';
 import { HttpExceptionFilter } from 'src/common/exception/http-exception.filter';
 import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
 import * as expressBasicAuth from 'express-basic-auth';
+import * as path from 'path';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.setGlobalPrefix('api');
 
   app.useGlobalPipes(new ValidationPipe());
@@ -30,6 +32,10 @@ async function bootstrap() {
     .build();
   const document: OpenAPIObject = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
+
+  app.useStaticAssets(path.join(__dirname, './common', 'uploads'), {
+    prefix: '/media',
+  });
 
   app.enableCors({
     origin: true,

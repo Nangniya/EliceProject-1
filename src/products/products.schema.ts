@@ -104,6 +104,14 @@ export class Products extends Document {
   @IsNumber()
   @IsNotEmpty()
   reviewCNT: number;
+
+  @ApiProperty({
+    example: 'img url',
+  })
+  @Prop({
+    default: [],
+  })
+  imgUrl: string[];
 }
 
 export const ProductsSchema = SchemaFactory.createForClass(Products);
@@ -119,5 +127,6 @@ ProductsSchema.virtual('readOnlyData').get(function (this: Products) {
     content: this.content,
     review: this.review,
     reviewCnt: this.reviewCNT,
+    imgUrl: this.imgUrl,
   };
 });
