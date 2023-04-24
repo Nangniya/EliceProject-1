@@ -10,9 +10,13 @@ btnOrderCancel.addEventListener('click', function() {
 });
 
 btnOrderConfirm.addEventListener('click', function() {
-    alert('주문이 완료되었습니다.');
-    window.location.href = "./orderConfirm.html";
-});
+
+    const confirmMsg = "결제하시겠습니까?";
+
+    if (confirm (confirmMsg)) {
+        alert('주문이 완료되었습니다.');
+        window.location.href = "./orderConfirm.html";
+    }});
 
 btnMoveCart.addEventListener('click', function() {
     //장바구니로 돌아가기
@@ -24,6 +28,8 @@ btnAddressInfo.addEventListener('click', function() {
     window.open("/delivery/addressInfo.html"
     , "addressInfo", "top=250, left=400, width=750, height=500, toolbar=no, menubar=no, scrollbars=yes, resizeable=no");
 });
+
+
 
 
 
