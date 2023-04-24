@@ -2,35 +2,53 @@ const serchbtn = document.querySelector('#search');
 const basketbtn = document.querySelector('#basket');
 const loginbtn = document.querySelector('#login');
 const mypage = document.querySelector('#mypage');
-const categorybtn = document.querySelector('#categorybtn');
 const category = document.querySelector('#myCategory');
 
-categorybtn.addEventListener('click', function () {
+if (localStorage.getItem('token')) {
+  console.log('있다');
+} else console.log('없다');
+
+window.onload = function () {
   category.classList.toggle('show');
   fetch('/api/categories')
     .then((response) => response.json())
     .then((data) => {
       var itemsHtml = '';
-      console.log(data);
+      for (var i = 0; i < data.length; i++) {
+        itemsHtml += `
+        <button type="button" class="btn btn-warning category-title">${data[i].name}</button>
+          `;
+      }
+
+      document.querySelector('.items').innerHTML += itemsHtml;
+    })
+    .catch((error) => console.error(error));
+
+  fetch('/api/products/recent')
+    .then((response) => response.json())
+    .then((data) => {
+      var itemsHtml = '';
       for (var i = 0; i < data.length; i++) {
         itemsHtml += `<button class="category-item">${data[i].name}</button>
           `;
       }
 
-      document.querySelector('.items').innerHTML = itemsHtml;
-    })
-    .catch((error) => console.error(error));
-});
+      document.querySelector('.new-item-conatiner').innerHTML = itemsHtml;
+    });
 
-// async function serchItem() {
-//   let response = await fetch('/api/categories')
-//     .then((response) => response.json())
-//     .then((json) => console.log(json))
-//     .catch((error) => console.log(error));
+  fetch('/api/products')
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      var itemsHtml = '';
+      for (var i = 0; i < data.length; i++) {
+        itemsHtml += `<div>
+            <p>상품명 : ${data[i].name}<p>
+            <p>가격 : ${data[i].price}<p>
+            </div>
+          `;
+      }
 
-//   if (response.status === 200) {
-//     let data = await response.text();
-//     // handle data
-//   }
-// }
-// serchbtn.addEventListener('click', serchItem);
+      document.querySelector('.best-item-conatiner').innerHTML = itemsHtml;
+    });
+};
