@@ -336,12 +336,12 @@ async function modifyOrder(orderId) {
   const orderStatus = document.getElementById(`order-status-${orderId}`);
   const deliveryStatus = orderStatus.value;
   try {
-    const response = await fetch('http://localhost:8000/api/orders', {
+    const response = await fetch(`http://localhost:8000/api/orders/delivery/${orderId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ deliveryStatus, _id: orderId }),
+      body: JSON.stringify({ deliveryStatus }),
     });
     if (response.ok) {
       alert('주문 수정 성공');
