@@ -39,7 +39,41 @@ fetch('/api/categories')
     }
 
     document.querySelector('.items').innerHTML += itemsHtml;
+
+    function handleButtonClick(event) {
+      // console.log(event.target.innerText);
+      let testhtml = '';
+      fetch('/api/products')
+        .then((response) => response.json())
+        .then((data) => {
+          for (let i = 0; i < data.length; i++) {
+            // console.log(data[i].category);
+            if (event.target.innerText == data[i].category) {
+              testhtml += `<div>
+              <p class="item-title">상품명 : ${data[i].name}<p>
+              <p class="item-price">가격 : ${data[i].price}<p>
+              </div>
+            `;
+            }
+          }
+
+          document.querySelector('.test').innerHTML = testhtml;
+          // var itemsHtml = '';
+          // for (var i = 0; i < data.length; i++) {
+          //   itemsHtml += `<div>
+          //   <p class="item-title">상품명 : ${data[i].name}<p>
+          //   <p class="item-price">가격 : ${data[i].price}<p>
+          //   </div>
+          // `;
+          // }
+          // document.querySelector('.best-item-conatiner').innerHTML = itemsHtml;
+        });
+    }
+    document.querySelectorAll('.category_title').forEach((button) => {
+      button.addEventListener('click', handleButtonClick);
+    });
   })
+
   .catch((error) => console.error(error));
 
 fetch('/api/products/recent')
@@ -53,7 +87,6 @@ fetch('/api/products/recent')
             </div>
           `;
     }
-
     document.querySelector('.new-item-conatiner').innerHTML = itemsHtml;
   });
 
@@ -69,14 +102,5 @@ fetch('/api/products')
             </div>
           `;
     }
-
     document.querySelector('.best-item-conatiner').innerHTML = itemsHtml;
   });
-
-function handleButtonClick(event) {
-  console.log('asdf');
-}
-
-document.querySelectorAll('.category_title').forEach((button) => {
-  button.addEventListener('click', handleButtonClick);
-});
