@@ -73,16 +73,27 @@ body {
   display: flex;
   justify-content: center;
 }
+.category_title {
+  margin: 15px;
+}
 
-.category-title {
-  width: 10%;
-
-  white-space: nowrap;
-  margin: 10px;
+.best-item-conatiner,
+.new-item-conatiner {
+  display: flex;
 }
 
 .best-item-conatiner > div {
   width: 200px;
   height: 200px;
-  overflow: hidden;
+}
+.new-item-conatiner > div {
+  width: 200px;
+  height: 200px;
+}
+
+.item-title {
+  color: blueviolet;
+}
+.item-price {
+  color: darkcyan;
 }
