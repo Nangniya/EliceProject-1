@@ -116,7 +116,7 @@ async function uploadImg(productId) {
     reader.readAsDataURL(file);
   })
   const submitBtn = document.getElementById('img-submit-btn');
-  submitBtn.addEventListener('click', () => { uploadImg2(productId) });
+  submitBtn.addEventListener('click', () => { uploadImg2(productId); });
   const cancelBtn = document.getElementById('img-cancle-btn');
   cancelBtn.addEventListener('click', () => imgUploadForm.style.display = 'none');
 }
@@ -135,7 +135,7 @@ async function uploadImg2(productId) {
       headers: {
         'Content-Type': 'multipart/form-data' 
       },
-      body: formData
+      body: {image: formData}
     });
 
     if (response.ok) {
