@@ -126,7 +126,7 @@ async function uploadImg2(productId) {
   console.log(productId);
   // FormData 객체 생성
   const formData = new FormData();
-  formData.append('file', imgUpload.files[0]);
+  formData.append('image', imgUpload.files[0]);
 
   try {
     // POST 요청 보내기
@@ -135,7 +135,7 @@ async function uploadImg2(productId) {
       headers: {
         'Content-Type': 'multipart/form-data' 
       },
-      body: {image: formData}
+      body: formData
     });
 
     if (response.ok) {
