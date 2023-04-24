@@ -137,24 +137,22 @@ async function modifyProduct2(productId) {
   const data = await fetch(
     `http://localhost:8000/api/products/id/${productId}`,
   ).then((res) => res.json());
-
+  console.log(data);
+  // input 태그들
   const name = document.querySelector('#product-modify-modal-nameInput');
-  const quantity = document.querySelector(
-    '#product-modify-modal-quantityInput',
-  );
-  const manufacture = document.querySelector(
-    '#product-modify-modal-manufactureInput',
-  );
+  const quantity = document.querySelector('#product-modify-modal-quantityInput');
+  const manufacture = document.querySelector('#product-modify-modal-manufactureInput');
   const price = document.querySelector('#product-modify-modal-priceInput');
   const content = document.querySelector('#product-modify-modal-contentInput');
-  const category = document.querySelector(
-    '#product-modify-modal-categoryInput',
-  );
+  const category = document.querySelector('#product-modify-modal-categoryInput');
 
-  const inputArray = [name, quantity, manufacture, price, content, category];
-  inputArray.forEach((prop) => {
-    prop.value = data.prop;
-  });
+  name.value = data.name;
+  quantity.value = data.quantity;
+  manufacture.value = data.manufacture;
+  price.value = data.price;
+  content.value = data.content;
+  category.value = data.category;
+
 }
 
 // PATCH로 상품수정 요청하는 함수
@@ -294,14 +292,14 @@ async function getOrderList() {
   <div class-"order-message">${orderData[i].deliveryMessage}</div>
   <div class-"order-address">${orderData[i].address}</div>
   <div class-"order-status">
-    <select id='order-status-${orderData[i]._id}'>
+    <select class="order-status-selector" id='order-status-${orderData[i]._id}'>
       <option>주문 진행 중</option>
       <option>배송 준비 중</option>
       <option>배송 중</option>
       <option>배송 완료</option>
     </select>
   </div>
-    <button id="order-delete-btn-${orderData[i]._id}">삭제</button>
+    <button class="order-delete-btn" id="order-delete-btn-${orderData[i]._id}">삭제</button>
   </div>`;
     orderListContainer.insertAdjacentHTML('beforeend', element);
 
