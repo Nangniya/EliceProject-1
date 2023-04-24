@@ -1,226 +1,143 @@
-@font-face {
-    font-family: "MaruBuri-Regular";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/MaruBuri-Regular.woff");
-    font-weight: normal;
-    font-style: normal;
-  }
-  body {
-    font-family: "MaruBuri-Regular";
+* {
     margin: 0;
     padding: 0;
-    background: #dcc4ad;
-  }
-/* 장바구니 */
-.cart{
-    text-align: center;
-    color: #834d1a;
-   
-}
-/* 수량 입력하는 칸 */
-.orderform .p_num {  
-    text-align: center;
-    width: 30px;
-    font-size: 0.9em;
-}
-/* title이랑 장바구니 목록 구분하는 선 */
-.basketdiv {
-    width: 100%;
-    float: left;
-    font-size: 0.9375em;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #834d1a;
-}
-    .basketdiv .row.head {
-        border-bottom: 3px solid #834d1a;
-        box-sizing: border-box;
-        background-color: #f4f4f4;
-        font-weight: 500;
-    }
-    /* data 목록들 나누는 선 */
-    .basketdiv .data {
-        border-bottom: 1px solid #834d1a;
-        box-sizing: border-box;
-        cursor: pointer;
-        float: left;
-        width: 100%;
-    }
-    .basketdiv .data .empty{
-        text-align: center;
-        padding: 12px 0;
-    }
-    .basketdiv .row.head .subdiv {
-        background-color: dcc4ad;
-    }
-    .basketdiv .row > .subdiv {
-        display: block;
-        float: left;
-    }
-    .basketdiv .row > .subdiv:nth-child(1) {
-        width: 50%;
-    }
-    .basketdiv .row > .subdiv:nth-child(2) {
-        width: 40%;
-    }
-    .basketdiv .row > .subdiv:nth-child(3) {
-        width: 10%;
-    }
-    .basketdiv2 .row > .subdiv:nth-child(1) {
-        width: 60%;
-    }
-    .basketdiv2 .row > .subdiv:nth-child(2) {
-        width: 40%;
-    }
-    .basketdiv .row > div > div {
-        display: block;
-        float: left;
-        text-align: center;
-        margin: 0;
-        padding: 12px 0;
-    }
-    .basketdiv .row.data > div > div {
-        height: 60px;
-        line-height: 60px;
-    }
-        /* up, down 버튼 */
-        .basketdiv .data .num .updown {
-            color: #c1956c;
-            font-size: 1.8em;
-            letter-spacing: -4px;
-        }
-        /* 체크박스 */
-        .basketdiv .check {
-            width: 10%;
-        }
-    .basketdiv .check input[type=checkbox] {
-        transform: scale(1.3);
-    }
-    .basketdiv .img{
-        width: 20%;
-    }
-    .basketdiv .pname{
-        width: 70%;
-    }
-    .basketdiv2 .pname {
-        width: 80%;
-    }
-    .basketdiv .basketprice {
-        width: 33%;
-    }
-    .basketdiv .num {
-        width: 50%;
-      min-width: 155px;
-    }
-    .basketdiv .sum {
-        width: 33%;
-      max-width: 70px;
-        color: #2c1703;
-    }
-    .basketdiv .point {
-        width: 50%;
-    }
-    .basketdiv2 .basketprice {
-        width: 25%;
-    }
-
-    .basketdiv2 .num {
-        width: 25%;
-    }
-
-    .basketdiv2 .sum {
-        width: 25%;
-        color: #0000aa;
-    }
-
-    .basketdiv2 .point {
-        width: 25%;
-    }
-    .basketdiv .basketcmd{
-        width: 100%;
-    }
-    .basketdiv .data .pname {
-        text-align: left !important;
-      line-height: 1.2 !important;
-    }
-    .basketdiv .data .price, .basketdiv .data .sum, .basketdiv .data .point {
-        text-align: right;
-    }
-    .baseform > tbody > tr > td:first-child {
-        width: 100px;
-    }
-
-.buttongroup {
-    padding: 11px 0;
-    margin: 50px 0;
-}
-.narrowbuttongroup{
-    margin: 15px 0;
-}
-    .buttongroup.center {
-        text-align: right;
-    }
-    .buttongroup input[type=text], .buttongroup input[type=password] {
-        height: 30px;
-    }
-    .buttongroup button, .buttongroup a {
-        margin-right: 5px;
-    }
-        .buttongroup button:last-child, .buttongroup a:last-child {
-            margin-right: 0;
-        }
-        /* 삭제 버튼 */
-    .abutton, .abutton:link, .abutton:visited, .abutton:active, input[type=button] {
-        background-color: #96581e;
-    
-        color: #ffffff;
-        cursor: pointer;
-        letter-spacing: -1px;
-        padding: 3px 5px;
-        margin: 2px 3px;
-        width: auto;
-        word-break: keep-all;
-        border-radius: 5px;
-        text-decoration: none;
-        font-size: 0.9375em;
-    }
-
-.abutton-alt {
-    color: #96581e;
-}
-
-.red {
-    color:#b00;
-}
-.beige {
-  color: #96581e;
-}
-.basketrowcmd, .sumcount, .summoney{
-  text-align: right;
-  margin-bottom: 10px;
-}
-.sumcount, .summoney{
-  font-size: 1.25em;
-    font-weight: bold;
-}
-.buttongroup{
-  text-align: center;
-}
-.buttongroup a{
-  text-decoration: none;
-}
-.cmd a, .cmd span {
-    padding: 12px 30px;
     box-sizing: border-box;
-    margin-top: 10px;
-    font-size: 1.2em;
-    color: whitesmoke;
-    background-color: #a0764f;
+  }
+  
+  body {
+    height: 200vh;
+    position: relative;
+    background-color: #dcc4ad;
+    /* background-color: #43514e; */
+  }
+  
+  .cart-container {
+    padding-top: 100px;
+    width: 70%;
+    margin: 0 auto;
+  }
+  
+  /* main { */
+  /* width: 80%; */
+  /* margin: 60px 20px 80px 20px; */
+  /* padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; */
+  /*  */
+  
+  .cart {
     text-align: center;
-}
-.cmd.small a, .cmd.small span {
-    padding: 6px 20px;
-    font-size: 0.8125em;
-}
-
-.clear-btn-container{
-    align-items: right;
-}
+    font-size: 20px;
+    padding-bottom: 10px;
+    
+    border-bottom: solid rgba(138, 73, 55, 0.603);
+  }
+  
+  .cart h2 {
+    color: rgba(138, 73, 55, 0.603);
+    font-weight: 900;
+  }
+  
+  .buttons-container {
+    margin-top: 10px;
+  }
+  
+  .all-item-delete-btn {
+    width: 110px;
+    height: 25px;
+    /* text-align: center; */
+    background-color: rgba(138, 73, 55, 0.603);
+    border-radius: 10px;
+    color: white;
+    font-size: 13px;
+    font-weight: 800;
+    border: none;
+  }
+  
+  #cart-item-list {
+    list-style: none;
+    margin: 30px;
+    font-weight: 800;
+    text-align: center;
+    font-size: 15px;
+  }
+  
+  .cart-item {
+    padding: 30px;
+    font-size: 15px;
+    display: flex;
+    padding: 20px 0;
+    border-bottom: 0.5px solid rgba(138, 73, 55, 0.603);
+  }
+  
+  .cart-item-column {
+    position: relative;
+  }
+  
+  .item-info-left {
+    width: 50%;
+    margin-left: 20px;
+    text-align: left;
+  }
+  
+  .work-name,
+  .work-price {
+    font-weight: 700;
+    margin: 0;
+  }
+  
+  .item-info-right {
+    width: 25%;
+    text-align: right;
+  }
+  
+  .item-delete-btn {
+    border: 0;
+    background-color: transparent;
+    color: rgba(138, 73, 55, 0.603);
+    /* border-bottom: 0.3px solid #515e5c; */
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+  
+  .buttons-container {
+    display: flex;
+    justify-content: end;
+  }
+  
+  .cart-total {
+    margin: 10px 0;
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    color: rgba(138, 73, 55, 0.603);
+  }
+  
+  .cart-img {
+    width: 150px;
+  }
+  
+  .cart-total-price {
+    display: inline-block;
+    text-align: right;
+  }
+  
+  .all-item-order-btn {
+    width: 100%;
+    background-color: rgba(138, 73, 55, 0.603);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    margin: 20px 0;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 15px 0;
+    text-align: center;
+  }
+  

@@ -1,144 +1,128 @@
-<<<<<<< HEAD
-let basket = {
-  totalCount: 0,
-  totalPrice: 0,
-  //체크한 장바구니 상품 비우기
+// import { addCommas } from "/useful-functions.js";
 
-  delCheckedItem: function () {
-    document
-      .querySelectorAll('input[name=buy]:checked')
-      .forEach(function (item) {
-        item.parentElement.parentElement.parentElement.remove();
-      });
-    //AJAX 서버 업데이트 전송
+let cartItemList = document.querySelector('#cart-item-list');
+let cartList = JSON.parse(localStorage.getItem('cart'));
 
-    //전송 처리 결과가 성공이면
-    this.reCalc();
-    this.updateUI();
-  },
-  //장바구니 전체 비우기
-  delAllItem: function () {
-    document.querySelectorAll('.row.data').forEach(function (item) {
-      item.remove();
-    });
-
-    //AJAX 서버 업데이트 전송
-
-    //전송 처리 결과가 성공이면
-    this.totalCount = 0;
-    this.totalPrice = 0;
-    this.reCalc();
-    this.updateUI();
-  },
-  //재계산
-  reCalc: function () {
-    this.totalCount = 0;
-    this.totalPrice = 0;
-    document.querySelectorAll('.p_num').forEach(function (item) {
-      if (
-        item.parentElement.parentElement.parentElement.previousElementSibling
-          .firstElementChild.firstElementChild.checked == true
-      ) {
-        var count = parseInt(item.getAttribute('value'));
-        this.totalCount += count;
-        var price =
-          item.parentElement.parentElement.previousElementSibling.firstElementChild.getAttribute(
-            'value',
-          );
-        this.totalPrice += count * price;
-      }
-    }, this); // forEach 2번째 파라메터로 객체를 넘겨서 this 가 객체리터럴을 가리키도록 함. - thisArg
-  },
-  //화면 업데이트
-  updateUI: function () {
-    document.querySelector('#sum_p_num').textContent =
-      '상품갯수: ' + this.totalCount.formatNumber() + '개';
-    document.querySelector('#sum_p_price').textContent =
-      '합계금액: ' + this.totalPrice.formatNumber() + '원';
-  },
-  //개별 수량 변경
-  changePNum: function (pos) {
-    var item = document.querySelector('input[name=p_num' + pos + ']');
-    var p_num = parseInt(item.getAttribute('value'));
-    var newval = event.target.classList.contains('up')
-      ? p_num + 1
-      : event.target.classList.contains('down')
-      ? p_num - 1
-      : event.target.value;
-
-    if (parseInt(newval) < 1 || parseInt(newval) > 99) {
-      return false;
-    }
-
-    item.setAttribute('value', newval);
-    item.value = newval;
-
-    var price =
-      item.parentElement.parentElement.previousElementSibling.firstElementChild.getAttribute(
-        'value',
-      );
-    item.parentElement.parentElement.nextElementSibling.textContent =
-      (newval * price).formatNumber() + '원';
-    //AJAX 업데이트 전송
-
-    //전송 처리 결과가 성공이면
-    this.reCalc();
-    this.updateUI();
-  },
-  checkItem: function () {
-    this.reCalc();
-    this.updateUI();
-  },
-  delItem: function () {
-    event.target.parentElement.parentElement.parentElement.remove();
-    this.reCalc();
-    this.updateUI();
-  },
-  // orderItem: function() {
-
-  // }
-};
-// 숫자 3자리 콤마찍기
-Number.prototype.formatNumber = function () {
-  if (this == 0) return 0;
-  let regex = /(^[+-]?\d+)(\d{3})/;
-  let nstr = this + '';
-  while (regex.test(nstr)) nstr = nstr.replace(regex, '$1' + ',' + '$2');
-  return nstr;
-};
-=======
-const purchaseBtn = document.querySelector('.moveTopurchase'); //결제하기 버튼
-const nameInput = document.querySelector('.productname');
-const priceInput = document.querySelector('.cartprice');
-// localstorage에 값 저장
 const cartTempData = [
-  { name: 'Elice Chair - BEIGE', price: 20000 },
-  { name: 'Elice Desk - WHITE', price: 30000 },
-  { name: 'Elice Sofa - WHITE', price: 40000 },
-  { name: 'Elice Mirror', price: 10000 },
+  { name: '엘리스 의자 - BEIGE', price: 20000, manufacture: '집꾸미기' },
+  { name: '엘리스 책상 - WHITE', price: 30000, manufacture: '러브홈' },
+  { name: '엘비스 소파 - WHITE', price: 40000, manufacture: '마이홈' },
+  { name: '알렉스 거울', price: 10000, manufacture: '집플러스' },
 ];
 const cartSaveData = JSON.stringify(cartTempData);
 localStorage.setItem('cart', cartSaveData);
 
 const cartData = JSON.parse(localStorage.getItem('cart'));
-console.log(cartData[0]);
-
-function rendering() {
-  nameInput.innerHTML = `${cartData[0].name}`;
-  priceInput.innerHTML = `${cartData[0].price}` + ' 원';
+console.log(cartData);
+// 로컬스토리지에 있는 장바구니 리스트 화면에 출력
+function addCartItemList(cartList) {
+  let cartListContent = '';
+  console.log('cartList: ', cartList);
+  if (cartList !== null && cartList.length !== 0) {
+    cartList.forEach((item) => {
+      cartListContent += ` 
+                <li class="cart-item">
+                    <div class="cart-item-column">
+                    <div class="img-container">
+                        <a href="/products/detail?id=${item.productId}" >
+                          <img class="cart-img" src="${item.image}" alt="상품이미지">
+                        </a>
+                    </div>
+                    </div>
+                    
+                    <div class="cart-item-column item-info-left"> 
+                    <p class="work-name">${item.name}</p>
+                    <p>${item.manufacture}</p>
+                    </div>
+                    <div class="cart-item-column item-info-right">
+                    <button class="item-delete-btn" type="button"><i class="fa-solid fa-trash-can" id=${item.productId}></i></button>
+                    <p class="work-price">${item.price} 원</p>
+                    </div>
+                </li>`;
+      document.querySelector('.cart-total-price').innerHTML = `${totalPrice(
+        cartList,
+      )}원`;
+      document.querySelector(
+        '.all-item-order-btn',
+      ).innerHTML = `총 ${totalCount(cartList)}건 주문 계속하기`;
+    });
+  } else {
+    cartListContent += '장바구니에 담긴 상품이 없습니다.';
+    document.querySelector('.cart-total').style.display = 'none';
+    for (const btn of document.querySelectorAll('.buttons-container')) {
+      btn.style.display = 'none';
+    }
+  }
+  cartItemList.innerHTML = cartListContent;
 }
-//결제하기 버튼
-purchaseBtn.addEventListener('click', function () {
-  if (purchaseBtn.innerText[0] === '0' || purchaseBtn.value[0] === '0') {
-    alert('상품을 선택하세요.');
+addCartItemList(cartList);
+
+// cart-total-price와 all-item-order-btn 합계 변경
+function totalPrice(cartList) {
+  return cartList.reduce((sum, cur) => sum + cur.price, 0);
+}
+
+function totalCount(cartList) {
+  return cartList.length;
+}
+
+// 개별 cart list 삭제
+const itemDeleteBtns = document.querySelectorAll('.item-delete-btn');
+
+function itemDelete(e) {
+  if (window.confirm('선택하신 상품을 장바구니에서 삭제하시겠습니까?')) {
+    const newCartList = JSON.parse(localStorage.getItem('cart')).filter(
+      (elem) => {
+        return elem.productId !== e.target.id;
+      },
+    );
+    localStorage.setItem('cart', JSON.stringify(newCartList));
+    addCartItemList(newCartList);
+  }
+}
+
+for (const btn of itemDeleteBtns) {
+  btn.addEventListener('click', itemDelete);
+}
+
+// 전체 cart list 삭제
+const allDeleteBtn = document.querySelector('.all-item-delete-btn');
+
+function allDelete() {
+  console.log(localStorage.getItem('cart'));
+  if (window.confirm('전체 상품을 장바구니에서 삭제하시겠습니까?')) {
+    localStorage.removeItem('cart');
+    addCartItemList([]);
+    window.location.reload();
+  }
+}
+
+allDeleteBtn.addEventListener('click', allDelete);
+
+// 주문하기 btn
+const buyAllBtn = document.querySelector('.all-item-order-btn');
+
+function buyAllItem() {
+  const buyList = JSON.parse(localStorage.getItem('cart')).map((elem) => {
+    return {
+      // productName: elem.productName,
+      productId: elem.productId,
+      // painterName: elem.painterName,
+      price: elem.price,
+      // image: elem.image,
+      // productId: elem.productId,
+    };
+  });
+  localStorage.setItem('buy-cart', JSON.stringify(buyList));
+
+  // 로그인을 하지 않은 경우
+  const token = sessionStorage.getItem('token');
+  if (!token) {
+    alert('로그인이 필요합니다. 로그인 페이지로 이동합니다.');
+    window.location.replace('/login');
     return;
   }
+  window.location.replace('/order');
+}
 
-  localStorage.setItem('storeName', 'items');
-  localStorage.setItem('keys', getCheckboxValue());
-  location.href = '/order';
-  return;
-});
-
-rendering();
->>>>>>> 20c9b737b29c865d055cd22a560d61222c7f50ce
+buyAllBtn.addEventListener('click', buyAllItem);
