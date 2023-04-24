@@ -54,8 +54,7 @@ async function getProductList() {
   <div class="product-category">${productData[i].category}</div>
   <div class="product-name">${productData[i].name}</div>
   <div class="product-price">${productData[i].price}</div>
-  <div class="product-image">
-    <img src=${productData.image} alt="${productData.name} 사진" width="70"/>
+  <div class="product-image" id="product-image-${productData[i]._id}">
   </div>  
   <div class-"product-quantity">${productData[i].quantity}</div>
   <div class-"product-manufacture">${productData[i].manufacture}</div>
@@ -66,6 +65,14 @@ async function getProductList() {
   </div>
   </div>`;
     productListContainer.insertAdjacentHTML('beforeend', element);
+    if (!productData[i].image) {
+      const imageBox = document.querySelector(`#product-image-${productData[i]._id}`);
+      imageBox.innerHTML = `<button>이미지 추가</button>`;
+    } else {
+      // 이미지가 있는 경우, 이미지를 img 태그의 src 속성 값으로 사용
+      const imageBox = document.querySelector(`#product-image-${productData[i]._id}`);
+      imageBox.innerHTML = `<img src=${productData[i].image} alt="${productData[i].name} 사진" width="70"/>`;
+    }
     // 삭제 버튼에 이벤트 리스너 부여
     const deleteBtn = document.querySelector(`#product-delete-btn-${productData[i]._id}`);
     deleteBtn.addEventListener('click', (e) => {
@@ -111,18 +118,11 @@ async function deleteProduct(productId) {
 async function modifyProduct(productId) {
   const modifyModalWrapper = document.getElementById('product-modify-modal-wrapper');
   modifyModalWrapper.style.display = 'flex';
+
   // 카테고리값 받아와서 select의 option 값으로 넣기
-  const modalCategory = document.querySelector(
-    '#product-modify-modal-categoryInput',
-  );
-  const categories = await fetch('http://localhost:8000/api/categories').then(
-    (res) => res.json(),
-  ); //get요청으로 카테고리 받아오기
-  categories.forEach((category) => {
-    modalCategory.innerHTML += `
-      <option>${category.name}</option>
-    `;
-  });
+  const modalCategory = document.querySelector('#product-modify-modal-categoryInput');
+  const categories = await fetch('http://localhost:8000/api/categories').then((res) => res.json(),);
+  categories.forEach((category) => { modalCategory.innerHTML += `<option>${category.name}</option>`; });
 
   modifyProduct2(productId); // input 값에 현재 데이터 정보 채워넣기
 
@@ -132,12 +132,14 @@ async function modifyProduct(productId) {
     modifyModalWrapper.style.display = 'none';
   });
 }
+
 // input 값에 현재 데이터 정보 채워넣는 함수
 async function modifyProduct2(productId) {
   const data = await fetch(
     `http://localhost:8000/api/products/id/${productId}`,
   ).then((res) => res.json());
   console.log(data);
+
   // input 태그들
   const name = document.querySelector('#product-modify-modal-nameInput');
   const quantity = document.querySelector('#product-modify-modal-quantityInput');
@@ -145,32 +147,24 @@ async function modifyProduct2(productId) {
   const price = document.querySelector('#product-modify-modal-priceInput');
   const content = document.querySelector('#product-modify-modal-contentInput');
   const category = document.querySelector('#product-modify-modal-categoryInput');
-
+  
+  // input 값에 현재 데이터 값 채우기
   name.value = data.name;
   quantity.value = data.quantity;
   manufacture.value = data.manufacture;
   price.value = data.price;
   content.value = data.content;
   category.value = data.category;
-
 }
 
 // PATCH로 상품수정 요청하는 함수
 async function modifyProduct3(productId) {
   const nameInput = document.querySelector('#product-modify-modal-nameInput');
-  const quantityInput = document.querySelector(
-    '#product-modify-modal-quantityInput',
-  );
-  const manufactureInput = document.querySelector(
-    '#product-modify-modal-manufactureInput',
-  );
+  const quantityInput = document.querySelector('#product-modify-modal-quantityInput');
+  const manufactureInput = document.querySelector('#product-modify-modal-manufactureInput');
   const priceInput = document.querySelector('#product-modify-modal-priceInput');
-  const contentInput = document.querySelector(
-    '#product-modify-modal-contentInput',
-  );
-  const categoryInput = document.querySelector(
-    '#product-modify-modal-categoryInput',
-  );
+  const contentInput = document.querySelector('#product-modify-modal-contentInput');
+  const categoryInput = document.querySelector('#product-modify-modal-categoryInput');
 
   // 입력값
   const name = nameInput.value;

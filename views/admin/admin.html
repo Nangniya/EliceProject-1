@@ -32,7 +32,7 @@
       <div id="productList"></div>
       <!--상품추가 모달창-->
       <div id="modal-wrapper" style="display: none">
-        <form id="modal-form">
+        <div id="modal-form">
           <p>상품 추가</p>
           <div class="modal-form-input">
             <p>카테고리</p>
@@ -55,10 +55,6 @@
             <input id="modal-quantityInput" type="number"/>
           </div>
           <div class="modal-form-input">
-            <p>이미지</p>
-            <input type="file" id="modal-imageInput"/>
-          </div>
-          <div class="modal-form-input">
             <p>상세설명</p>
             <input id="modal-contentInput" type="text"/>
           </div>
@@ -66,7 +62,7 @@
             <button class="modal-btn" id="modal-product-add-btn">추가</button>
             <button class="modal-btn" id="modal-cancel-btn">취소</button>
           </div>
-        </form>
+        </div>
       </div>
       <!--상품수정 모달창-->
       <div id="product-modify-modal-wrapper" style="display: none">
@@ -93,10 +89,6 @@
             <input id="product-modify-modal-quantityInput" type="number"/>
           </div>
           <div class="modal-form-input">
-            <p>이미지</p>
-            <input type="file" id="product-modify-modal-imageInput"/>
-          </div>
-          <div class="modal-form-input">
             <p>상세설명</p>
             <input id="product-modify-modal-contentInput" type="text"/>
           </div>
@@ -120,7 +112,6 @@
     </div>
     <!--카테고리관리 내용-->
     <div style="display: none" id="category-menu-content">
-      <div class="category-grid-container">
         <div class="table-title-wrapper">
           <p class="table-title">카테고리 ID</p>
           <p class="table-title">카테고리 이름</p>
@@ -156,7 +147,7 @@
           </div>
         </form>
       </div>
-    </div>
+
 
 
 

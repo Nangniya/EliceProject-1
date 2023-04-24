@@ -4,20 +4,42 @@
 html {
   background-color: #e0d5ca;
 }
+/*상품관리, 카테고리관리, 주문관리 nav*/
 .nav-menu-wrapper {
-  display: block;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   height: 50px;
   line-height: 50px;
+  border-bottom: solid 5px #7b6958;
 }
 .nav-menu {
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
   margin: 0px 10px;
   font-weight: bold;
+  background-color: #978676;
+  border-radius: 5px;
+  height: 30px;
+  color: white;
 }
 section#menu-content-wrapper {
-  border: 1px solid black;
   width: 100%;
   height: calc(100vh - 60px);
+}
+
+/*상품 조회*/
+.product-image > button {
+  border: 2px solid #978676;
+  color: #978676;
+  background-color: white;
+  height: 30px;
+  border-radius: 5px;
+}
+/*상품추가 모달*/
+#modal-form {
+  width: 80%;
 }
 #modal-form p {
   font-weight: bold;
@@ -31,7 +53,7 @@ section#menu-content-wrapper {
   flex-direction: column;
   width: 400px;
   background-color: #e0d5ca;
-  padding: 30px;
+  padding: 10px;
   align-items: center;
   justify-content: center;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
@@ -44,6 +66,15 @@ section#menu-content-wrapper {
 #modal-form input {
   font-size: 15px;
   width: 100%;
+  border: none;
+  height: 30px;
+  border-radius: 5px;
+  padding-left: 5px;
+}
+#modal-form select {
+  border: none;
+  height: 30px;
+  border-radius: 5px;
 }
 .modal-form-input p {
   margin: 5px;
@@ -54,12 +85,23 @@ section#menu-content-wrapper {
   justify-content: right;
   height: 30px;
 }
-/*표 헤더*/
+.modal-btns > button {
+  background-color: white;
+  border-color: #978676;
+  border-radius: 5px;
+  color: #978676;
+  width: 50px;
+  height: 30px;
+  margin-left: 5px;
+  font-weight: bold;
+}
+
+/*카테고리 표*/
 .table-title {
   display : inline-block;
-  padding : 20px;
+  padding : 10px;
   border-right : solid 2px #978676;
-  margin : 10px 0 10px 0;
+  margin : 10px 0;
 }
 .table-title-wrapper {
   border-bottom : solid 2px #7b6958;
@@ -73,6 +115,7 @@ section#menu-content-wrapper {
   padding: 10px;
   border-radius: 5px;
   margin: 10px;
+  color: white;
 }
 
 #category-modal-form p {
@@ -118,12 +161,17 @@ section#menu-content-wrapper {
   text-align: center;
   vertical-align: middle;
 }
-.category-grid-container {
-  display: grid;
-}
+
 .category-list-content {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #7b6958;
+  height: 50px;
+}
+.category-list-content > div {
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
 .category-btns {
@@ -133,11 +181,15 @@ section#menu-content-wrapper {
 .category-btns > button {
   margin: 0 20px;
   height: 80%;
-  border: none;
-  background-color: #978676;
+  border: 2px solid #978676;
+  background-color: white;
   font-weight: bold;
   padding: 10px;
   border-radius: 5px;
+  color: #978676;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .category-list-content > div {
   text-align: center;
@@ -191,7 +243,6 @@ section#menu-content-wrapper {
   margin: auto;
   height: 60%;
   color: #7b6958;
-  box-shadow: none;
 }
 /*상품 리스트*/
 .product-list-content > div{
@@ -201,6 +252,9 @@ section#menu-content-wrapper {
 }
 
 /*상품 수정 폼*/
+#product-modify-modal-form {
+  width: 80%;
+}
 #product-modify-modal-form p {
   font-weight: bold;
 }
@@ -226,6 +280,10 @@ section#menu-content-wrapper {
 #product-modify-modal-form input {
   font-size: 15px;
   width: 100%;
+  border: none;
+  background-color: white;
+  height: 30px;
+  border-radius: 5px;
 }
 .modal-form-input p {
   margin: 5px;
@@ -236,7 +294,14 @@ section#menu-content-wrapper {
   justify-content: right;
   height: 30px;
 }
+#product-modify-modal-form select {
+  border: none;
+  background-color: white;
+  border-radius: 5px;
+  height: 30px;
+}
 
+/*카테고리 수정폼*/
 #modify-category-modal-form p {
   font-weight: bold;
 }
@@ -289,18 +354,19 @@ section#menu-content-wrapper {
   align-items: center;
 }
 .order-delete-btn {
-  background-color: #978676;
+  background-color: white;
   width: 50%;
   border-color: #978676;
   border-radius: 5px;
   margin: auto;
   height: 60%;
-  color: white;
+  color: #978676;
 }
 .order-status-selector {
   height: 60%;
-  border-color: #978676;
-  background-color: #978676;
+  border : 2px solid #978676;
+  background-color: white;
   border-radius: 5px;
-  color: white;
+  color: #978676;
+  font-size: 16px;
 }
