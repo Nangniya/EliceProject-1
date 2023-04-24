@@ -4,9 +4,13 @@ import { ProductsService } from './products.service';
 import { ProductRepository } from './products.repository';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Products, ProductsSchema } from './products.schema';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
+    MulterModule.register({
+      dest: './upload',
+    }),
     MongooseModule.forFeature([
       { name: Products.name, schema: ProductsSchema },
     ]),
