@@ -70,7 +70,11 @@ async function getProductList() {
       const imageBox = document.querySelector(
         `#product-image-${productData[i]._id}`,
       );
-      imageBox.innerHTML = `<button>이미지 추가</button>`;
+      imageBox.innerHTML = `<button id="img-add-btn-${productData[i]._id}">이미지 추가</button>`;
+      const imgBtn = document.querySelector(
+        `#img-add-btn-${productData[i]._id}`,
+      );
+      imgBtn.addEventListener('click', () => uploadImg(productData[i]._id));
     } else {
       // 이미지가 있는 경우, 이미지를 img 태그의 src 속성 값으로 사용
       const imageBox = document.querySelector(
@@ -96,6 +100,61 @@ async function getProductList() {
       console.log(productId);
       modifyProduct(productId);
     });
+  }
+}
+// 이미지 업로드폼 띄우기
+async function uploadImg(productId) {
+  const imgUploadForm = document.getElementById('img-upload-form-wrapper');
+  imgUploadForm.style.display = 'flex';
+  const imgUpload = document.getElementById('img-upload-input');
+  const imagePreview = document.getElementById('imagePreview');
+
+  imgUpload.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      imagePreview.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+  const submitBtn = document.getElementById('img-submit-btn');
+  submitBtn.addEventListener('click', () => {
+    uploadImg2(productId);
+  });
+  const cancelBtn = document.getElementById('img-cancle-btn');
+  cancelBtn.addEventListener(
+    'click',
+    () => (imgUploadForm.style.display = 'none'),
+  );
+}
+
+async function uploadImg2(productId) {
+  const imgUpload = document.getElementById('img-upload-input');
+  console.log(productId);
+  // FormData 객체 생성
+  const formData = new FormData();
+  formData.append('image', imgUpload.files[0]);
+
+  try {
+    // POST 요청 보내기
+    const response = await fetch(
+      `http://localhost:8000/api/products/upload/${productId}`,
+      {
+        method: 'POST',
+        body: formData,
+      },
+    );
+
+    if (response.ok) {
+      // 성공적으로 응답 받은 경우 처리
+      alert('이미지 추가 성공');
+    } else {
+      // 오류 응답 처리
+      console.error(response.status);
+    }
+  } catch (error) {
+    // 예외 처리
+    console.error(error);
   }
 }
 // 상품 삭제

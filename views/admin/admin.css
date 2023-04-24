@@ -370,3 +370,51 @@ section#menu-content-wrapper {
   color: #978676;
   font-size: 16px;
 }
+/*이미지 업로드폼*/
+#img-upload-form-wrapper {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  flex-direction: column;
+  width: 400px;
+  background-color: #e0d5ca;
+  padding: 30px;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+#img-upload-form {
+  display: flex;
+  width: 80%;
+  align-items: center;
+  flex-direction: column;
+}
+.img-upload-btns {
+  margin-top: 20px;
+}
+#imagePreview {
+  margin-top: 20px;
+  width: 200px;
+}
+#img-upload-form > p {
+  font-weight: bold;
+  font-size: 24px;
+}
+.img-upload-btns > button {
+  margin: 0 5px;
+  border: 2px solid #978676;
+  background-color: white;
+  color: #978676;
+  border-radius: 5px;
+  width: 60px;
+  height: 30px;
+}
+input[type="file" i]::-webkit-file-upload-button {
+  text-align: center;
+  background-color: white;
+  border-radius: 5px;
+  border-color: white;
+  color: #978676;
+}
