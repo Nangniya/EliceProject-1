@@ -16,6 +16,7 @@ testApiButton.addEventListener("click", async() => {
   let fetchResult;
   fetchResult = await fetch("http://localhost:8000", {
     method: "post",
+    //body: JSON.stringify({ postId: 1, postName: "impost"}),
     body: JSON.stringify({ postId: 1, postName: "impost"}),
     headers: {
       "Content-Type": "application/json",
