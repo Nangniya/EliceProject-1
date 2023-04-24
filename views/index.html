@@ -28,6 +28,7 @@
     <script defer src="home.js"></script>
 
     <script src="myPage/index.js"></script>
+    <script src="/views/public/footer/footer.js"></script>
     <title>Team4</title>
   </head>
   <body>
@@ -48,28 +49,17 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a
-                id="categorybtn"
-                class="nav-link active"
-                aria-current="page"
-                href="#"
-                >카테고리</a
-              >
-            </li>
-
-            <li class="nav-item">
-              <a
-                class="nav-link active"
-                aria-current="page"
-                href="/login/login.html"
+              <a class="nav-link active" aria-current="page" href="/login/"
                 >로그인</a
               >
             </li>
             <li class="nav-item">
-              <a
-                class="nav-link active"
-                aria-current="page"
-                href="/cart/cart.html"
+              <a class="nav-link active" aria-current="page" href="/register"
+                >회원가입</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/cart"
                 >장바구니</a
               >
             </li>
@@ -88,7 +78,6 @@
         </div>
       </div>
     </nav>
-    <div class="category items" id="myCategory"></div>
     <!-- 이미지슬라이드 -->
     <div class="img-slide-container">
       <div id="carouselExampleIndicators" class="carousel slide img-slide">
@@ -116,10 +105,10 @@
         </div>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="img/header.jpg" class="d-block w-100" alt="..." />
+            <img src="img/header2.jpg" class="d-block w-100" alt="..." />
           </div>
           <div class="carousel-item">
-            <img src="img/header2.jpg" class="d-block w-100" alt="..." />
+            <img src="img/header.jpg" class="d-block w-100" alt="..." />
           </div>
           <div class="carousel-item">
             <img src="img/header3.jpg" class="d-block w-100" alt="..." />
@@ -145,37 +134,31 @@
         </button>
       </div>
     </div>
-    <!-- 이미지슬라이드 -->
+    <!-- 이미지슬라이드 끝-->
 
+    <div class="category items" id="myCategory">
+    </div>
+    <hr class="my-2" />
     <!-- 베스트상품 -->
-    <h1>주간 Best</h1>
+    <h1>Best</h1>
     <div class="container text-center best-item-conatiner"></div>
+    <hr class="my-2" />
     <!-- 신상품 -->
-    <h1>NEW</h1>
+    <h1>New</h1>
     <div class="container text-center new-item-conatiner"></div>
-    <footer class="footer-custom">
-      <div class="footerContainer">
-        <div class="footer__company-box">
-          <p class="footer__company-box__title">Team4</p>
-        </div>
-
-        <div class="footer__office-box">
-          <p class="footer__title">OFFICE</p>
-          <p class="footer__office-box__content">Team4 | 대표 : elice</p>
-          <p class="footer__office-box__content">
-            6F, 433 선릉로 역삼2동 강남구 서울특별시
-          </p>
-        </div>
-
-        <div class="footer__cs-center-box">
-          <p class="footer__title">CS CENTER</p>
-          <p class="footer__cs-center-box__phone-num">070-4633-2015</p>
-          <div class="footer__cs-center-box__breaktime">
-            <p>WEEK 10:00 ~ 17:00</p>
-            <p>LUNCH 12:00 ~ 13:00</p>
-          </div>
-        </div>
-      </div>
-    </footer>
+    <hr class="my-2" />
+    <script>
+      // 가져올 파일 경로 지정
+      const url = '/public/footer/footer.html';
+      // 가져온 HTML 코드를 현재 파일에 삽입하는 함수
+      const insertHTML = (element, html) => {
+        element.insertAdjacentHTML('afterbegin', html);
+      };
+      // 파일 가져오기 요청 보내기
+      fetch(url)
+        .then(response => response.text())
+        .then(html => insertHTML(document.querySelector('#nav-placeholder'), html));
+    </script>
+  </header>
   </body>
 </html>
