@@ -132,9 +132,6 @@ async function uploadImg2(productId) {
     // POST 요청 보내기
     const response = await fetch(`http://localhost:8000/api/products/upload/${productId}`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'multipart/form-data' 
-      },
       body: formData
     });
 
