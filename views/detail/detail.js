@@ -8,6 +8,9 @@ const plusBtn = document.querySelector('.plus');
 const minusBtn = document.querySelector('.minus');
 const salesCount = document.querySelector('.salesCount');
 
+const url = window.location.href;
+
+console.log(url);
 const DetailTempData = [
   {
     category: 'Chairs',
