@@ -35,9 +35,9 @@ export class OrdersService {
       throw new UnauthorizedException('validation 형식이 올바르지 않습니다.');
     }
   }
-  async updateDeliveryStatus(body: deliveryStatusDto) {
+  async updateDeliveryStatus(body: deliveryStatusDto, id: string) {
     const order = await this.ordersRepository.updateDeliveryStatus(
-      body.id,
+      id,
       body.deliveryStatus,
     );
     if (order) {
