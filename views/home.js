@@ -41,9 +41,13 @@ window.onload = function () {
   fetch('/api/products')
     .then((response) => response.json())
     .then((data) => {
+      console.log(data);
       var itemsHtml = '';
-      for (var i = 0; i < 9; i++) {
-        itemsHtml += `<button class="category-item">${data[i].name}</button>
+      for (var i = 0; i < data.length; i++) {
+        itemsHtml += `<div>
+            <p>상품명 : ${data[i].name}<p>
+            <p>가격 : ${data[i].price}<p>
+            </div>
           `;
       }
 

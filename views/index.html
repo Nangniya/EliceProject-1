@@ -23,12 +23,13 @@
       crossorigin="anonymous"
     ></script>
 
-    <link rel="stylesheet" href="home.css" />
+    
 
     <script defer src="home.js"></script>
 
     <script src="myPage/index.js"></script>
     <script src="/views/public/footer/footer.js"></script>
+    <link rel="stylesheet" href="home.css" />
     <title>Team4</title>
   </head>
   <body>
@@ -147,18 +148,6 @@
     <h1>New</h1>
     <div class="container text-center new-item-conatiner"></div>
     <hr class="my-2" />
-    <script>
-      // 가져올 파일 경로 지정
-      const url = '/public/footer/footer.html';
-      // 가져온 HTML 코드를 현재 파일에 삽입하는 함수
-      const insertHTML = (element, html) => {
-        element.insertAdjacentHTML('afterbegin', html);
-      };
-      // 파일 가져오기 요청 보내기
-      fetch(url)
-        .then(response => response.text())
-        .then(html => insertHTML(document.querySelector('#nav-placeholder'), html));
-    </script>
   </header>
   </body>
 </html>
