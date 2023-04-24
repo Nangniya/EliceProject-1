@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Order } from './orders.schema';
@@ -29,9 +29,13 @@ export class OrdersRepository {
   }
 
   async updateDeliveryStatus(_id: string, deliveryStatus: string) {
-    const order = await this.orderModel.findById({ _id });
-    order.deliveryStatus = deliveryStatus;
-    return order.save();
+    try {
+      const order = await this.orderModel.findById(_id);
+      order.deliveryStatus = deliveryStatus;
+      return order.save();
+    } catch (error) {
+      throw new HttpException('db error 해당 하는 주문 ID 없음', 400);
+    }
   }
 
   async deleteOrder(_id: string) {
