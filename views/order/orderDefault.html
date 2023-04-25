@@ -14,16 +14,18 @@
       <div class="order-info-container">
         <div class="user-info-content">
           <h4>주문자 정보</h4>
-          <ul>
-            <li>주문자 : 박세진</li>
-            <li>연락처 : 010-1234-1234</li>
+          <ul class="user-info-content-ul">
+            <li>주문자 : <div id="user-info-content-name"></div></li>
+            <!-- <li>연락처 : <span id="user-info-content-phoneNum">010-1234-1234</span></li> -->
+            <li>이메일 : <div id="user-info-content-email"></div></li>
           </ul>
         </div>
 
         <div class="delivery-info-content">
           <h4>배송지정보</h4>
           <ul>
-            <li>주소 : (04799) 서울 성동구 아차산로17길 48 성수낙낙</li>
+            <!-- <li>주소 : (04799) 서울 성동구 아차산로17길 48 성수낙낙</li> -->
+            <li>주소 : <div id="user-info-content-address">서울 성동구 아차산로17길 48 성수낙낙</div></li>
             <li>연락처 : 010-1234-1234</li>
             <li>
               배송메세지 :
@@ -40,37 +42,51 @@
           </ul>
         </div>
 
-        <div class="order-detail-content">
+        <div class="order-detail-content-wrapper">
           <h4>주문상세</h4>
-          <!-- 장바구니에서 선택한 상품의 정보를 가져온다 -->
-          <ul>
-            <li><img src="productImage01.jpg" /></li>
-            <li id="productName">케로케로케로피 페이스 쿠션</li>
-            |
-            <li id="quantity">2개</li>
-            |
-            <li id="">36,500원</li>
-            |
-            <li id="">73,000원</li>
-          </ul>
+
+          <div class="order-detail-content">
+            <ul>
+              <li id="productImage"><img src="productImage01.jpg" /></li>
+              <li id="productName">케로케로케로피 페이스 쿠션</li>
+              |
+              <li id="quantity">2개</li>
+              |
+              <li id="price">36,500원</li>
+              |
+              <li id="supplyPrice">73,000원</li>
+            </ul>
+          </div>
+
         </div>
 
         <div class="pay-info-content">
           <h4>결제상세</h4>
           <ul>
-            <li>결제금액 : 73,000원</li>
+            <li>결제금액 : <span id="sumSupplyPrice"></span>원</li>
           </ul>
         </div>
         <!--
             <div class="">
                 결제수단
             </div>
+<<<<<<< HEAD
     -->
         <div class="buttonGroup">
           <button id="btnOrderCancel">주문취소</button
           ><!-- 주문취소 시 홈화면으로 돌아간다-->
+=======
+        -->
+        <div class="buttonGroup order-create">
+          <button id="btnOrderCreateCancel">주문취소</button><!-- 주문취소 시 홈화면으로 돌아간다-->
+>>>>>>> 8ea30a5f310f49e84c85770f6998970345ee3879
           <button id="btnOrderConfirm">결제하기</button><br />
           <button id="btnMoveCart">장바구니로 돌아가기</button>
+        </div>          
+        <div class="buttonGroup order-detail">
+          <button id="btnOrderDetailCancel">주문취소</button><!-- 주문취소 시 홈화면으로 돌아간다-->
+          <button id="btnOrderConfirm">주문수정</button><br />
+          <button id="btnMoveOrderList">주문내역으로 돌아가기</button>
         </div>
       </div>
     </div>

@@ -6,6 +6,8 @@ html {
 }
 /*상품관리, 카테고리관리, 주문관리 nav*/
 .nav-menu-wrapper {
+  width: 80%;
+  margin: auto;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -28,7 +30,10 @@ section#menu-content-wrapper {
   width: 100%;
   height: calc(100vh - 60px);
 }
-
+.menu-content {
+  width: 80%;
+  margin: auto;
+}
 /*상품 조회*/
 .product-image > button {
   border: 2px solid #978676;

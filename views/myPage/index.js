@@ -1,5 +1,3 @@
-console.log(localStorage.getItem('token'));
-
 fetch('http://localhost:8000/api/users', {
   method: 'POST',
   headers: {
