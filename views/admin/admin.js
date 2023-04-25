@@ -67,13 +67,14 @@ async function getProductList() {
   </div>
   </div>`;
     productListContainer.insertAdjacentHTML('beforeend', element);
-    console.log(productData[i].imgUrl.length);
     if (!productData[i].imgUrl.length) {
       const imageBox = document.querySelector(
         `#product-image-${productData[i]._id}`,
       );
       imageBox.innerHTML = `<button id="img-add-btn-${productData[i]._id}">이미지 추가</button>`;
-      const imgBtn = document.querySelector(`#img-add-btn-${productData[i]._id}`);
+      const imgBtn = document.querySelector(
+        `#img-add-btn-${productData[i]._id}`,
+      );
       imgBtn.addEventListener('click', () => uploadImg(productData[i]._id));
     } else {
       // 이미지가 있는 경우, 이미지를 img 태그의 src 속성 값으로 사용
@@ -116,11 +117,16 @@ async function uploadImg(productId) {
       imagePreview.src = event.target.result;
     };
     reader.readAsDataURL(file);
-  })
+  });
   const submitBtn = document.getElementById('img-submit-btn');
-  submitBtn.addEventListener('click', () => { uploadImg2(productId); });
+  submitBtn.addEventListener('click', () => {
+    uploadImg2(productId);
+  });
   const cancelBtn = document.getElementById('img-cancle-btn');
-  cancelBtn.addEventListener('click', () => imgUploadForm.style.display = 'none');
+  cancelBtn.addEventListener(
+    'click',
+    () => (imgUploadForm.style.display = 'none'),
+  );
 }
 
 async function uploadImg2(productId) {
@@ -134,7 +140,10 @@ async function uploadImg2(productId) {
     // POST 요청 보내기
     const response = await fetch(`http://localhost:8000/api/products/upload/${productId}`, {
       method: 'POST',
-      body: formData
+      headers: {
+        'Content-Type': 'multipart/form-data' 
+      },
+      body: {image: formData}
     });
 
     if (response.ok) {

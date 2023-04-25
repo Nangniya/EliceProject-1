@@ -107,7 +107,7 @@ buyNowBtn.addEventListener('click', function () {
   if (buyNow === true) {
     // saveData(salesCount, 'nowBuy');
     // localStorage.setItem('keys', localStorage.getItem('itemDetail'));
-    window.location.href = '/delivery';
+    window.location.href = '/order/detail.html';
     return;
   }
   return;

@@ -1,8 +1,10 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
+  Patch,
   Post,
   UploadedFiles,
   UseInterceptors,
@@ -62,5 +64,20 @@ export class ProductsController {
     @Param() id: { id: string },
   ) {
     return await this.productsService.uploadProductImg(id.id, files);
+  }
+
+  @ApiOperation({ summary: '상품 삭제' })
+  @Delete(':id')
+  async deleteProduct(@Param('id') id: string) {
+    return await this.productsService.deleteProduct(id);
+  }
+
+  @ApiOperation({ summary: '상품 변경하기' })
+  @Patch(':id')
+  async updateCategory(
+    @Param('id') id: string,
+    @Body() body: ProductRequestDto,
+  ) {
+    return await this.productsService.updateProduct(id, body);
   }
 }
