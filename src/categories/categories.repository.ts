@@ -26,4 +26,14 @@ export class CategoriesRepository {
       throw new HttpException('db error', 400);
     }
   }
+
+  async deleteCategory(_id: string) {
+    return await this.categoryModel.deleteOne({ _id });
+  }
+
+  async updateCategory(_id: string, body: categoryRequestDto) {
+    const category = await this.categoryModel.findById({ _id });
+    category.name = body.name;
+    return category.save();
+  }
 }

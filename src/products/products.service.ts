@@ -34,4 +34,12 @@ export class ProductsService {
     });
     return await this.productsRepository.uploadProductImg(id, filesName);
   }
+
+  async deleteProduct(id: string) {
+    return await this.productsRepository.deleteProduct(id);
+  }
+
+  async updateProduct(id: string, body: ProductRequestDto) {
+    return await this.productsRepository.updateProduct(id, body);
+  }
 }
