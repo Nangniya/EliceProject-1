@@ -138,13 +138,16 @@ async function uploadImg2(productId) {
 
   try {
     // POST 요청 보내기
-    const response = await fetch(`http://localhost:8000/api/products/upload/${productId}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'multipart/form-data' 
+    const response = await fetch(
+      `http://localhost:8000/api/products/upload/${productId}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        body: { image: formData },
       },
-      body: {image: formData}
-    });
+    );
 
     if (response.ok) {
       // 성공적으로 응답 받은 경우 처리
@@ -181,11 +184,11 @@ async function deleteProduct(productId) {
         getProductList();
       } else {
         console.error('상품 삭제 실패:', response.status);
-        alert('상품 삭제 실패:'+ response.status);
+        alert('상품 삭제 실패:' + response.status);
       }
     } catch (error) {
       console.error('상품 삭제 실패:', error);
-      alert('상품 삭제 실패:'+ error);
+      alert('상품 삭제 실패:' + error);
     }
   }
 }
@@ -216,7 +219,8 @@ async function modifyProduct(productId) {
     .getElementById('modal-product-modify-btn')
     .addEventListener('click', (e) => {
       e.preventDefault();
-      modifyProduct3(productId)});
+      modifyProduct3(productId);
+    });
   document
     .getElementById('modify-product-cancel-btn')
     .addEventListener('click', (e) => {
@@ -303,11 +307,11 @@ async function modifyProduct3(productId) {
       getProductList();
     } else {
       console.error('상품 수정 실패:', response.status);
-      alert('상품 수정 실패:'+ response.status);
+      alert('상품 수정 실패:' + response.status);
     }
   } catch (error) {
     console.error('상품 수정 실패:', error);
-    alert('상품 수정 실패:'+ error);
+    alert('상품 수정 실패:' + error);
   }
 }
 
@@ -321,7 +325,7 @@ async function loadModal() {
   const modalCategory = document.querySelector('#modal-categoryInput');
   const categories = await fetch('http://localhost:8000/api/categories').then(
     (res) => res.json(),
-  ); 
+  );
 
   // 카테고리 목록 있을 경우 초기화
   modalCategory.innerHTML = '';
@@ -379,11 +383,11 @@ async function addProduct(e) {
       getProductList();
     } else {
       console.error('상품 추가 실패:', response.status);
-      alert('상품 추가 실패:'+ response.status);
+      alert('상품 추가 실패:' + response.status);
     }
   } catch (error) {
     console.error('상품 추가 실패:', error);
-    alert('상품 추가 실패:'+ error);
+    alert('상품 추가 실패:' + error);
   }
 }
 
@@ -454,11 +458,11 @@ async function deleteOrder(orderId) {
         getOrderList();
       } else {
         console.error('주문 삭제 실패:', response.status);
-        alert('주문 삭제 실패:'+ response.status);
+        alert('주문 삭제 실패:' + response.status);
       }
     } catch (error) {
       console.error('주문 삭제 실패:', error);
-      alert('주문 삭제 실패:'+ error);
+      alert('주문 삭제 실패:' + error);
     }
   }
 }
@@ -484,11 +488,11 @@ async function modifyOrder(orderId) {
       getOrderList();
     } else {
       console.error('주문 수정 실패:', response.status);
-      alert('주문 수정 실패:'+ response.status);
+      alert('주문 수정 실패:' + response.status);
     }
   } catch (error) {
     console.error('주문 수정 실패:', error);
-    alert('주문 수정 실패:'+ error);
+    alert('주문 수정 실패:' + error);
   }
 }
 
@@ -501,9 +505,7 @@ async function getCategoryList() {
     (res) => res.json(),
   );
   console.log(categoryData);
-  const categoryListContainer = document.querySelector(
-    '#categoryList',
-  );
+  const categoryListContainer = document.querySelector('#categoryList');
   // 리스트 있으면 초기화
   categoryListContainer.innerHTML = '';
   for (let i = 0; i < categoryData.length; i++) {
@@ -554,11 +556,11 @@ async function deleteCategory(categoryId) {
         location.reload();
       } else {
         console.error('카테고리 삭제 실패:', response.status);
-        alert('카테고리 삭제 실패:'+ response.status);
+        alert('카테고리 삭제 실패:' + response.status);
       }
     } catch (error) {
       console.error('카테고리 삭제 실패:', error);
-      alert('카테고리 삭제 실패:'+ error);
+      alert('카테고리 삭제 실패:' + error);
     }
   }
 }
@@ -600,11 +602,11 @@ async function addCategory(e) {
       location.reload();
     } else {
       console.error('카테고리 추가 실패:', response.status);
-      alert('카테고리 추가 실패:'+ response.status);
+      alert('카테고리 추가 실패:' + response.status);
     }
   } catch (error) {
     console.error('카테고리 추가 실패:', error);
-    alert('카테고리 추가 실패:'+ error);
+    alert('카테고리 추가 실패:' + error);
   }
 }
 // 카테고리 수정
@@ -619,7 +621,8 @@ async function modifyCategory(categoryId) {
     .getElementById('modal-category-modify-btn')
     .addEventListener('click', (e) => {
       e.preventDefault();
-      modifyCategory2(categoryId)});
+      modifyCategory2(categoryId);
+    });
   document
     .getElementById('category-modify-cancel-btn')
     .addEventListener('click', (e) => {
@@ -656,10 +659,10 @@ async function modifyCategory2(categoryId) {
       location.reload();
     } else {
       console.error('카테고리 수정 실패:', response.status);
-      alert('카테고리 수정 실패:'+ response.status);
+      alert('카테고리 수정 실패:' + response.status);
     }
   } catch (error) {
     console.error('카테고리 수정 실패:', error);
-    alert('카테고리 수정 실패:'+ error);
+    alert('카테고리 수정 실패:' + error);
   }
 }

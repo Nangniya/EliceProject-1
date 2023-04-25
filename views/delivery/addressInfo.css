@@ -1,17 +1,25 @@
+
+.phoneNum {
+    size: 10;
+}
+.address {
+    size: 15;
+}
+
 .address-content-wrapper {
-    width: 800px;
-    margin-left: calc(50% - 400px);
+    width: 600px;
+    /* margin-left: calc(50% - 400px); */
 }
 .address-content-table.row {
     border-top: 1px solid black;
     display: grid;
-    grid-template-columns: 200px 600px;
+    grid-template-columns: 100px 500px;
 }
 .address-content-table.row:nth-child(5) {
     border-bottom: 1px solid black;
 }
 .address-content-table.row > .address-content-table.column:first-of-type {
-    background-color: silver;
+    background-color: #e0e0e0;
     color: black;
     font-weight: bold;
 }
@@ -21,4 +29,10 @@
 }
 .address-content-table.column.phone-input > select, input {
     display: inline-block;
+    margin: 5px;
+}
+
+.address-content-button-wrapper {
+    margin: 10px;
+    text-align: center;
 }
