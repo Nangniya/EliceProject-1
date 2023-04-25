@@ -19,15 +19,6 @@ async function getUser(){
     getUserOrderList(userId); 
 }
 
-// 장바구니에서 결제 선택한 localStorage 정보 가져오기
-if (localStorage.getItem('token')) {
-    console.log('있다');
-} else console.log('없다');
-
-function priceToString(price) {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-}
-
 // 현재 주문한 내역 정보 받기
 async function getUserOrderList(userId) {
     console.log(userId);
