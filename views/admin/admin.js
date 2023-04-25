@@ -49,6 +49,8 @@ async function getProductList() {
     (res) => res.json(),
   );
   const productListContainer = document.querySelector('#productList');
+  //리스트 있을 경우 초기화
+  productListContainer.innerHTML = '';
   for (let i = 0; i < productData.length; i++) {
     const element = `<div class="product-list-content">
   <div class="product-category">${productData[i].category}</div>
@@ -140,20 +142,26 @@ async function uploadImg2(productId) {
       `http://localhost:8000/api/products/upload/${productId}`,
       {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        body: { image: formData },
       },
     );
 
     if (response.ok) {
       // 성공적으로 응답 받은 경우 처리
       alert('이미지 추가 성공');
+      location.reload();
     } else {
       // 오류 응답 처리
-      console.error(response.status);
+      console.error('이미지 추가 실패', response.status);
+      alert('이미지 추가 실패' + response.status);
     }
   } catch (error) {
     // 예외 처리
-    console.error(error);
+    console.error('이미지 추가 실패', error);
+    alert('이미지 추가 실패' + error);
   }
 }
 // 상품 삭제
@@ -162,7 +170,7 @@ async function deleteProduct(productId) {
   if (confirm('상품을 삭제하시겠습니까?')) {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/products/id/${productId}`,
+        `http://localhost:8000/api/products/${productId}`,
         {
           method: 'DELETE',
           headers: {
@@ -173,11 +181,14 @@ async function deleteProduct(productId) {
 
       if (response.ok) {
         alert('상품 삭제 완료');
+        location.reload();
       } else {
         console.error('상품 삭제 실패:', response.status);
+        alert('상품 삭제 실패:' + response.status);
       }
     } catch (error) {
       console.error('상품 삭제 실패:', error);
+      alert('상품 삭제 실패:' + error);
     }
   }
 }
@@ -196,6 +207,8 @@ async function modifyProduct(productId) {
   const categories = await fetch('http://localhost:8000/api/categories').then(
     (res) => res.json(),
   );
+  // 목록 있을 경우 초기화
+  modalCategory.innerHTML = '';
   categories.forEach((category) => {
     modalCategory.innerHTML += `<option>${category.name}</option>`;
   });
@@ -204,7 +217,10 @@ async function modifyProduct(productId) {
 
   document
     .getElementById('modal-product-modify-btn')
-    .addEventListener('click', (productId) => modifyProduct3(productId));
+    .addEventListener('click', (e) => {
+      e.preventDefault();
+      modifyProduct3(productId);
+    });
   document
     .getElementById('modify-product-cancel-btn')
     .addEventListener('click', (e) => {
@@ -270,7 +286,7 @@ async function modifyProduct3(productId) {
 
   try {
     const response = await fetch(
-      `http://localhost:8000/api/products/id/${productId}`,
+      `http://localhost:8000/api/products/${productId}`,
       {
         method: 'PATCH',
         headers: {
@@ -287,12 +303,15 @@ async function modifyProduct3(productId) {
       },
     );
     if (response.ok) {
-      alert('수정 성공');
+      alert('상품 수정 성공');
+      location.reload();
     } else {
       console.error('상품 수정 실패:', response.status);
+      alert('상품 수정 실패:' + response.status);
     }
   } catch (error) {
     console.error('상품 수정 실패:', error);
+    alert('상품 수정 실패:' + error);
   }
 }
 
@@ -301,11 +320,16 @@ async function modifyProduct3(productId) {
 async function loadModal() {
   const modalWrapper = document.getElementById('modal-wrapper');
   modalWrapper.style.display = 'flex';
-  // 카테고리값 받아와서 select의 option 값으로 넣기
+
+  //get요청으로 카테고리 받아오기
   const modalCategory = document.querySelector('#modal-categoryInput');
   const categories = await fetch('http://localhost:8000/api/categories').then(
     (res) => res.json(),
-  ); //get요청으로 카테고리 받아오기
+  );
+
+  // 카테고리 목록 있을 경우 초기화
+  modalCategory.innerHTML = '';
+  // 카테고리 리스트 받아와서 select의 option 값으로 넣기
   categories.forEach((category) => {
     modalCategory.innerHTML += `
       <option>${category.name}</option>
@@ -355,12 +379,15 @@ async function addProduct(e) {
       }),
     });
     if (response.ok) {
-      alert('추가 성공');
+      alert('상품 추가 성공');
+      location.reload();
     } else {
       console.error('상품 추가 실패:', response.status);
+      alert('상품 추가 실패:' + response.status);
     }
   } catch (error) {
     console.error('상품 추가 실패:', error);
+    alert('상품 추가 실패:' + error);
   }
 }
 
@@ -372,7 +399,9 @@ async function getOrderList() {
   const orderData = await fetch('http://localhost:8000/api/orders').then(
     (res) => res.json(),
   );
-  const orderListContainer = document.querySelector('#order-menu-content');
+  const orderListContainer = document.querySelector('#orderList');
+  //리스트 있으면 초기화
+  orderListContainer.innerHTML = '';
   for (let i = 0; i < orderData.length; i++) {
     console.log(orderData[i]);
     const element = `<div class="order-list-content">
@@ -426,11 +455,14 @@ async function deleteOrder(orderId) {
 
       if (response.ok) {
         alert('주문 삭제 완료');
+        location.reload();
       } else {
         console.error('주문 삭제 실패:', response.status);
+        alert('주문 삭제 실패:' + response.status);
       }
     } catch (error) {
       console.error('주문 삭제 실패:', error);
+      alert('주문 삭제 실패:' + error);
     }
   }
 }
@@ -453,11 +485,14 @@ async function modifyOrder(orderId) {
     );
     if (response.ok) {
       alert('주문 수정 성공');
+      location.reload();
     } else {
       console.error('주문 수정 실패:', response.status);
+      alert('주문 수정 실패:' + response.status);
     }
   } catch (error) {
     console.error('주문 수정 실패:', error);
+    alert('주문 수정 실패:' + error);
   }
 }
 
@@ -469,9 +504,10 @@ async function getCategoryList() {
   const categoryData = await fetch('http://localhost:8000/api/categories').then(
     (res) => res.json(),
   );
-  const categoryListContainer = document.querySelector(
-    '#category-menu-content',
-  );
+  console.log(categoryData);
+  const categoryListContainer = document.querySelector('#categoryList');
+  // 리스트 있으면 초기화
+  categoryListContainer.innerHTML = '';
   for (let i = 0; i < categoryData.length; i++) {
     const element = `<div class="category-list-content">
   <div class="category-id">${categoryData[i]._id}</div>
@@ -506,7 +542,7 @@ async function deleteCategory(categoryId) {
   if (confirm('카테고리를 삭제하시겠습니까?')) {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/categories/id/${categoryId}`,
+        `http://localhost:8000/api/categories/${categoryId}`,
         {
           method: 'DELETE',
           headers: {
@@ -517,11 +553,14 @@ async function deleteCategory(categoryId) {
 
       if (response.ok) {
         alert('카테고리 삭제 완료');
+        location.reload();
       } else {
         console.error('카테고리 삭제 실패:', response.status);
+        alert('카테고리 삭제 실패:' + response.status);
       }
     } catch (error) {
       console.error('카테고리 삭제 실패:', error);
+      alert('카테고리 삭제 실패:' + error);
     }
   }
 }
@@ -560,11 +599,14 @@ async function addCategory(e) {
     );
     if (response.ok) {
       alert('카테고리 추가 성공');
+      location.reload();
     } else {
       console.error('카테고리 추가 실패:', response.status);
+      alert('카테고리 추가 실패:' + response.status);
     }
   } catch (error) {
     console.error('카테고리 추가 실패:', error);
+    alert('카테고리 추가 실패:' + error);
   }
 }
 // 카테고리 수정
@@ -577,7 +619,10 @@ async function modifyCategory(categoryId) {
 
   document
     .getElementById('modal-category-modify-btn')
-    .addEventListener('click', (categoryId) => modifyCategory2(categoryId));
+    .addEventListener('click', (e) => {
+      e.preventDefault();
+      modifyCategory2(categoryId);
+    });
   document
     .getElementById('category-modify-cancel-btn')
     .addEventListener('click', (e) => {
@@ -586,7 +631,7 @@ async function modifyCategory(categoryId) {
     });
   // 현재 카테고리 이름을 input값에 넣기
   const categoryData = await fetch(
-    `http://localhost:8000/api/categories/id/${categoryId}`,
+    `http://localhost:8000/api/categories/${categoryId}`,
   ).then((res) => res.json());
   document.querySelector('#modify-category-modal-nameInput').value =
     categoryData.name;
@@ -600,7 +645,7 @@ async function modifyCategory2(categoryId) {
   const name = categoryName.value;
   try {
     const response = await fetch(
-      `http://localhost:8000/api/categories/id/${categoryId}`,
+      `http://localhost:8000/api/categories/${categoryId}`,
       {
         method: 'PATCH',
         headers: {
@@ -611,10 +656,13 @@ async function modifyCategory2(categoryId) {
     );
     if (response.ok) {
       alert('카테고리 수정 성공');
+      location.reload();
     } else {
       console.error('카테고리 수정 실패:', response.status);
+      alert('카테고리 수정 실패:' + response.status);
     }
   } catch (error) {
     console.error('카테고리 수정 실패:', error);
+    alert('카테고리 수정 실패:' + error);
   }
 }
