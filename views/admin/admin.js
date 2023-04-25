@@ -214,7 +214,9 @@ async function modifyProduct(productId) {
 
   document
     .getElementById('modal-product-modify-btn')
-    .addEventListener('click', (productId) => modifyProduct3(productId));
+    .addEventListener('click', (e) => {
+      e.preventDefault();
+      modifyProduct3(productId)});
   document
     .getElementById('modify-product-cancel-btn')
     .addEventListener('click', (e) => {
@@ -615,7 +617,9 @@ async function modifyCategory(categoryId) {
 
   document
     .getElementById('modal-category-modify-btn')
-    .addEventListener('click', (categoryId) => modifyCategory2(categoryId));
+    .addEventListener('click', (e) => {
+      e.preventDefault();
+      modifyCategory2(categoryId)});
   document
     .getElementById('category-modify-cancel-btn')
     .addEventListener('click', (e) => {
