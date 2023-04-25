@@ -288,7 +288,7 @@ async function modifyProduct3(productId) {
       },
     );
     if (response.ok) {
-      alert('수정 성공');
+      alert('상품 수정 성공');
       location.reload();
     } else {
       console.error('상품 수정 실패:', response.status);
@@ -305,7 +305,7 @@ async function modifyProduct3(productId) {
 async function loadModal() {
   const modalWrapper = document.getElementById('modal-wrapper');
   modalWrapper.style.display = 'flex';
-  
+
   //get요청으로 카테고리 받아오기
   const modalCategory = document.querySelector('#modal-categoryInput');
   const categories = await fetch('http://localhost:8000/api/categories').then(
@@ -489,6 +489,7 @@ async function getCategoryList() {
   const categoryData = await fetch('http://localhost:8000/api/categories').then(
     (res) => res.json(),
   );
+  console.log(categoryData);
   const categoryListContainer = document.querySelector(
     '#categoryList',
   );
