@@ -47,9 +47,12 @@ export class OrdersController {
   @ApiBody({
     type: deliveryStatusDto,
   })
-  @Patch()
-  async updateDeliveryStatus(@Body() body: deliveryStatusDto) {
-    return await this.ordersService.updateDeliveryStatus(body);
+  @Patch('delivery/:id')
+  async updateDeliveryStatus(
+    @Body() body: deliveryStatusDto,
+    @Param('id') id: string,
+  ) {
+    return await this.ordersService.updateDeliveryStatus(body, id);
   }
 
   @ApiOperation({ summary: '주문 취소 하기' })

@@ -1,5 +1,5 @@
-const searchbtn = document.querySelector('.searchbtn');
-const searchinput = document.querySelector('.searchinput');
+// const searchbtn = document.querySelector('.searchbtn');
+// const searchinput = document.querySelector('.searchinput');
 
 const basketbtn = document.querySelector('#basket');
 const loginbtn = document.querySelector('#login');
@@ -84,17 +84,17 @@ fetch('/api/products')
 
 // 아이템 검색
 
-searchbtn.addEventListener('click', function (e) {
-  e.defaultPrevented;
-  fetch('/api/products')
-    .then((response) => response.json())
-    .then((data) => {
-      for (let i = 0; i < data.length; i++) {
-        if (searchinput.value == data[i].name) {
-          alert('상품 있음 해당상품페이지로 이동');
-          return;
-        }
-      }
-      alert('상품이 없슴!');
-    });
-});
+// searchbtn.addEventListener('click', function (e) {
+//   e.defaultPrevented;
+//   fetch('/api/products')
+//     .then((response) => response.json())
+//     .then((data) => {
+//       for (let i = 0; i < data.length; i++) {
+//         if (searchinput.value == data[i].name) {
+//           alert('상품 있음 해당상품페이지로 이동');
+//           return;
+//         }
+//       }
+//       alert('상품이 없슴!');
+//     });
+// });

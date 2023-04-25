@@ -1,26 +1,22 @@
-
-
 @font-face {
-  font-family: "MaruBuri-Regular";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/MaruBuri-Regular.woff")
-    format("woff");
+  font-family: 'MaruBuri-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/MaruBuri-Regular.woff')
+    format('woff');
   font-weight: normal;
   font-style: normal;
 }
 html,
 body {
-  font-family: "MaruBuri-Regular";
-  width: 600px;
-  margin: 0 auto;
-  padding: 0;
   background: #dcc4ad;
 }
 main {
+  font-family: 'MaruBuri-Regular';
+  width: 600px;
+  margin: 0 auto;
   height: auto;
   min-height: 100%;
   background: #dcc4ad;
   align-items: center;
-  
 }
 .container {
   display: flex;
@@ -49,9 +45,9 @@ main {
   color: #725c46;
 }
 .itemName {
-    font-weight: 600;
-    color: black;
-  }
+  font-weight: 600;
+  color: black;
+}
 .totalInfo {
   display: flex;
   flex-direction: column;

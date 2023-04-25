@@ -1,8 +1,20 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UploadedFiles,
+  UseInterceptors,
+} from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { ApiOperation } from '@nestjs/swagger';
 import { ProductRequestDto } from './dto/product.reqest.dto';
 import { categoryDto } from './dto/prdouct.dto';
+import { FilesInterceptor } from '@nestjs/platform-express';
+import { multerOptions } from 'src/common/utils/multer.oprions';
 
 @Controller('products')
 export class ProductsController {
@@ -42,5 +54,30 @@ export class ProductsController {
   @Post('category')
   async getCategory(@Body() body: categoryDto) {
     return await this.productsService.getCategory(body.category);
+  }
+
+  @ApiOperation({ summary: '상품이미지 업로드' })
+  @UseInterceptors(FilesInterceptor('image', 10, multerOptions('products')))
+  @Post('upload/:id')
+  async updateProductImg(
+    @UploadedFiles() files: Array<Express.Multer.File>,
+    @Param() id: { id: string },
+  ) {
+    return await this.productsService.uploadProductImg(id.id, files);
+  }
+
+  @ApiOperation({ summary: '상품 삭제' })
+  @Delete(':id')
+  async deleteProduct(@Param('id') id: string) {
+    return await this.productsService.deleteProduct(id);
+  }
+
+  @ApiOperation({ summary: '상품 변경하기' })
+  @Patch(':id')
+  async updateCategory(
+    @Param('id') id: string,
+    @Body() body: ProductRequestDto,
+  ) {
+    return await this.productsService.updateProduct(id, body);
   }
 }

@@ -10,6 +10,9 @@ const createFolder = (folder: string) => {
   try {
     console.log('💾 Create a root uploads folder...');
 
+    fs.mkdirSync(
+      path.join(__dirname, '..', '..', '..', 'src', 'common', `uploads`),
+    );
     fs.mkdirSync(path.join(__dirname, '..', `uploads`));
   } catch (error) {
     console.log('The folder already exists...');
@@ -18,6 +21,17 @@ const createFolder = (folder: string) => {
   try {
     console.log(`💾 Create a ${folder} uploads folder...`);
 
+    fs.mkdirSync(
+      path.join(
+        __dirname,
+        '..',
+        '..',
+        '..',
+        'src',
+        'common',
+        `uploads/${folder}`,
+      ),
+    );
     fs.mkdirSync(path.join(__dirname, '..', `uploads/${folder}`));
   } catch (error) {
     console.log(`The ${folder} folder already exists...`);
@@ -31,7 +45,15 @@ const storage = (folder: string): multer.StorageEngine => {
     destination(req, file, cb) {
       //* 어디에 저장할 지
 
-      const folderName = path.join(__dirname, '..', `uploads/${folder}`);
+      const folderName = path.join(
+        __dirname,
+        '..',
+        '..',
+        '..',
+        'src',
+        'common',
+        `uploads/${folder}`,
+      );
 
       cb(null, folderName);
     },

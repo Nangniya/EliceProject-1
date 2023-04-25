@@ -7,7 +7,7 @@ import { ProductRequestDto } from './dto/product.reqest.dto';
 export class ProductsService {
   constructor(private readonly productsRepository: ProductRepository) {}
 
-  async create(product: ProductRequestDto): Promise<Products> {
+  async create(product: ProductRequestDto) {
     return await this.productsRepository.create(product);
   }
 
@@ -26,5 +26,20 @@ export class ProductsService {
 
   async getCategory(body: string) {
     return await this.productsRepository.getCategory(body);
+  }
+
+  async uploadProductImg(id: string, files: Express.Multer.File[]) {
+    const filesName = files.map((arg, i) => {
+      return `products/${files[i].filename}`;
+    });
+    return await this.productsRepository.uploadProductImg(id, filesName);
+  }
+
+  async deleteProduct(id: string) {
+    return await this.productsRepository.deleteProduct(id);
+  }
+
+  async updateProduct(id: string, body: ProductRequestDto) {
+    return await this.productsRepository.updateProduct(id, body);
   }
 }

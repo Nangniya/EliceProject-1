@@ -20,16 +20,19 @@ const DetailTempData = [
 
 const DetailSaveData = JSON.stringify(DetailTempData);
 localStorage.setItem('detail', DetailSaveData);
-const DetailData = JSON.parse(localStorage.getItem('detail'));
-console.log(DetailData);
-
-function rendering() {
-  itemcategory.innerHTML = `${DetailData[0].category}`;
-  item_name.innerHTML = `${DetailData[0].name}`;
-  item_price.innerHTML = `${DetailData[0].price}` + ' 원';
-  details.innerHTML = `${DetailData[0].details}`;
-}
-rendering();
+const urlParam = window.location.search;
+const param = urlParam.replace('?', '').split(/[=?&]/)[1];
+fetch(`http://localhost:8000/api/products/id/${param}`)
+  .then((response) => response.json())
+  .then((data) => {
+    function rendering() {
+      itemcategory.innerHTML = `${data.category}`;
+      item_name.innerHTML = `${data.name}`;
+      item_price.innerHTML = `${data.price}` + ' 원';
+      details.innerHTML = `${data.details}`;
+    }
+    rendering();
+  });
 
 function saveData(salseCount, storeName) {
   if (window.indexedDB) {
@@ -104,7 +107,7 @@ buyNowBtn.addEventListener('click', function () {
   if (buyNow === true) {
     // saveData(salesCount, 'nowBuy');
     // localStorage.setItem('keys', localStorage.getItem('itemDetail'));
-    window.location.href = '/delivery';
+    window.location.href = '/order/detail.html';
     return;
   }
   return;
