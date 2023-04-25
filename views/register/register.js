@@ -12,6 +12,8 @@ const fullNameInput = document.querySelector('#fullNameInput');
 const emailInput = document.querySelector('#emailInput');
 const passwordInput = document.querySelector('#passwordInput');
 const passwordConfirmInput = document.querySelector('#passwordConfirmInput');
+const phoneNumInput = document.querySelector('#phoneNumInput');
+const addressInput = document.querySelector('#addressInput')
 const submitButton = document.querySelector('#submitButton');
 
 submitButton.addEventListener('click', handleSubmit);
@@ -52,6 +54,8 @@ async function handleSubmit(e) {
   const email = emailInput.value;
   const password = passwordInput.value;
   const passwordConfirm = passwordConfirmInput.value;
+  const phoneNumber = phoneNumInput.value;
+  const address = addressInput.value;
 
   // 잘 입력했는지 확인
   const isFullNameValid = name.length >= 2;
@@ -73,7 +77,7 @@ async function handleSubmit(e) {
 
   // 회원가입 api 요청
   try {
-    const data = { email, name, password };
+    const data = { email, name, password, address, phoneNumber };
 
     const result = await post('http://localhost:8000/api/users/signup', data);
     console.log(result);
