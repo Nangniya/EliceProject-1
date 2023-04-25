@@ -17,6 +17,10 @@ export class CategoriesService {
     return category;
   }
 
+  async getById(id: string) {
+    return await this.categoriesRepository.getById(id);
+  }
+
   async getAllCategories() {
     return await this.categoriesRepository.getAllCategory();
   }

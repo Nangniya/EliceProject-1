@@ -14,6 +14,10 @@ export class CategoriesRepository {
     return await this.categoryModel.find();
   }
 
+  async getById(id: string) {
+    return await this.categoryModel.findById(id);
+  }
+
   async createCategory(body: categoryRequestDto) {
     return await this.categoryModel.create(body);
   }
