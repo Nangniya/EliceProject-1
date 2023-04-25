@@ -4,20 +4,12 @@ fetch('http://localhost:8000/api/users', {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${localStorage.getItem('token')}`,
   },
-
-  method: 'GET',
 })
-  .then((response) => {
-    // Handle the response
-
-    return response.json();
-  })
+  .then((res) => res.json())
   .then((data) => {
-    console.log(data);
-    const form = `<ul>
+    const memberForm = `<ul>
               <li>
                 <div class="member-name-text">이름</div>
-
                 <div class="member-name">${data.data.name}</div>
               </li>
               <li>
@@ -33,6 +25,7 @@ fetch('http://localhost:8000/api/users', {
                 <div class="member-number">${data.data.phoneNumber}</div>
               </li>
             </ul>`;
+    document.getElementById('memberForm').innerHTML = memberForm;
   })
   .catch((error) => {
     // Handle the error
