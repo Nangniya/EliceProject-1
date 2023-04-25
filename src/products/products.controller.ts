@@ -51,9 +51,9 @@ export class ProductsController {
   }
 
   @ApiOperation({ summary: '같은 카테고리 상품 9개' })
-  @Post('category')
-  async getCategory(@Body() body: categoryDto) {
-    return await this.productsService.getCategory(body.category);
+  @Get('category/:categoryName')
+  async getCategory(@Param('categoryName') categoryName: string) {
+    return await this.productsService.getCategory(categoryName);
   }
 
   @ApiOperation({ summary: '상품이미지 업로드' })

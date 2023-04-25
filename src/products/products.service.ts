@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Products } from './products.schema';
 import { ProductRepository } from './products.repository';
 import { ProductRequestDto } from './dto/product.reqest.dto';
+import { categoryDto } from './dto/prdouct.dto';
 
 @Injectable()
 export class ProductsService {
@@ -24,8 +25,8 @@ export class ProductsService {
     return await this.productsRepository.getRecentProduct();
   }
 
-  async getCategory(body: string) {
-    return await this.productsRepository.getCategory(body);
+  async getCategory(categoryName: string) {
+    return await this.productsRepository.getCategory(categoryName);
   }
 
   async uploadProductImg(id: string, files: Express.Multer.File[]) {
