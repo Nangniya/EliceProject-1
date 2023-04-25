@@ -9,7 +9,7 @@ export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
   async signUp(body: UserRequestDto) {
-    const { email, name, password } = body;
+    const { email, name, password, address, phoneNumber } = body;
     const isUserExist = await this.usersRepository.existByEmail(email);
 
     if (isUserExist) {
@@ -21,6 +21,8 @@ export class UsersService {
     const user = await this.usersRepository.create({
       email,
       name,
+      address,
+      phoneNumber,
       password: hashedPassedword,
     });
     return user.readOnlyData;
