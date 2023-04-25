@@ -5,12 +5,14 @@
 // 장바구니에서 결제 선택한 localStorage 정보 가져오기
 if (localStorage.getItem('token')) {
     console.log('있다');
-  } else console.log('없다');
-  
+} else console.log('없다');
 
+
+function priceToString(price) {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
 
 // 현재 주문한 내역 정보 받기
-
 function getUserOrderList () {
 
     fetch('http://localhost:8000/api/orders')
@@ -25,7 +27,7 @@ function getUserOrderList () {
         // console.log(data[0].deliveryStatus);
         // console.log(data[0].createdAt);
         // console.log(data[0].price);
-        
+
     
         let orderId = data[0]._id;
         let userId = data[0].userId;
@@ -35,6 +37,8 @@ function getUserOrderList () {
         
         let orderDate = createAt.substr(0, 10);
     
+        price = priceToString(price);
+
         let temp_html = '';
     
         temp_html += `<div class="main__profile">
@@ -66,7 +70,9 @@ function getUserOrderList () {
     
         btnOrderDetail.addEventListener('click', function() {
     
-            window.location.href = "/orderDefault.html";
+            alert('aaa');
+            // window.location.href = "/orderDefault.html";
+            window.location.href = "/orderDefault.html?id=" + orderId;
             //파라미터?를 던져주든지해서 주문상세로 넘어가게끔? 하면 좋겠는데(orderDefault.html 화면 활용)
         });
     
