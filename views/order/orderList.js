@@ -1,9 +1,23 @@
+getUser(); //user 정보 받기
 
-const orderContentBoxWrapper = document.getElementById('order-content-box-wrapper')
-
-// user 정보 받기
-
-
+// user 정보 받는 함수
+async function getUser(){
+    const res = await fetch('http://localhost:8000/api/users',{
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    if(!res.ok) {
+      const errorContent = await res.json();
+      const { reason } = errorContent;
+  
+      throw new Error(reason);
+  
+    }
+    const userData = await res.json();
+    const userId = userData.data.id;
+    getUserOrderList(userId); 
+}
 
 // 장바구니에서 결제 선택한 localStorage 정보 가져오기
 if (localStorage.getItem('token')) {
@@ -15,72 +29,35 @@ function priceToString(price) {
 }
 
 // 현재 주문한 내역 정보 받기
-window.onload = function getUserOrderList () {
-
-    fetch('http://localhost:8000/api/orders')
-    .then((response) => response.json())
-    .then((data) => {
-    
-        console.log(data[0]);
-        console.log(data.length);
-        
-        let temp_html = '';
-
-        for (let i = 0; i < data.length; i++) {
-
-            console.log(data[i]);
-            
-            let orderId = data[i]._id;
-            let userId = data[i].userId;
-            let deliveryStatus = data[i].deliveryStatus;
-            let createAt = data[i].createdAt;
-            let price = data[i].price;
-            
-            let orderDate = createAt.substr(0, 10);
-            console.log(orderDate[i]); 
-
-            price = priceToString(price);
-
-            temp_html += `<div class="main__profile">
-            <div class="main__avata">
-                <img
-                    width="150px"
-                    height="150px"
-                    src="./productImage01.jpg"
-                    alt="productImage"
-                />
-            </div>
+async function getUserOrderList(userId) {
+    console.log(userId);
+    const data = await fetch(`http://localhost:8000/api/orders/getByuserId/${userId}`)
+    .then((res) => res.json());
+    const orderListWrapper = document.getElementById('order-content-box-wrapper');
+    for(let i = 0; i < data.length; i++){
+        const element = `
+        <div class="main__profile">
             <div class="main__header">
                 <div class="top">
-                    <h4>주문번호: ${orderId}</h4>&nbsp;&nbsp;
-                    <button id="btnOrderDetail${[i]}" class="btnOrderDetail">주문상세</button>
+                    <h4>주문번호: ${data[i]._id}</h4>&nbsp;&nbsp;
+                    <button class="btnOrderDetail "id="btnOrderDetail-${data[i]._id}">주문상세</button>
                 </div>
                 <div class="middle">
                     <ul>
-                    <li><b>주문일자</b> ${orderDate}</li>
-                    <li><b>배송</b> ${deliveryStatus}</li>
-                    <li><b>결제금액</b> ${price}원</b></li>
+                        <li><b>주문일자</b>${data[i].updatedAt.slice(0, 7)}</li>
+                        <li><b>주문 상태</b> ${data[i].deliveryStatus}</li>
+                        <li><b>결제금액</b> ${data[i].price}원</b></li>
                     </ul>
                 </div>
             </div>
         </div>`
-        
-        const btnOrderDetail = document.querySelector(".btnOrderDetail");
-
-        orderContentBoxWrapper.innerHTML = temp_html;
-
-        }
-    
-        btnOrderDetail.addEventListener('click', function() {
-    
-            alert('aaa');
-            // window.location.href = "/orderDefault.html";
-            // window.location.href = "/orderDefault.html?id=" + orderId;
-            //파라미터?를 던져주든지해서 주문상세로 넘어가게끔? 하면 좋겠는데(orderDefault.html 화면 활용)
-        });
-    
-    });
-
+        orderListWrapper.insertAdjacentHTML('beforeend', element);
+        const orderDetail = document.getElementById(`btnOrderDetail-${data[i]._id}`);
+        orderDetail.addEventListener('click', () => getOrderDetail(data[i]._id)); 
+    }
 }
 
-getUserOrderList();
+function getOrderDetail(orderId){
+    console.log(orderId);
+    // 해당 주문 상세 페이지로 이동하는 함수
+}
