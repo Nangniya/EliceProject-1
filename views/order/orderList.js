@@ -44,14 +44,14 @@ async function getUserOrderList(userId) {
                 </div>
                 <div class="middle">
                     <ul>
-                        <li><b>주문일자</b>${data[i].updatedAt.slice(0, 7)}</li>
-                        <li><b>주문 상태</b> ${data[i].deliveryStatus}</li>
-                        <li><b>결제금액</b> ${data[i].price}원</b></li>
+                        <li><b>주문일자</b>: ${data[i].updatedAt.slice(0, 7)}</li>
+                        <li><b>주문 상태</b>: ${data[i].deliveryStatus}</li>
+                        <li><b>결제금액</b>: ${data[i].price}원</b></li>
                     </ul>
                 </div>
             </div>
         </div>`
-        orderListWrapper.insertAdjacentHTML('beforeend', element);
+        orderListWrapper.insertAdjacentHTML('afterbegin', element);
         const orderDetail = document.getElementById(`btnOrderDetail-${data[i]._id}`);
         orderDetail.addEventListener('click', () => getOrderDetail(data[i]._id)); 
     }
