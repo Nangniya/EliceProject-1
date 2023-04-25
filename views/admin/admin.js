@@ -149,7 +149,7 @@ async function uploadImg2(productId) {
     if (response.ok) {
       // 성공적으로 응답 받은 경우 처리
       alert('이미지 추가 성공');
-      location.reload();
+      getProductList();
     } else {
       // 오류 응답 처리
       console.error('이미지 추가 실패', response.status);
@@ -178,7 +178,7 @@ async function deleteProduct(productId) {
 
       if (response.ok) {
         alert('상품 삭제 완료');
-        location.reload();
+        getProductList();
       } else {
         console.error('상품 삭제 실패:', response.status);
         alert('상품 삭제 실패:'+ response.status);
@@ -300,7 +300,7 @@ async function modifyProduct3(productId) {
     );
     if (response.ok) {
       alert('상품 수정 성공');
-      location.reload();
+      getProductList();
     } else {
       console.error('상품 수정 실패:', response.status);
       alert('상품 수정 실패:'+ response.status);
@@ -376,7 +376,7 @@ async function addProduct(e) {
     });
     if (response.ok) {
       alert('상품 추가 성공');
-      location.reload();
+      getProductList();
     } else {
       console.error('상품 추가 실패:', response.status);
       alert('상품 추가 실패:'+ response.status);
@@ -451,7 +451,7 @@ async function deleteOrder(orderId) {
 
       if (response.ok) {
         alert('주문 삭제 완료');
-        location.reload();
+        getOrderList();
       } else {
         console.error('주문 삭제 실패:', response.status);
         alert('주문 삭제 실패:'+ response.status);
@@ -481,7 +481,7 @@ async function modifyOrder(orderId) {
     );
     if (response.ok) {
       alert('주문 수정 성공');
-      location.reload();
+      getOrderList();
     } else {
       console.error('주문 수정 실패:', response.status);
       alert('주문 수정 실패:'+ response.status);
