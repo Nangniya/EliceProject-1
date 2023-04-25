@@ -65,7 +65,6 @@ async function getProductList() {
   </div>
   </div>`;
     productListContainer.insertAdjacentHTML('beforeend', element);
-    console.log(productData[i].imgUrl.length);
     if (!productData[i].imgUrl.length) {
       const imageBox = document.querySelector(
         `#product-image-${productData[i]._id}`,
