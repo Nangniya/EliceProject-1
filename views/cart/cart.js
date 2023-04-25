@@ -105,23 +105,24 @@ const buyAllBtn = document.querySelector('.all-item-order-btn');
 function buyAllItem() {
   const buyList = JSON.parse(localStorage.getItem('cart')).map((elem) => {
     return {
-      // productName: elem.productName,
+      productName: elem.productName,
       productId: elem.productId,
-      // painterName: elem.painterName,
+      category: elem.category,
       price: elem.price,
-      // image: elem.image,
+      image: elem.image,
       // productId: elem.productId,
     };
   });
   localStorage.setItem('buy-cart', JSON.stringify(buyList));
 
   // 로그인을 하지 않은 경우
-  const token = sessionStorage.getItem('token');
+  const token = localStorage.getItem('token');
   if (!token) {
     alert('로그인이 필요합니다. 로그인 페이지로 이동합니다.');
     window.location.replace('/login');
     return;
   }
+  alert('상품주문 페이지로 이동합니다.');
   window.location.replace('/order');
 }
 
