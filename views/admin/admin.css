@@ -1,9 +1,6 @@
 * {
   box-sizing: border-box;
 }
-html {
-  background-color: #e0d5ca;
-}
 /*상품관리, 카테고리관리, 주문관리 nav*/
 .nav-menu-wrapper {
   width: 80%;
@@ -165,6 +162,7 @@ section#menu-content-wrapper {
   grid-template-rows: 60px;
   text-align: center;
   vertical-align: middle;
+  background-color: #e0d5ca;
 }
 
 .category-list-content {
@@ -212,7 +210,8 @@ section#menu-content-wrapper {
   text-align: center;
   vertical-align: middle;
   font-weight: bold;
-  border-bottom: #7b6958 solid 2px;
+  border-bottom: #7b6958 solid 3px;
+  background-color: #e0d5ca;
 }
 .product-list-content {
   display: grid;
@@ -342,10 +341,15 @@ section#menu-content-wrapper {
   text-align: center;
   vertical-align: middle;
   font-weight: bold;
-  border-bottom: solid 2px #7b6958;
+  border-bottom: #7b6958 solid 3px;
+  background-color: #e0d5ca;
 }
 .order-table-title {
   border-right: solid 2px #978676;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 16px 0;
 }
 .order-list-content {
   display: grid;
