@@ -24,15 +24,6 @@ testApiButton.addEventListener('click', async () => {
 
   if (fetchResult.ok) {
     const data = await fetchResult.json();
-<<<<<<< HEAD
-    console.log('통신 성공', data);
-  } else {
-    console.log('통신 실패');
-  }
-
-  console.log({ fetchResult });
-});
-=======
     console.log("통신 성공", data);
     } else {
       console.log("통신 실패");
@@ -66,4 +57,3 @@ async function handleSubmit(e) {
     );
   }
   */
->>>>>>> 8ea30a5f310f49e84c85770f6998970345ee3879

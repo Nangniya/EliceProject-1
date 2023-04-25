@@ -10,7 +10,10 @@ let urlSearch = '';
 let urlOrderId = '';
 
 urlSearch = new URLSearchParams(location.search);
+// console.log(urlSearch);
+
 urlOrderId = urlSearch.get('orderId');
+console.log(urlOrderId);
 
 if (urlOrderId !== null && urlOrderId !== undefined) {
   // null 및 undefined가 아닌 경우 실행되는 로직 - 주문상세페이지
@@ -52,15 +55,8 @@ btnMoveCart.addEventListener('click', function () {
   window.location.href = '../cart/';
 });
 
-btnAddressInfo.addEventListener('click', function () {
-  //주소록 목록이 띄워지면 좋겠는데 우선은 이걸로 한다
-  window.open(
-    '/delivery/addressInfo.html',
-    'addressInfo',
-    'top=250, left=400, width=650, height=350, toolbar=no, menubar=no, scrollbars=yes, resizeable=no',
-  );
-});
 
+//주문자 정보 가져오기
 async function getUser() {
   const res = await fetch('http://localhost:8000/api/users', {
     headers: {
@@ -84,27 +80,6 @@ async function getUser() {
   document.getElementById('user-info-content-name').innerHTML = name;
   document.getElementById('user-info-content-email').innerHTML = email;
 }
-
-// 주문자 정보 가져오기
-// function getCurrentUser () {
-//     fetch('http://localhost:8000/api/users')
-//     .then((response) => response.json())
-//     .then((data) => {
-
-//         // console.log(data);
-//         let name = data.name;
-//         let email = data.email;
-//         let address = data.address;
-//         let phoneNum = data.phoneNum;
-
-//         document.getElementById('user-info-content-name') = name;
-//         document.getElementById('user-info-content-email') = email;
-//         document.getElementById('user-info-content-address') = address;
-//         document.getElementById('user-info-content-phoneNum') = phoneNum;
-
-//     });
-
-// }
 
 //단가 콤마 반영
 function priceToString(price) {
@@ -135,6 +110,7 @@ function getUserOrderList() {
     //fetch('http://localhost:8000/api/orders/getByOrderId')
     .then((response) => response.json())
     .then((data) => {
+
       console.log(data);
 
       // console.log(data[0]);
@@ -143,7 +119,7 @@ function getUserOrderList() {
       // console.log(data[0].orderedProducts[0].quantity);
 
       for (let i = 0; i < data.length; i++) {
-        console.log(data[i]);
+        // console.log(data[i]);
 
         let orderId = data[i]._id;
         let userId = data[i].userId;
@@ -182,5 +158,40 @@ function getUserOrderList() {
     });
 }
 
+/** 배송지 정보 */
+const addressContentWrapper = document.getElementById(
+    'address-content-select-wrapper-phone',
+);
+
+const phonePrefixNumList = ['', '02', '051', '053', '032', '062', '010'];
+
+window.addEventListener('load', () => {
+    phonePrefixNumList.forEach((number) => {
+    const selectOption = document.createElement('option');
+    selectOption.innerHTML = number;
+    addressContentWrapper.append(selectOption);
+    });
+});
+
+const addressContentMessage = document.getElementById(
+    'address-content-select-wrapper-message',
+);
+
+
+const deliveryMessageList = ['배송 요청사항 없음', '배송 전 연락 부탁드립니다.', '부재시 경비실(관리실)에 맡겨주세요.', '파손 위험이 있으니 조심히 배달하여 주세요. 감사합니다.'];
+
+window.addEventListener('load', () => {
+    deliveryMessageList.forEach((number) => {
+    const selectOptionDeliveryMessage = document.createElement('option');
+    selectOptionDeliveryMessage.innerHTML = number;
+    addressContentMessage.append(selectOptionDeliveryMessage);
+    });
+});
+
+
+
 getUser();
 getUserOrderList();
+
+
+

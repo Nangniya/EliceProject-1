@@ -136,3 +136,88 @@ body {
 .order-info-container .buttonGroup {
     text-align: center;
 }
+
+
+
+/* 배송지 정보 */
+
+.phoneNum {
+    size: 10;
+}
+.address {
+    size: 15;
+}
+
+.address-content-wrapper {
+    width: 750;
+    /* margin-left: calc(50% - 400px); */
+    /* padding: 5px; */
+}
+.address-content-table.row {
+    border-top: 1px solid #c0c0c0;
+    display: grid;
+    grid-template-columns: 120px 700px;
+}
+.address-content-table.row:nth-child(5) {
+    border-bottom: 1px solid black;
+}
+.address-content-table.row > .address-content-table.column:first-of-type {
+    background-color: #f0f0f0;
+    color: black;
+    font-weight: bold;
+    /* text-align: center; */
+}
+
+.address-content-table.row > .address-content-table.column > .column-inline-block {
+    /* background-color: green; */
+    display: inline-block;
+    margin:0px;
+}
+
+#sample6_postcode {
+    width: 95px;
+
+}
+#sample6_address {
+    width: 200px;
+}
+#sample6_detailAddress {
+    width: 350px;
+}
+
+.address-content-table.column {
+    /* text-indent: 10px; */
+    display: inline-block;
+    font-size: 10pt;
+    padding: 10px;
+    /* text-align: center; */
+}
+
+.address-content-table.column.header {
+    text-align: center;
+}
+
+
+.address-content-table.column.phone-input > select, input {
+    display: inline-block;
+    margin: 5px;
+    width: 70px;
+    height: 20px;
+}
+
+.address-content-table.column.phone-input > select#address-content-select-wrapper-message {
+    display: inline-block;
+    margin: 5px;
+    width: 450px;
+}
+
+.address-content-table.column > input[type="button"] {
+    display: inline-block;
+    width: 100px;
+}
+
+
+.address-content-button-wrapper {
+    margin: 10px;
+    text-align: center;
+}
