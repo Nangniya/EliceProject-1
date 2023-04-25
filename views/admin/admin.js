@@ -167,7 +167,7 @@ async function deleteProduct(productId) {
   if (confirm('상품을 삭제하시겠습니까?')) {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/products/id/${productId}`,
+        `http://localhost:8000/api/products/${productId}`,
         {
           method: 'DELETE',
           headers: {
@@ -280,7 +280,7 @@ async function modifyProduct3(productId) {
 
   try {
     const response = await fetch(
-      `http://localhost:8000/api/products/id/${productId}`,
+      `http://localhost:8000/api/products/${productId}`,
       {
         method: 'PATCH',
         headers: {
@@ -538,7 +538,7 @@ async function deleteCategory(categoryId) {
   if (confirm('카테고리를 삭제하시겠습니까?')) {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/categories/id/${categoryId}`,
+        `http://localhost:8000/api/categories/${categoryId}`,
         {
           method: 'DELETE',
           headers: {
@@ -624,7 +624,7 @@ async function modifyCategory(categoryId) {
     });
   // 현재 카테고리 이름을 input값에 넣기
   const categoryData = await fetch(
-    `http://localhost:8000/api/categories/id/${categoryId}`,
+    `http://localhost:8000/api/categories/${categoryId}`,
   ).then((res) => res.json());
   document.querySelector('#modify-category-modal-nameInput').value =
     categoryData.name;
@@ -638,7 +638,7 @@ async function modifyCategory2(categoryId) {
   const name = categoryName.value;
   try {
     const response = await fetch(
-      `http://localhost:8000/api/categories/id/${categoryId}`,
+      `http://localhost:8000/api/categories/${categoryId}`,
       {
         method: 'PATCH',
         headers: {
