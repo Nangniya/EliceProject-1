@@ -66,7 +66,7 @@ async function getProductList() {
     <button id="product-modify-btn-${productData[i]._id}">수정</button>
   </div>
   </div>`;
-    productListContainer.insertAdjacentHTML('beforeend', element);
+    productListContainer.insertAdjacentHTML('afterbegin', element);
     if (!productData[i].imgUrl.length) {
       const imageBox = document.querySelector(
         `#product-image-${productData[i]._id}`,
@@ -422,7 +422,7 @@ async function getOrderList() {
       orderData[i]._id
     }">삭제</button>
   </div>`;
-    orderListContainer.insertAdjacentHTML('beforeend', element);
+    orderListContainer.insertAdjacentHTML('afterbegin', element);
 
     const deliveryStatus = document.getElementById(
       `order-status-${orderData[i]._id}`,
@@ -518,7 +518,7 @@ async function getCategoryList() {
     <button id="category-modify-btn-${categoryData[i]._id}">수정</button>
   </div>
   </div>`;
-    categoryListContainer.insertAdjacentHTML('beforeend', element);
+    categoryListContainer.insertAdjacentHTML('afterbegin', element);
 
     const deleteBtn = document.querySelector(
       `#category-delete-btn-${categoryData[i]._id}`,
@@ -553,7 +553,7 @@ async function deleteCategory(categoryId) {
 
       if (response.ok) {
         alert('카테고리 삭제 완료');
-        location.reload();
+        getCategoryList();
       } else {
         console.error('카테고리 삭제 실패:', response.status);
         alert('카테고리 삭제 실패:' + response.status);
@@ -599,7 +599,7 @@ async function addCategory(e) {
     );
     if (response.ok) {
       alert('카테고리 추가 성공');
-      location.reload();
+      getCategoryList();
     } else {
       console.error('카테고리 추가 실패:', response.status);
       alert('카테고리 추가 실패:' + response.status);
@@ -656,7 +656,7 @@ async function modifyCategory2(categoryId) {
     );
     if (response.ok) {
       alert('카테고리 수정 성공');
-      location.reload();
+      getCategoryList();
     } else {
       console.error('카테고리 수정 실패:', response.status);
       alert('카테고리 수정 실패:' + response.status);
