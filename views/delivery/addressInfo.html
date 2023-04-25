@@ -8,17 +8,19 @@
         <h2>나의 주소록</h2>
         <div class="address-content-table">
             <div class="address-content-table row">
-                <div class="address-content-table column">수령인명</div>
-                <div class="address-content-table column"><input type="text" name="txtUserName" id="name"></div>
+                <div class="address-content-table column">주문자명</div>
+                <div class="address-content-table column">
+                    <input type="text" id="name">
+                </div>
             </div>
             <div class="address-content-table row">
                 <div class="address-content-table column">전화번호</div>
                 <div class="address-content-table column phone-input">
                     <select id="address-content-select-wrapper"></select>
                     -
-                    <input type="number" id="phone2"/>
+                    <input type="number" id="phone2" class="phoneNum"/>
                     -
-                    <input type="number" id="phone3" />
+                    <input type="number" id="phone3" class="phoneNum" />
                 </div>
             </div>
             <div class="address-content-table row">
@@ -28,8 +30,8 @@
                         <input type="text" id="postNum" />
                         <button id="addressInfoSetting">우편번호 찾기</button>
                     </div>
-                    <div><input type="text" id="address"/></div>
-                    <div><input type="text" id="addressDetail" /></div>
+                    <div><input type="text" id="address" class="address" /></div>
+                    <div><input type="text" id="addressDetail" class="address" /></div>
                 </div>
             </div>
             <div class="address-content-button-wrapper">
@@ -40,3 +42,5 @@
     </div>
 </body>
 </html>
+
+
