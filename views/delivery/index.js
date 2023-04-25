@@ -66,4 +66,8 @@ async function handleSubmit(e) {
     );
   }
   */
+<<<<<<< HEAD
 >>>>>>> d57e7837b753a549a32609a27b5bb16bb088ed80
+=======
+>>>>>>> 8ea30a5f310f49e84c85770f6998970345ee3879
+>>>>>>> 9be32bc28a9484bb5e7cc63ce124d873cfee67f4
