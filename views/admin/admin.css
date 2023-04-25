@@ -1,8 +1,12 @@
 * {
   box-sizing: border-box;
 }
-html {
-  background-color: #e0d5ca;
+.main-background {
+  background-image : url(admin_bg.jpg);
+  background-size : cover;
+  background-repeat : no-repeat;
+  background-position : center;
+  background-attachment : fixed;
 }
 /*상품관리, 카테고리관리, 주문관리 nav*/
 .nav-menu-wrapper {
@@ -14,6 +18,9 @@ html {
   height: 50px;
   line-height: 50px;
   border-bottom: solid 5px #7b6958;
+  background-color: white;
+  margin-top: 20px;
+  border-radius: 5px;
 }
 .nav-menu {
   display: flex;
@@ -33,6 +40,7 @@ section#menu-content-wrapper {
 .menu-content {
   width: 80%;
   margin: auto;
+  background-color: white;
 }
 /*상품 조회*/
 .product-image > button {
@@ -165,6 +173,8 @@ section#menu-content-wrapper {
   grid-template-rows: 60px;
   text-align: center;
   vertical-align: middle;
+  background-color: #e0d5ca;
+  border-bottom: 3px solid #7b6958;
 }
 
 .category-list-content {
@@ -212,7 +222,8 @@ section#menu-content-wrapper {
   text-align: center;
   vertical-align: middle;
   font-weight: bold;
-  border-bottom: #7b6958 solid 2px;
+  border-bottom: #7b6958 solid 3px;
+  background-color: #e0d5ca;
 }
 .product-list-content {
   display: grid;
@@ -222,6 +233,11 @@ section#menu-content-wrapper {
   text-align: center;
   vertical-align: middle;
   border-bottom: #7b6958 solid 2px;
+}
+.product-list-content > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 #add-product-btn {
   border: none;
@@ -342,10 +358,15 @@ section#menu-content-wrapper {
   text-align: center;
   vertical-align: middle;
   font-weight: bold;
-  border-bottom: solid 2px #7b6958;
+  border-bottom: #7b6958 solid 3px;
+  background-color: #e0d5ca;
 }
 .order-table-title {
   border-right: solid 2px #978676;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 16px 0;
 }
 .order-list-content {
   display: grid;
@@ -357,6 +378,7 @@ section#menu-content-wrapper {
   padding: 5px;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 .order-delete-btn {
   background-color: white;
@@ -422,4 +444,7 @@ input[type="file" i]::-webkit-file-upload-button {
   border-radius: 5px;
   border-color: white;
   color: #978676;
+}
+#img-submit-btn {
+  width: 80px;
 }

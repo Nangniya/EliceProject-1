@@ -3,7 +3,13 @@
     margin: 0;
     padding: 0;
 }
-
+.main-background {
+    background-image : url(order_bg.jpg);
+    background-size : cover;
+    background-repeat : no-repeat;
+    background-position : center;
+    background-attachment : fixed;
+}
 img {
     vertical-align: middle;
 }
@@ -57,7 +63,8 @@ ol, ul {
     display: flex;
     border: 1px #e0e0e0 solid;
     padding: 20px;
-    margin: 30px 0px;   
+    margin: 30px 0px;
+    justify-content: center;   
 }
 .main__profile > .main__avata {
     width: 292px;
