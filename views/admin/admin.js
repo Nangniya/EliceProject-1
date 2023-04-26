@@ -1,3 +1,16 @@
+function showPage() {
+  var targetValue = "iamdmin"; // 지정된 값
+  var input = prompt("비밀번호를 입력하세요:"); // 입력 필드를 포함한 사용자 정의 창 생성
+
+  if (input === targetValue) { // 입력 값과 지정된 값 비교
+      document.querySelector('body').style.display = "block"; // 입력 값과 일치할 경우 페이지 보여주기
+  } else {
+      alert("입력한 값이 일치하지 않습니다."); // 입력 값과 일치하지 않을 경우 경고 메시지 표시
+  }
+}
+window.onload = showPage();
+
+
 const navMenus = document.getElementsByClassName('nav-menu');
 const menuContentSection = document.getElementById('menu-content-wrapper');
 
