@@ -89,8 +89,8 @@ async function getProductList() {
   <div class-"product-manufacture">${productData[i].manufacture}</div>
   <div class-"product-quantity">${productData[i].content}</div>
   <div class="product-btns">
-    <button id="product-delete-btn-${productData[i]._id}">삭제</button>
     <button id="product-modify-btn-${productData[i]._id}">수정</button>
+    <button class="delete-botton" id="product-delete-btn-${productData[i]._id}">삭제</button>
   </div>
   </div>`;
     productListContainer.insertAdjacentHTML('afterbegin', element);
@@ -547,8 +547,8 @@ async function getCategoryList() {
   <div class="category-name">${categoryData[i].name}</div>
   <div class-"category-quantity">${categoryQuantity.length}</div>
   <div class="category-btns">
-    <button id="category-delete-btn-${categoryData[i]._id}">삭제</button>
     <button id="category-modify-btn-${categoryData[i]._id}">수정</button>
+    <button class="category-delete-button" id="category-delete-btn-${categoryData[i]._id}">삭제</button>
   </div>
   </div>`;
     categoryListContainer.insertAdjacentHTML('afterbegin', element);
