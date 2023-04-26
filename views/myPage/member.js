@@ -1,34 +1,59 @@
-fetch('http://localhost:8000/api/users', {
-  method: 'GET',
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
-  },
-})
-  .then((res) => res.json())
-  .then((data) => {
-    console.log(data.data);
-    const memberForm = `<ul>
-              <li>
-                <div class="member-name-text">이름</div>
-                <div class="member-name">${data.data.name}</div>
-              </li>
-              <li>
-                <div class="member-email-text">이메일</div>
-                <div class="member-email">${data.data.email}</div>
-              </li>
-              <li>
-                <div class="member-address-text">주소</div>
-                <div class="member-address">${data.data.address}</div>
-              </li>
-              <li>
-                <div class="member-number-text">번호</div>
-                <div class="member-number">${data.data.phoneNumber}</div>
-              </li>
-            </ul>`;
-    document.getElementById('memberForm').innerHTML = memberForm;
+window.onload = function () {
+  let memberName = document.getElementById('member-name');
+  let memberAge = document.getElementById('member-age');
+
+  let memberGender = document.getElementById('member-gender');
+  let memberEmail = document.getElementById('member-email');
+  let memberAddress = document.getElementById('member-address');
+
+  let memberNumber = document.getElementById('member-number');
+
+  let memberNameEdit = document.getElementById('member-name-edit');
+  let memberAgeEdit = document.getElementById('member-age-edit');
+
+  let memberGenderData = document.getElementById('member-gender-data');
+
+  let memberEmailEdit = document.getElementById('member-email-edit');
+
+  let memberAddressEdit = document.getElementById('member-address-edit');
+
+  let memberNumberEdit = document.getElementById('member-number-edit');
+
+  fetch('http://localhost:8000/api/users', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+
+    method: 'GET',
   })
-  .catch((error) => {
-    // Handle the error
-    console.error(error);
-  });
+    .then((response) => {
+      // Handle the response
+
+      return response.json();
+    })
+    .then((data1) => {
+      console.log(data1.data);
+
+      memberName.innerHTML = data1.data.name;
+
+      memberEmail.innerHTML = data1.data.email;
+
+      memberNameEdit.value = data1.data.name;
+
+      memberEmailEdit.innerHTML = data1.data.email;
+
+      memberAddress.innerHTML = data1.data.address;
+
+      memberAddressEdit.value = data1.data.address;
+
+      memberNumber.innerHTML = data1.data.phoneNumber;
+
+      memberNumberEdit.value = data1.data.phoneNumber;
+    })
+    .catch((error) => {
+      // Handle the error
+      console.error(error);
+    });
+};

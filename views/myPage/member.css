@@ -1,4 +1,4 @@
-.container {
+.container-content {
   height: max-content;
   background-color: #f6f4f0;
 }
@@ -25,7 +25,7 @@
 
 .mypage-member-list {
   width: 90%;
-  height: 60vh;
+  height: max-content;
   padding-top: 5vh;
   margin: 0 auto;
 
@@ -127,7 +127,7 @@ input {
 }
 
 .btn-3 {
-  width: 7vw;
+  width: 9vw;
   background-image: linear-gradient(
     to right,
     #84fab0 0%,
@@ -137,7 +137,7 @@ input {
 }
 
 .btn-6 {
-  width: 7vw;
+  width: 9vw;
   background-image: linear-gradient(
     to right,
     #fb1f1e 0%,
@@ -155,4 +155,10 @@ input {
 .mypage-menu-list a:nth-child(2) li {
   font-size: 1.6rem;
   font-weight: 900;
+}
+
+.container-content .mypage-menu {
+  left: 0;
+  top: 1vh;
+  position: sticky;
 }

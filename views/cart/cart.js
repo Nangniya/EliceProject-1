@@ -2,34 +2,39 @@
 
 let cartItemList = document.querySelector('#cart-item-list');
 let cartList = [JSON.parse(localStorage.getItem('cart'))];
+console.log(cartList[0][1]);
 
 // 로컬스토리지에 있는 장바구니 리스트 화면에 출력
 function addCartItemList(cartList) {
   let cartListContent = '';
   console.log('cartList: ', cartList);
   if (cartList !== null && cartList.length !== 0) {
-    for (let i = 0; i < cartList.length; i++) {
+    for (let i = 0; i < cartList[0].length; i++) {
       cartListContent += ` 
                 <li class="cart-item">
                     <div class="cart-item-column">
                     <div class="img-container">
-                        <a href="/products/detail?id=${cartList[i].productId}" >
+                        <a href="/products/detail?id=${
+                          cartList[0][i].productId
+                        }" >
                           <img class="cart-img" src="${
-                            cartList[i].image
+                            cartList[0][i].image
                           }" alt="상품이미지">
                         </a>
                     </div>
                     </div>
                     
                     <div class="cart-item-column item-info-left"> 
-                    <p class="work-name">${cartList[i].name}</p>
-                    <p>${cartList[i].category}</p>
+                    <p class="work-name">${cartList[0][i].name}</p>
+                    <p>${cartList[0][i].category}</p>
                     </div>
                     <div class="cart-item-column item-info-right">
                     <button class="item-delete-btn" type="button"><i class="fa-solid fa-trash-can" id=${
-                      cartList[i].productId
+                      cartList[0][i].productId
                     }></i></button>
-                    <p class="work-price">${parseInt(cartList[i].price)} 원</p>
+                    <p class="work-price">${
+                      parseInt(cartList[0][i].price) * cartList[0][i].sales
+                    } 원</p>
                     </div>
                 </li>`;
       document.querySelector('.cart-total-price').innerHTML = `${parseInt(
@@ -52,11 +57,14 @@ addCartItemList(cartList);
 
 // cart-total-price와 all-item-order-btn 합계 변경
 function totalPrice(cartList) {
-  return cartList.reduce((sum, cur) => sum + cur.price, 0);
+  return cartList[0].reduce(
+    (sum, cur) => sum + parseInt(cur.price) * cur.sales,
+    0,
+  );
 }
 
 function totalCount(cartList) {
-  return cartList.length;
+  return cartList[0].length;
 }
 
 // 개별 cart list 삭제

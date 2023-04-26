@@ -134,7 +134,7 @@ function priceToString(price) {
 
 //상품정보 가져오기
 function getProductInfo(productId) {
-  fetch('http://localhost:8000/api/products')
+  fetch(`http://localhost:8000/api/products/${productId}`)
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
