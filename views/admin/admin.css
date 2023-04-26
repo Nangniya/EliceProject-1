@@ -10,28 +10,33 @@
 }
 /*상품관리, 카테고리관리, 주문관리 nav*/
 .nav-menu-wrapper {
-  width: 80%;
-  margin: auto;
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  width: 80%;
+  margin: auto;
   height: 50px;
   line-height: 50px;
-  border-bottom: solid 5px #7b6958;
-  background-color: white;
   margin-top: 20px;
-  border-radius: 5px;
+  padding: 0;
 }
 .nav-menu {
+  width: 150px;
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 5px 10px;
-  margin: 0px 10px;
+  margin: 0;
   font-weight: bold;
+  background-color: white;
+  height: 100%;
+  border-bottom: 3px solid #7b6958;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.tab-toggle {
   background-color: #978676;
-  border-radius: 5px;
-  height: 30px;
   color: white;
+  border-bottom: 3px solid #978676;
 }
 section#menu-content-wrapper {
   width: 100%;

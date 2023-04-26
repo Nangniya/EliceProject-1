@@ -20,6 +20,15 @@ Array.from(navMenus).forEach((menuElem) => {
       getProductList(); // getProductList 함수 실행
       const addProductBtn = document.getElementById('add-product-btn');
       addProductBtn.addEventListener('click', loadModal); //상품추가 버튼에 이벤트리스너 달기
+
+      // 'tab-toggle' 클래스 부착
+      menuElem.classList.add('tab-toggle');
+
+      // 다른 관리 버튼에서 'tab-toggle' 클래스 제거
+      const otherNavMenus = Array.from(navMenus).filter(elem => elem !== menuElem);
+      otherNavMenus.forEach(otherMenuElem => {
+        otherMenuElem.classList.remove('tab-toggle');
+      });
     }
 
     //카테고리관리 버튼인 경우
@@ -27,11 +36,29 @@ Array.from(navMenus).forEach((menuElem) => {
       getCategoryList(); //getCategoryList 함수 실행
       const addCategoryBtn = document.getElementById('add-category-btn');
       addCategoryBtn.addEventListener('click', loadCategoryModal); //카테고리추가 버튼에 이벤트리스너 달기
+
+      // 'tab-toggle' 클래스 부착
+      menuElem.classList.add('tab-toggle');
+
+      // 다른 관리 버튼에서 'tab-toggle' 클래스 제거
+      const otherNavMenus = Array.from(navMenus).filter(elem => elem !== menuElem);
+      otherNavMenus.forEach(otherMenuElem => {
+        otherMenuElem.classList.remove('tab-toggle');
+      });
     }
 
     //주문관리 버튼인 경우
     if (menuId === 'order') {
       getOrderList(); //getCategoryList 함수 실행
+
+      // 'tab-toggle' 클래스 부착
+      menuElem.classList.add('tab-toggle');
+
+      // 다른 관리 버튼에서 'tab-toggle' 클래스 제거
+      const otherNavMenus = Array.from(navMenus).filter(elem => elem !== menuElem);
+      otherNavMenus.forEach(otherMenuElem => {
+        otherMenuElem.classList.remove('tab-toggle');
+      });
     }
   });
 });
