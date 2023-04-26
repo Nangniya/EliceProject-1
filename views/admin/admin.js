@@ -509,10 +509,13 @@ async function getCategoryList() {
   // 리스트 있으면 초기화
   categoryListContainer.innerHTML = '';
   for (let i = 0; i < categoryData.length; i++) {
+    const categoryQuantity = await fetch(`
+    http://localhost:8000/api/products/category/${categoryData[i].name}`).then((res) => res.json());
+
     const element = `<div class="category-list-content">
   <div class="category-id">${categoryData[i]._id}</div>
   <div class="category-name">${categoryData[i].name}</div>
-  <div class-"category-quantity">${categoryData[i].quantity}</div>
+  <div class-"category-quantity">${categoryQuantity.length}</div>
   <div class="category-btns">
     <button id="category-delete-btn-${categoryData[i]._id}">삭제</button>
     <button id="category-modify-btn-${categoryData[i]._id}">수정</button>
