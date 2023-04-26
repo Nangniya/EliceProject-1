@@ -1,15 +1,21 @@
 function showPage() {
-  var targetValue = "iamadmin"; // 지정된 값
-  var input = prompt("비밀번호를 입력하세요:"); // 입력 필드를 포함한 사용자 정의 창 생성
+  if (!localStorage.getItem('admin')) {
+    const targetValue = 'iamadmin'; // 지정된 값
+    const input = prompt('비밀번호를 입력하세요:'); // 입력 필드를 포함한 사용자 정의 창 생성
 
-  if (input === targetValue) { // 입력 값과 지정된 값 비교
-      document.querySelector('body').style.display = "block"; // 입력 값과 일치할 경우 페이지 보여주기
+    if (input === targetValue) {
+      // 입력 값과 지정된 값 비교
+      localStorage.setItem('admin', 'true');
+      document.querySelector('body').style.display = 'block'; // 입력 값과 일치할 경우 페이지 보여주기
+      console.log(localStorage.getItem('admin'));
+    } else {
+      alert('입력한 값이 일치하지 않습니다.'); // 입력 값과 일치하지 않을 경우 경고 메시지 표시
+    }
   } else {
-      alert("입력한 값이 일치하지 않습니다."); // 입력 값과 일치하지 않을 경우 경고 메시지 표시
+    document.querySelector('body').style.display = 'block';
   }
 }
 window.onload = showPage();
-
 
 const navMenus = document.getElementsByClassName('nav-menu');
 const menuContentSection = document.getElementById('menu-content-wrapper');
@@ -38,8 +44,10 @@ Array.from(navMenus).forEach((menuElem) => {
       menuElem.classList.add('tab-toggle');
 
       // 다른 관리 버튼에서 'tab-toggle' 클래스 제거
-      const otherNavMenus = Array.from(navMenus).filter(elem => elem !== menuElem);
-      otherNavMenus.forEach(otherMenuElem => {
+      const otherNavMenus = Array.from(navMenus).filter(
+        (elem) => elem !== menuElem,
+      );
+      otherNavMenus.forEach((otherMenuElem) => {
         otherMenuElem.classList.remove('tab-toggle');
       });
     }
@@ -54,8 +62,10 @@ Array.from(navMenus).forEach((menuElem) => {
       menuElem.classList.add('tab-toggle');
 
       // 다른 관리 버튼에서 'tab-toggle' 클래스 제거
-      const otherNavMenus = Array.from(navMenus).filter(elem => elem !== menuElem);
-      otherNavMenus.forEach(otherMenuElem => {
+      const otherNavMenus = Array.from(navMenus).filter(
+        (elem) => elem !== menuElem,
+      );
+      otherNavMenus.forEach((otherMenuElem) => {
         otherMenuElem.classList.remove('tab-toggle');
       });
     }
@@ -68,8 +78,10 @@ Array.from(navMenus).forEach((menuElem) => {
       menuElem.classList.add('tab-toggle');
 
       // 다른 관리 버튼에서 'tab-toggle' 클래스 제거
-      const otherNavMenus = Array.from(navMenus).filter(elem => elem !== menuElem);
-      otherNavMenus.forEach(otherMenuElem => {
+      const otherNavMenus = Array.from(navMenus).filter(
+        (elem) => elem !== menuElem,
+      );
+      otherNavMenus.forEach((otherMenuElem) => {
         otherMenuElem.classList.remove('tab-toggle');
       });
     }
@@ -117,12 +129,12 @@ async function getProductList() {
       );
       imgBtn.addEventListener('click', () => uploadImg(productData[i]._id));
     } else {
-      // 이미지가 있는 경우, 이미지를 img 태그의 src 속성 값으로 사용
+      // 이미지가 있는 경우, 이미지 가져오기
       const imageBox = document.querySelector(
         `#product-image-${productData[i]._id}`,
       );
       console.log(productData[i].imgUrl[0]);
-      imageBox.innerHTML = `<img src=${productData[i].imgUrl[0]} alt="${productData[i].name} 사진" width="70"/>`;
+      imageBox.innerHTML = `<img src="http://localhost:8000/media/${productData[i].imgUrl[0]}" alt="${productData[i].name} 사진" width="70"/>`;
     }
     // 삭제 버튼에 이벤트 리스너 부여
     const deleteBtn = document.querySelector(
@@ -185,7 +197,7 @@ async function uploadImg2(productId) {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-        body: { image: formData },
+        body: formData,
       },
     );
 
@@ -479,8 +491,10 @@ async function getOrderList() {
     );
     selector.addEventListener('change', () => {
       const selectedStatus = selector.value;
-      if(confirm(`주문 상태를 ${selectedStatus}(으)로 변경하시겠습니까?`)){
-        modifyOrder(orderData[i]._id)}});
+      if (confirm(`주문 상태를 ${selectedStatus}(으)로 변경하시겠습니까?`)) {
+        modifyOrder(orderData[i]._id);
+      }
+    });
   }
 }
 async function deleteOrder(orderId) {
@@ -553,7 +567,9 @@ async function getCategoryList() {
   categoryListContainer.innerHTML = '';
   for (let i = 0; i < categoryData.length; i++) {
     const categoryQuantity = await fetch(`
-    http://localhost:8000/api/products/category/${categoryData[i].name}`).then((res) => res.json());
+    http://localhost:8000/api/products/category/${categoryData[i].name}`).then(
+      (res) => res.json(),
+    );
 
     const element = `<div class="category-list-content">
   <div class="category-id">${categoryData[i]._id}</div>
