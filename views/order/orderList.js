@@ -31,9 +31,6 @@ async function getUserOrderList(userId) {
             <div class="main__header">
                 <div class="top">
                     <h4>주문번호: ${data[i]._id}</h4>&nbsp;&nbsp;
-                    <button class="btnOrderDetail "id="btnOrderDetail-${
-                      data[i]._id
-                    }">주문상세</button>
                 </div>
                 <div class="middle">
                     <ul>
