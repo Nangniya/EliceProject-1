@@ -6,15 +6,9 @@ const btnAddressInfo = document.querySelector('#btnAddressInfo');
 const btnGroupOrderCreate = document.querySelector('.order-create');
 const btnGroupOrderDetail = document.querySelector('.order-detail');
 
-
-// urlSearch = new URLSearchParams(window.location.search);
-// url = window.location.href;
-// console.log(url);
-
+// URL의 orderId 가져오기
 const urlParams = new URL(location.href).searchParams;
-// console.log(urlParams);
 const urlOrderId = urlParams.get('orderId');
-// console.log(urlOrderId);
 
 if (urlOrderId !== null && urlOrderId !== undefined) {
 // null 및 undefined가 아닌 경우 실행되는 로직 - 주문상세페이지
@@ -72,15 +66,16 @@ async function getUser() {
         throw new Error(reason);
     }
     const data = await res.json();
-    // console.log(data);
-    // console.log(data.data.name);
-    // console.log(data.data.email);
-
     let name = data.data.name;
     let email = data.data.email;
+    let address = data.data.address;
+    let phone = data.data.phoneNumber;
 
-    document.getElementById('user-info-content-name').innerHTML = name;
-    document.getElementById('user-info-content-email').innerHTML = email;
+    document.getElementById('user-info-content-name').innerHTML = `주문자   :    ${name}`;
+    document.getElementById('user-info-content-email',).innerHTML = `이메일 : ${email}`;
+    document.getElementById('user-info-content-address').innerHTML = `주소 : ${address}`;
+    document.getElementById('user-info-content-phoneNumber').innerHTML = `휴대전화 : ${phone}`;
+
 }
 
 function priceToString(price) {
@@ -88,27 +83,33 @@ function priceToString(price) {
 }
 
 //상품정보 가져오기
-async function getProductInfo(productId) {
-    const response = await fetch('http://localhost:8000/api/products');
-    const data = await response.json();
+function getProductInfo(productId) {
     
-    let productInfo = {};
+    fetch('http://localhost:8000/api/products')
+    .then((response) => response.json())
+    .then((data) => {
 
-    for (let i = 0; i < data.length; i++) {
-        if (data[i]._id == productId) {
-            productInfo = {
-                productIdPick: data[i]._id,
-                category: data[i].category,
-                name: data[i].name,
-                price: data[i].price,
-                imgUrl: data[i].imgUrl[0],
-                content: data[i].content
-            }
-            break;
+        console.log(data);
+        
+        let productInfo = {};
+
+        for (let i = 0; i < data.length; i++) {
+            if (data[i]._id === productId) {
+                productInfo = {
+                    productIdPick: data[i]._id,
+                    category: data[i].category,
+                    name: data[i].name,
+                    price: data[i].price,
+                    imgUrl: data[i].imgUrl[0],
+                    content: data[i].content
+                }
+                break;
         }
     }
 
     return productInfo;
+
+    });
 }
 
 
@@ -119,16 +120,10 @@ function getUserOrderList(urlOrderId) {
         // return 0;
     }
     else {
+
         fetch('http://localhost:8000/api/orders/getByOrderId/' + urlOrderId)
         .then((response) => response.json())
         .then((data) => {
-
-        console.log(data);
-
-        // console.log(data[0]);
-        // console.log(data[0].orderedProducts);
-        // console.log(data[0].orderedProducts[0].productId);
-        // console.log(data[0].orderedProducts[0].quantity);
 
         // let orderId = urlOrderId;
         let userId = "";
@@ -136,7 +131,7 @@ function getUserOrderList(urlOrderId) {
         let deliveryStatus = "";
         let deliveryMessage = "";
         let createAt = "";
-        let price = "";          //전체 합?
+        let price = "";
         let orderedProducts = {};
 
         orderId = data._id;
@@ -145,68 +140,21 @@ function getUserOrderList(urlOrderId) {
         deliveryStatus = data.deliveryStatus;
         deliveryMessage = data.deliveryMessage;
         createAt = data.createdAt;
-        price = data.price;          //전체 합?
+        price = data.price;
         orderedProducts = data.orderedProducts;
 
-        console.log(orderedProducts);
-        console.log(orderedProducts[0]);
-        // console.log(orderedProducts[0].productId);
-
-        let orderedProductList = {};
+        let orderedProductList = [];
 
         for (let i = 0; i < orderedProducts.length; i++) {
 
-            console.log(orderedProducts[i].productId);
+            // console.log(orderedProducts[i].productId);
             orderedProductList.push(getProductInfo(orderedProducts[i].productId));
 
-            console.log('bb');
-            console.log(orderedProductList);
         }
-
-        console.log('bb');
-        console.log(orderedProductList);
-
 
         });
     }
 }
-
-//장바구니->주문결제할 때는 orderId가 없으니깐 로컬스토리지에서 던져준 정보로 만들기
-
-// function getUserOrderList() {
-// fetch('http://localhost:8000/api/orders')
-//     //fetch('http://localhost:8000/api/orders/getByOrderId')
-//     .then((response) => response.json())
-//     .then((data) => {
-
-//         // console.log('aa');
-//         getProductInfo('644627867145207d8a0ff1b7');
-
-//     // console.log(data);
-
-//     // console.log(data[0]);
-//     // console.log(data[0].orderedProducts);
-//     // console.log(data[0].orderedProducts[0].productId);
-//     // console.log(data[0].orderedProducts[0].quantity);
-
-
-//         for (let i = 0; i < data.length; i++) {
-//             // console.log(data[i]);
-
-//             let orderId = data[i]._id;
-//             let userId = data[i].userId;
-//             let deliveryStatus = data[i].deliveryStatus;
-//             let createAt = data[i].createdAt;
-//             let price = data[i].price;
-//             // let quantity = data[i].quantity;
-//             // let orderedProducts = data[i]; //주문한 품목들
-
-//             console.log(orderId);
-
-//         }
-//     });
-// }
-
 
 
 /** 배송지 정보 */
