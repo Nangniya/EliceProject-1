@@ -8,18 +8,18 @@ const plusBtn = document.querySelector('.plus');
 const minusBtn = document.querySelector('.minus');
 const salesCount = document.querySelector('.salesCount');
 
-const DetailTempData = [
-  {
-    category: 'Chairs',
-    name: '엘리스 의자 - BEIGE',
-    price: 20000,
-    details:
-      '엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙',
-  },
-];
+// const DetailTempData = [
+//   {
+//     category: 'Chairs',
+//     name: '엘리스 의자 - BEIGE',
+//     price: 20000,
+//     details:
+//       '엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙',
+//   },
+// ];
 
-const DetailSaveData = JSON.stringify(DetailTempData);
-localStorage.setItem('detail', DetailSaveData);
+// const DetailSaveData = JSON.stringify(DetailTempData);
+// localStorage.setItem('detail', DetailSaveData);
 const urlParam = window.location.search;
 const param = urlParam.replace('?', '').split(/[=?&]/)[1];
 fetch(`http://localhost:8000/api/products/id/${param}`)
@@ -34,43 +34,36 @@ fetch(`http://localhost:8000/api/products/id/${param}`)
     rendering();
   });
 
-function saveData(salseCount, storeName) {
-  if (window.indexedDB) {
-    const databaseName = 'cart';
-    const version = 1;
-    const request = indexedDB.open(databaseName, version);
+// function saveData(salseCount, storeName) {
+//   if (window.indexedDB) {
+//     const databaseName = 'cart';
+//     const version = 1;
+//     const request = indexedDB.open(databaseName, version);
 
-    const data = {
-      name: item_name.innerHTML,
-      category: itemcategory.innerHTML,
-      price: item_price.innerHTML,
-      sales: salesCount.innerText,
-    };
-    console.log(data);
-    request.onupgradeneeded = function () {
-      //장바구니용 objectStore
-      request.result.createObjectStore('items', { autoIncrement: true });
-      //바로구매용 objectStore
-      request.result.createObjectStore('nowBuy', { keyPath: 'id' });
-    };
+//     request.onupgradeneeded = function () {
+//       //장바구니용 objectStore
+//       request.result.createObjectStore('items', { autoIncrement: true });
+//       //바로구매용 objectStore
+//       request.result.createObjectStore('nowBuy', { keyPath: 'id' });
+//     };
 
-    request.onsuccess = function () {
-      localStorage.setItem('storeName', storeName);
-      const objStore = request.result
-        .transaction(`${storeName}`, 'readwrite')
-        .objectStore(`${storeName}`);
+//     request.onsuccess = function () {
+//       localStorage.setItem('storeName', storeName);
+//       const objStore = request.result
+//         .transaction(`${storeName}`, 'readwrite')
+//         .objectStore(`${storeName}`);
 
-      if (storeName == 'items') {
-        isExist(data, objStore);
-      } else {
-        objStore.add(data);
-      }
-    };
-    request.onerror = function (event) {
-      alert(event.target.errorCode);
-    };
-  }
-}
+//       if (storeName == 'items') {
+//         isExist(data, objStore);
+//       } else {
+//         objStore.add(data);
+//       }
+//     };
+//     request.onerror = function (event) {
+//       alert(event.target.errorCode);
+//     };
+//   }
+// }
 
 plusBtn.addEventListener('click', () => {
   if (parseInt(salesCount.innerText) >= 10) {
@@ -91,8 +84,25 @@ minusBtn.addEventListener('click', () => {
 });
 
 //장바구니 담기
-cartBtn.addEventListener('click', function () {
-  saveData(salesCount, 'items');
+cartBtn.addEventListener('click', () => {
+  const data = {
+    name: item_name.innerHTML,
+    category: itemcategory.innerHTML,
+    price: item_price.innerHTML,
+    sales: salesCount.innerText,
+  };
+  console.log(data);
+  if (localStorage.getItem('cart') == null) {
+    localStorage.setItem('cart', JSON.stringify(data));
+  } else {
+    let cartList = [localStorage.getItem('cart')];
+    cartList.push(JSON.stringify(data));
+    localStorage.setItem('cart', JSON.stringify(cartList));
+  }
+  // let cartList = [JSON.parse(localStorage.getItem('cart'))];
+  // console.log(cartList);
+  // cartList.push(JSON.stringify(data));
+  // localStorage.setItem('cart', cartList);
   const moveTocart = confirm(
     '상품이 장바구니에 담겼습니다.\n장바구니로 이동하시겠습니까?',
   );
