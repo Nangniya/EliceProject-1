@@ -26,7 +26,7 @@ body {
     background-color: #D7CCC8;
 }
 
-/* 주문 결제 */
+/** 주문 결제 */
 .order-content-wrapper {
     width: 1100px;
     margin: 30px auto;
@@ -40,7 +40,29 @@ body {
     margin: 30px 0px;
 }
 
-/* 주문자 정보 */
+
+/** 주문상세 */
+/* .order-detail-content {
+    width: 800px;
+    margin: 20px auto;
+    display: flex;
+    border: 1px #e0e0e0 solid;
+    padding: 20px;
+} */
+img {
+    width: 150px;
+    height: 150px;
+    margin-left: 30px;
+    margin-right: 30px;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;            /* 상품상세페이지 */
+    border-radius: 50px;
+    /* background-color: green; */
+}
+
+
+/** 주문자 정보 */
 .order-info-container > .user-info-content{
     width: 870px;
     border: 1px solid #e0e0e0;
@@ -87,22 +109,24 @@ body {
 .order-info-container > .order-detail-content-wrapper > h4 {
     margin: 30px 0px 10px 30px;
 }
-
-.order-info-container > .order-detail-content-wrapper >.order-detail-content {
+.order-info-container > .order-detail-content-wrapper > .order-detail-content-container {
+    /* border: 1px solid #e0e0e0; */
+}
+.order-info-container > .order-detail-content-wrapper > .order-detail-content-container > .order-detail-content {
     width: 870px;
     /* border: 1px solid #e0e0e0; */
-    margin: 10px auto 30px auto;   
+    margin: 10px auto 0px auto;   
     /* border-bottom: 1px solid #e0e0e0; */
 }
-.order-info-container > .order-detail-content-wrapper > .order-detail-content > h4 {
+.order-info-container > .order-detail-content-wrapper > .order-detail-content-container > .order-detail-content > h4 {
     margin: 30px 0px 10px 30px;
 }
-.order-info-container > .order-detail-content-wrapper > .order-detail-content > ul {
+.order-info-container > .order-detail-content-wrapper > .order-detail-content-container > .order-detail-content > ul {
     margin: 15px 30px 20px 10px;
     display: flex;
     /* border-bottom: 1px solid #e0e0e0; */
 }
-.order-info-container > .order-detail-content-wrapper > .order-detail-content > ul > li {
+.order-info-container > .order-detail-content-wrapper > .order-detail-content-container > .order-detail-content > ul > li {
     height: 100%;
     padding: 0 20px;
     box-sizing: border-box; /* 박스 사이즈를 테두리 선까지 포함합니다. */
@@ -111,12 +135,12 @@ body {
     align-items: center;
     /* border-top : 1px rgba(0, 0, 0, 0) dotted; */
 }
-.order-info-container > .order-detail-content-wrapper > .order-detail-content > ul > li > img {
+/* .order-info-container > .order-detail-content-wrapper > .order-detail-content-container > .order-detail-content > ul > li > img {
     width:170px;
     margin: 7px 10px;
     display:inline-block;
     margin: 15px 0px 20px 0px;
-}
+} */
 
 
 /* 결제정보 */
