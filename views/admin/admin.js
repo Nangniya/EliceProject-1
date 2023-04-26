@@ -437,7 +437,10 @@ async function getOrderList() {
     const selector = document.getElementById(
       `order-status-${orderData[i]._id}`,
     );
-    selector.addEventListener('change', () => modifyOrder(orderData[i]._id));
+    selector.addEventListener('change', () => {
+      const selectedStatus = selector.value;
+      if(confirm(`주문 상태를 ${selectedStatus}(으)로 변경하시겠습니까?`)){
+        modifyOrder(orderData[i]._id)}});
   }
 }
 async function deleteOrder(orderId) {
