@@ -1,7 +1,7 @@
-.navbar {
+/* .navbar {
   display: flexbox;
   justify-content: center;
-}
+} */
 .container-fluid {
   width: 80%;
 }
@@ -105,4 +105,13 @@ body {
 }
 .item-price {
   color: darkcyan;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 33%;
+  margin: 15px;
+  background-color: antiquewhite;
 }

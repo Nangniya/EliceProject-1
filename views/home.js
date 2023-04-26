@@ -1,8 +1,20 @@
+// const searchbtn = document.querySelector('.searchbtn');
+// const searchinput = document.querySelector('.searchinput');
+
+const basketbtn = document.querySelector('#basket');
+const loginbtn = document.querySelector('#login');
+const mypage = document.querySelector('#mypage');
+const category = document.querySelector('#myCategory');
+
+if (localStorage.getItem('token')) {
+  console.log('로그인되어있음');
+} else console.log('로그인되어있지않음');
+
 fetch('/api/categories')
   .then((response) => response.json())
   .then((data) => {
-    let itemsHtml = '';
-    for (let i = 0; i < data.length; i++) {
+    var itemsHtml = '';
+    for (var i = 0; i < data.length; i++) {
       itemsHtml += `
         <button type="button" class="btn btn-warning category_title">${data[i].name}</button>
           `;
@@ -12,24 +24,28 @@ fetch('/api/categories')
 
     function handleButtonClick(event) {
       let testhtml = '';
-      fetch('/api/products')
+      fetch(`/api/products/category/${event.target.innerText}`)
         .then((response) => response.json())
         .then((data) => {
           for (let i = 0; i < data.length; i++) {
-            if (event.target.innerText == data[i].category) {
-              testhtml += `<div>
+            testhtml += `<div class="item" id=${data[i]._id}>
               <p class="item-title">상품명 : ${data[i].name}<p>
               <p class="item-price">가격 : ${data[i].price}<p>
               </div>
             `;
-            }
           }
           if (testhtml) {
             document.querySelector('.test').innerHTML = testhtml;
           } else
-            document.querySelector(
-              '.test',
-            ).innerHTML = `<p class="item-title">해당 카테고리 상품없음<p>`;
+            document.querySelector('.test').innerHTML = `
+            <p class="item-title">상품없음<p>
+            `;
+          function newitemClick(event) {
+            window.location.href = `http://localhost:8000/detail?id=${event.target.id}`;
+          }
+          document.querySelectorAll('.item').forEach((button) => {
+            button.addEventListener('click', newitemClick);
+          });
         });
     }
     document.querySelectorAll('.category_title').forEach((button) => {
@@ -42,34 +58,41 @@ fetch('/api/categories')
 fetch('/api/products/recent')
   .then((response) => response.json())
   .then((data) => {
-    let itemsHtml = '';
-    for (let i = 0; i < data.length; i++) {
-      itemsHtml += `<div class=${data[i].name}>
+    var itemsHtml = '';
+    for (var i = 0; i < data.length; i++) {
+      itemsHtml += `<div class="item new-item" id=${data[i]._id}>
             <p class="item-title">상품명 : ${data[i].name}<p>
             <p class="item-price">가격 : ${data[i].price}<p>
             </div>
           `;
     }
     document.querySelector('.new-item-conatiner').innerHTML = itemsHtml;
+    function newitemClick(event) {
+      console.log(event.target);
+      console.log(event);
+      window.location.href = `http://localhost:8000/detail?id=${event.target.id}`;
+    }
+    document.querySelectorAll('.new-item').forEach((button) => {
+      button.addEventListener('click', newitemClick);
+    });
   });
 
 fetch('/api/products')
   .then((response) => response.json())
   .then((data) => {
-    let itemsHtml = '';
-    for (let i = 0; i < data.length; i++) {
-      itemsHtml += `<div id=${data[i]._id}>
+    var itemsHtml = '';
+    for (var i = 0; i < data.length; i++) {
+      itemsHtml += `<div class="item" id=${data[i]._id}>
             <p class="item-title">상품명 : ${data[i].name}<p>
             <p class="item-price">가격 : ${data[i].price}<p>
             </div>
           `;
     }
     document.querySelector('.best-item-conatiner').innerHTML = itemsHtml;
-    for (let i = 0; i < data.length; i++) {
-      document
-        .getElementById(`${data[i]._id}`)
-        .addEventListener('click', () => {
-          window.location.href = `/detail/?id=${data[i]._id}`;
-        });
+    function newitemClick(event) {
+      window.location.href = `http://localhost:8000/detail?id=${event.target.id}`;
     }
+    document.querySelectorAll('.item').forEach((button) => {
+      button.addEventListener('click', newitemClick);
+    });
   });
