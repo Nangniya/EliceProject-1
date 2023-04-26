@@ -133,7 +133,6 @@ async function getProductList() {
       const imageBox = document.querySelector(
         `#product-image-${productData[i]._id}`,
       );
-      console.log(productData[i].imgUrl[0]);
       imageBox.innerHTML = `<img src="http://localhost:8000/media/${productData[i].imgUrl[0]}" alt="${productData[i].name} 사진" width="70"/>`;
     }
     // 삭제 버튼에 이벤트 리스너 부여
