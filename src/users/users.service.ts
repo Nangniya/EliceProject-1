@@ -2,7 +2,6 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserRequestDto } from './dto/user.request.dto';
 import { UsersRepository } from './users.repository';
 import * as bcrypt from 'bcrypt';
-import { userCartDto } from './dto/user.cart.dto';
 
 @Injectable()
 export class UsersService {
@@ -26,9 +25,5 @@ export class UsersService {
       password: hashedPassedword,
     });
     return user.readOnlyData;
-  }
-
-  async addToCart(id: string, cartData: userCartDto) {
-    return await this.usersRepository.addToCart(id, cartData);
   }
 }

@@ -12,7 +12,6 @@ import {
 import { ProductsService } from './products.service';
 import { ApiOperation } from '@nestjs/swagger';
 import { ProductRequestDto } from './dto/product.reqest.dto';
-import { categoryDto } from './dto/prdouct.dto';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { multerOptions } from 'src/common/utils/multer.oprions';
 
@@ -53,6 +52,7 @@ export class ProductsController {
   @ApiOperation({ summary: '같은 카테고리 상품 9개' })
   @Get('category/:categoryName')
   async getCategory(@Param('categoryName') categoryName: string) {
+    console.log(categoryName);
     return await this.productsService.getCategory(categoryName);
   }
 

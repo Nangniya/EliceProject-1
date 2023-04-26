@@ -31,8 +31,8 @@ export class ProductRepository {
     return products;
   }
 
-  async getCategory(categoryName: string) {
-    const products = await this.productsModel.find({ categoryName });
+  async getCategory(category: string) {
+    const products = await this.productsModel.find({ category });
     return products;
   }
 

@@ -1,5 +1,5 @@
 fetch('http://localhost:8000/api/users', {
-  method: 'POST',
+  method: 'GET',
   headers: {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -7,6 +7,7 @@ fetch('http://localhost:8000/api/users', {
 })
   .then((res) => res.json())
   .then((data) => {
+    console.log(data.data);
     const memberForm = `<ul>
               <li>
                 <div class="member-name-text">이름</div>
