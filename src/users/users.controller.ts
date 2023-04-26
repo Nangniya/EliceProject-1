@@ -16,7 +16,6 @@ import { UsersService } from './users.service';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
 import { HttpExceptionFilter } from 'src/common/exception/http-exception.filter';
-import { addCartDto, userCartDto } from './dto/user.cart.dto';
 
 @Controller('users')
 @UseInterceptors(SuccessInterceptor)
@@ -52,19 +51,5 @@ export class UsersController {
   @Post('login')
   logIn(@Body() data: LoginRequestDto) {
     return this.authService.jwtLogIn(data);
-  }
-
-  @ApiOperation({ summary: '유저 장바구니 추가하기' })
-  @ApiBody({
-    description: '유저 장바구니 추가하기',
-    type: addCartDto,
-  })
-  @Post('addToCart')
-  addToCart(@Body() body: addCartDto) {
-    const cartData: userCartDto = {
-      productId: body.productId,
-      quantity: body.quantity,
-    };
-    return this.usersService.addToCart(body.userId, cartData);
   }
 }
