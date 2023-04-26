@@ -28,19 +28,24 @@ fetch('/api/categories')
         .then((response) => response.json())
         .then((data) => {
           for (let i = 0; i < data.length; i++) {
-            testhtml += `<div class="item">
+            testhtml += `<div class="item" id=${data[i]._id}>
               <p class="item-title">상품명 : ${data[i].name}<p>
               <p class="item-price">가격 : ${data[i].price}<p>
               </div>
             `;
-            console.log(data[i]);
           }
           if (testhtml) {
             document.querySelector('.test').innerHTML = testhtml;
           } else
-            document.querySelector('.test').innerHTML = `<div class="item">
+            document.querySelector('.test').innerHTML = `
             <p class="item-title">상품없음<p>
-            </div>`;
+            `;
+          function newitemClick(event) {
+            window.location.href = `http://localhost:8000/detail?id=${event.target.id}`;
+          }
+          document.querySelectorAll('.item').forEach((button) => {
+            button.addEventListener('click', newitemClick);
+          });
         });
     }
     document.querySelectorAll('.category_title').forEach((button) => {
