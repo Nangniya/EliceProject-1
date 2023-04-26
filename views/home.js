@@ -27,10 +27,9 @@ fetch('/api/categories')
       fetch(`/api/products/category/${event.target.innerText}`)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           for (let i = 0; i < data.length; i++) {
             testhtml += `<div class="item" id=${data[i]._id}>
-            <img src="http://localhost:8000/media/${data[i].imgUrl}" class="d-block w-100" alt="..." />
+            <img src="http://localhost:8000/media/${data[i].imgUrl[0]}" class="d-block w-100" alt="..." />
               <p class="item-title">상품명 : ${data[i].name}<p>
               <p class="item-price">가격 : ${data[i].price}<p>
               </div>
@@ -63,7 +62,7 @@ fetch('/api/products/recent')
     var itemsHtml = '';
     for (var i = 0; i < data.length; i++) {
       itemsHtml += `<div class="item new-item" id=${data[i]._id}>
-      <img src="http://localhost:8000/media/${data[i].imgUrl}" class="d-block w-100" alt="..." />
+      <img src="http://localhost:8000/media/${data[i].imgUrl[0]}" class="d-block w-100" alt="..." />
             <p class="item-title">상품명 : ${data[i].name}<p>
             <p class="item-price">가격 : ${data[i].price}<p>
             </div>
@@ -79,14 +78,15 @@ fetch('/api/products/recent')
       button.addEventListener('click', newitemClick);
     });
   });
-// http://localhost:8000/media/기글리글룹1682510778224.png
 fetch('/api/products')
   .then((response) => response.json())
   .then((data) => {
+
+    console.log(data);
     var itemsHtml = '';
     for (var i = 0; i < data.length; i++) {
       itemsHtml += `<div class="item" id=${data[i]._id}>
-            <img src="http://localhost:8000/media/${data[i].imgUrl}" class="d-block w-100" alt="..." />
+            <img src="http://localhost:8000/media/${data[i].imgUrl[0]}" class="d-block w-100" alt="..." />
             <p class="item-title">상품명 : ${data[i].name}<p>
             <p class="item-price">가격 : ${data[i].price}<p>
             
