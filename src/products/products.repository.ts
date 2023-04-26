@@ -40,7 +40,7 @@ export class ProductRepository {
     const product = await this.productsModel.findById(_id);
     if (product) {
       for (let i = 0; i < filesName.length; i++) {
-        product.imgUrl.push(`http://localhost:8000/media/${filesName[i]}`);
+        product.imgUrl.push(`${filesName[i]}`);
       }
       return product.save();
     } else {

@@ -52,7 +52,6 @@ export class ProductsController {
   @ApiOperation({ summary: '같은 카테고리 상품 9개' })
   @Get('category/:categoryName')
   async getCategory(@Param('categoryName') categoryName: string) {
-    console.log(categoryName);
     return await this.productsService.getCategory(categoryName);
   }
 

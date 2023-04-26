@@ -8,18 +8,6 @@ const plusBtn = document.querySelector('.plus');
 const minusBtn = document.querySelector('.minus');
 const salesCount = document.querySelector('.salesCount');
 
-// const DetailTempData = [
-//   {
-//     category: 'Chairs',
-//     name: '엘리스 의자 - BEIGE',
-//     price: 20000,
-//     details:
-//       '엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙',
-//   },
-// ];
-
-// const DetailSaveData = JSON.stringify(DetailTempData);
-// localStorage.setItem('detail', DetailSaveData);
 const urlParam = window.location.search;
 const param = urlParam.replace('?', '').split(/[=?&]/)[1];
 fetch(`http://localhost:8000/api/products/id/${param}`)
@@ -33,37 +21,6 @@ fetch(`http://localhost:8000/api/products/id/${param}`)
     }
     rendering();
   });
-
-// function saveData(salseCount, storeName) {
-//   if (window.indexedDB) {
-//     const databaseName = 'cart';
-//     const version = 1;
-//     const request = indexedDB.open(databaseName, version);
-
-//     request.onupgradeneeded = function () {
-//       //장바구니용 objectStore
-//       request.result.createObjectStore('items', { autoIncrement: true });
-//       //바로구매용 objectStore
-//       request.result.createObjectStore('nowBuy', { keyPath: 'id' });
-//     };
-
-//     request.onsuccess = function () {
-//       localStorage.setItem('storeName', storeName);
-//       const objStore = request.result
-//         .transaction(`${storeName}`, 'readwrite')
-//         .objectStore(`${storeName}`);
-
-//       if (storeName == 'items') {
-//         isExist(data, objStore);
-//       } else {
-//         objStore.add(data);
-//       }
-//     };
-//     request.onerror = function (event) {
-//       alert(event.target.errorCode);
-//     };
-//   }
-// }
 
 plusBtn.addEventListener('click', () => {
   if (parseInt(salesCount.innerText) >= 10) {

@@ -6,10 +6,9 @@ const btnAddressInfo = document.querySelector('#btnAddressInfo');
 const btnGroupOrderCreate = document.querySelector('.order-create');
 const btnGroupOrderDetail = document.querySelector('.order-detail');
 
+// URL의 orderId 가져오기
 const urlParams = new URL(location.href).searchParams;
-// console.log(urlParams);
 const urlOrderId = urlParams.get('orderId');
-// console.log(urlOrderId);
 
 if (urlOrderId !== null && urlOrderId !== undefined) {
   // null 및 undefined가 아닌 경우 실행되는 로직 - 주문상세페이지
@@ -21,7 +20,6 @@ if (urlOrderId !== null && urlOrderId !== undefined) {
   btnGroupOrderDetail.style.display = 'none';
 }
 
-//주문취소 버튼클릭
 btnOrderCreateCancel.addEventListener('click', function () {
   window.location.href = '../index.html';
 });
@@ -67,8 +65,6 @@ async function getUser() {
     throw new Error(reason);
   }
   const data = await res.json();
-  console.log(data);
-
   let name = data.data.name;
   let email = data.data.email;
   let address = data.data.address;
@@ -86,6 +82,73 @@ async function getUser() {
   document.getElementById(
     'user-info-content-phoneNumber',
   ).innerHTML = `휴대전화 : ${phone}`;
+}
+
+function priceToString(price) {
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+//상품정보 가져오기
+function getProductInfo(productId) {
+  fetch('http://localhost:8000/api/products')
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+
+      let productInfo = {};
+
+      for (let i = 0; i < data.length; i++) {
+        if (data[i]._id === productId) {
+          productInfo = {
+            productIdPick: data[i]._id,
+            category: data[i].category,
+            name: data[i].name,
+            price: data[i].price,
+            imgUrl: data[i].imgUrl[0],
+            content: data[i].content,
+          };
+          break;
+        }
+      }
+
+      return productInfo;
+    });
+}
+
+function getUserOrderList(urlOrderId) {
+  if (urlOrderId == null || urlOrderId == undefined) {
+    // alert("주문 / 결제페이지입니다.");
+    // return 0;
+  } else {
+    fetch('http://localhost:8000/api/orders/getByOrderId/' + urlOrderId)
+      .then((response) => response.json())
+      .then((data) => {
+        // let orderId = urlOrderId;
+        let userId = '';
+        let address = '';
+        let deliveryStatus = '';
+        let deliveryMessage = '';
+        let createAt = '';
+        let price = '';
+        let orderedProducts = {};
+
+        orderId = data._id;
+        userId = data.userId;
+        address = data.address;
+        deliveryStatus = data.deliveryStatus;
+        deliveryMessage = data.deliveryMessage;
+        createAt = data.createdAt;
+        price = data.price;
+        orderedProducts = data.orderedProducts;
+
+        let orderedProductList = [];
+
+        for (let i = 0; i < orderedProducts.length; i++) {
+          // console.log(orderedProducts[i].productId);
+          orderedProductList.push(getProductInfo(orderedProducts[i].productId));
+        }
+      });
+  }
 }
 
 /** 배송지 정보 */
@@ -134,7 +197,8 @@ function sample6_execDaumPostcode() {
       var extraAddr = ''; // 참고항목 변수
 
       //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-      if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+      if (data.userSelectedType === 'R') {
+        // 사용자가 도로명 주소를 선택했을 경우
         addr = data.roadAddress;
       } else {
         // 사용자가 지번 주소를 선택했을 경우(J)
@@ -172,6 +236,10 @@ function sample6_execDaumPostcode() {
     },
   }).open();
 }
-getUser();
 
-localStorage.setItem('test1', '의자');
+getUser();
+// getUserOrderList();
+// getProductInfo();
+
+// getProductInfo('644627867145207d8a0ff1b7');
+getUserOrderList(urlOrderId);
