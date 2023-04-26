@@ -1,7 +1,7 @@
-.navbar {
+/* .navbar {
   display: flexbox;
   justify-content: center;
-}
+} */
 .container-fluid {
   width: 80%;
 }
@@ -33,14 +33,18 @@ h1 {
 .img-slide-container {
   display: flex;
   justify-content: center;
-  margin-top: 60px;
+  margin-top: 30px;
 }
 .img-slide {
   width: 70%;
+}
+.carousel-item {
   height: 300px;
+}
 
-  object-fit: contain;
-  overflow: hidden;
+.carousel-item > img {
+  width: 100%;
+  height: 100%;
 }
 
 html,
@@ -73,16 +77,41 @@ body {
   display: flex;
   justify-content: center;
 }
+.category_title {
+  margin: 15px;
+}
 
-.category-title {
-  width: 10%;
-
-  white-space: nowrap;
-  margin: 10px;
+.best-item-conatiner,
+.new-item-conatiner,
+.test {
+  display: flex;
+}
+.test > div {
+  width: 200px;
+  height: 200px;
 }
 
 .best-item-conatiner > div {
   width: 200px;
   height: 200px;
-  overflow: hidden;
+}
+.new-item-conatiner > div {
+  width: 200px;
+  height: 200px;
+}
+
+.item-title {
+  color: blueviolet;
+}
+.item-price {
+  color: darkcyan;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 33%;
+  margin: 15px;
+  background-color: antiquewhite;
 }

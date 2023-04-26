@@ -2,5 +2,67 @@ const btnOrderDetail = document.getElementById('btnOrderDetail');
 
 btnOrderDetail.addEventListener('click', function () {
   window.location.href = '/orderDefault.html';
-  //파라미터?를 던져주든지해서 주문상세로 넘어가게끔? 하면 좋겠는데(orderDefault.html 화면 활용)
 });
+
+if (localStorage.getItem('token')) {
+  console.log('있다');
+} else console.log('없다');
+
+function priceToString(price) {
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+// 현재 주문한 내역 정보 받기
+function getUserOrderList() {
+  fetch('http://localhost:8000/api/orders')
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data[0]);
+
+      let orderId = data[0]._id;
+      let userId = data[0].userId;
+      let deliveryStatus = data[0].deliveryStatus;
+      let createAt = data[0].createdAt;
+      let price = data[0].price;
+
+      let orderDate = createAt.substr(0, 10);
+
+      price = priceToString(price);
+
+      let temp_html = '';
+
+      temp_html += `<div class="main__profile">
+                        <div class="main__avata">
+                            <img
+                                width="150px"
+                                height="150px"
+                                src="./productImage01.jpg"
+                                alt="productImage"
+                            />
+                        </div>
+                        <div class="main__header">
+                            <div class="top">
+                                <h4>주문번호: ${orderId}</h4>&nbsp;&nbsp;
+                                <button id="btnOrderDetail">주문상세</button>
+                            </div>
+                            <div class="middle">
+                                <ul>
+                                <li><b>주문일자</b> ${orderDate}</li>
+                                <li><b>배송</b> ${deliveryStatus}</li>
+                                <li><b>결제금액</b> ${price}원</b></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>`;
+
+      const btnOrderDetail = document.getElementById('btnOrderDetail');
+      document.getElementById('order-content-box').innerHTML = temp_html;
+
+      btnOrderDetail.addEventListener('click', function () {
+        alert('aaa');
+        window.location.href = '/orderDefault.html?id=' + orderId;
+      });
+    });
+}
+
+getUserOrderList();

@@ -1,3 +1,5 @@
+getUser(); //user 정보 받기
+
 // user 정보 받는 함수
 async function getUser() {
   const res = await fetch('http://localhost:8000/api/users', {
@@ -15,19 +17,18 @@ async function getUser() {
   const userId = userData.data.id;
   getUserOrderList(userId);
 }
-getUser(); //user 정보 받기
 
 // 현재 주문한 내역 정보 받기
 async function getUserOrderList(userId) {
+  console.log(userId);
   const data = await fetch(
     `http://localhost:8000/api/orders/getByuserId/${userId}`,
   ).then((res) => res.json());
-  const orderListWrapper = document.getElementById('whereList');
-  console.log(data[0]);
+  const orderListWrapper = document.getElementById('order-content-box-wrapper');
   for (let i = 0; i < data.length; i++) {
     const element = `
         <div class="main__profile">
-            <div class="main__header">  
+            <div class="main__header">
                 <div class="top">
                     <h4>주문번호: ${data[i]._id}</h4>&nbsp;&nbsp;
                     <button class="btnOrderDetail "id="btnOrderDetail-${

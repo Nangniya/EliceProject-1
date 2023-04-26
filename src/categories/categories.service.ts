@@ -17,7 +17,19 @@ export class CategoriesService {
     return category;
   }
 
+  async getById(id: string) {
+    return await this.categoriesRepository.getById(id);
+  }
+
   async getAllCategories() {
     return await this.categoriesRepository.getAllCategory();
+  }
+
+  async deleteÇategory(id: string) {
+    return await this.categoriesRepository.deleteCategory(id);
+  }
+
+  async updateCategory(id: string, body: categoryRequestDto) {
+    return await this.categoriesRepository.updateCategory(id, body);
   }
 }

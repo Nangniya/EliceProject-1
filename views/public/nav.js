@@ -1,6 +1,4 @@
-const whereNav = document.getElementById('whereNav');
 const token = localStorage.getItem('token');
-
 fetch(`http://localhost:8000/api/users`, {
   headers: {
     Authorization: `Bearer ${token}`,
@@ -9,6 +7,7 @@ fetch(`http://localhost:8000/api/users`, {
   .then((res) => res.json())
   .then((data) => {
     if (data.success) {
+      const whereNav = document.getElementById('whereNav');
       whereNav.innerHTML = `<nav class="navbar navbar-expand-lg bg-body-tertiary">
           <div class="container-fluid">
             <a class="navbar-brand" href="/">Team4</a>
@@ -35,15 +34,20 @@ fetch(`http://localhost:8000/api/users`, {
                     >장바구니</a
                   >
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/mypage"
+                    >마이페이지</a
+                  >
+                </li>
               </ul>
               <form class="d-flex" role="search">
                 <input
-                  class="form-control me-1"
+                  class="form-control me-1 searchinput"
                   type="search"
                   placeholder="상품명 입력"
                   aria-label="Search"
                 />
-                <button class="btn btn-outline-success serchsubmit" type="submit">
+                <button class="btn btn-outline-success serchsubmit searchbtn" type="submit">
                   검색
                 </button>
               </form>
@@ -53,6 +57,8 @@ fetch(`http://localhost:8000/api/users`, {
     `;
       const logOut = document.querySelector('.log-out');
       logOut.addEventListener('click', () => {
+        alert('로그아웃이 되었습니다.');
+        window.location.href = 'http://localhost:8000'; // 이동할 페이지의 URL을 입력하세요.
         window.localStorage.removeItem('token');
       });
     } else {
@@ -90,12 +96,12 @@ fetch(`http://localhost:8000/api/users`, {
               </ul>
               <form class="d-flex" role="search">
                 <input
-                  class="form-control me-1"
+                  class="form-control me-1 searchinput"
                   type="search"
                   placeholder="상품명 입력"
                   aria-label="Search"
                 />
-                <button class="btn btn-outline-success serchsubmit" type="submit">
+                <button class="btn btn-outline-success serchsubmit searchbtn" type="submit">
                   검색
                 </button>
               </form>
@@ -104,4 +110,23 @@ fetch(`http://localhost:8000/api/users`, {
         </nav>
     `;
     }
+    const searchbtn = document.querySelector('.searchbtn');
+    const searchinput = document.querySelector('.searchinput');
+    function test(e) {
+      e.preventDefault();
+      fetch('/api/products')
+        .then((response) => response.json())
+        .then((data) => {
+          for (let i = 0; i < data.length; i++) {
+            if (searchinput.value == data[i].name) {
+              alert('상품 있음 해당상품페이지로 이동');
+              searchinput.value = '';
+              return;
+            }
+          }
+          alert('상품이 없슴!');
+          searchinput.value = '';
+        });
+    }
+    searchbtn.addEventListener('click', test);
   });

@@ -14,6 +14,10 @@ export class CategoriesRepository {
     return await this.categoryModel.find();
   }
 
+  async getById(id: string) {
+    return await this.categoryModel.findById(id);
+  }
+
   async createCategory(body: categoryRequestDto) {
     return await this.categoryModel.create(body);
   }
@@ -25,5 +29,15 @@ export class CategoriesRepository {
     } catch (error) {
       throw new HttpException('db error', 400);
     }
+  }
+
+  async deleteCategory(_id: string) {
+    return await this.categoryModel.deleteOne({ _id });
+  }
+
+  async updateCategory(_id: string, body: categoryRequestDto) {
+    const category = await this.categoryModel.findById({ _id });
+    category.name = body.name;
+    return category.save();
   }
 }

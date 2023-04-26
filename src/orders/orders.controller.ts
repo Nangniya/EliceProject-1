@@ -10,27 +10,22 @@ import {
 import { ApiBody, ApiOperation } from '@nestjs/swagger';
 import { OrdersService } from './orders.service';
 import { OrderRequestDto } from './dto/order.request.dto';
-import { userIdDto } from 'src/users/dto/user.dto';
-import { deliveryStatusDto, orderIdDto } from './dto/order.dto';
+import { deliveryStatusDto } from './dto/order.dto';
 
 @Controller('orders')
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
   @ApiOperation({ summary: 'user의 주문 리스트 가져오기' })
-  @Post('getByuserId')
-  async getUserOrderList(@Body() body: userIdDto) {
-    return await this.ordersService.getOrderList(body.id);
+  @Get('getByuserId/:id')
+  async getUserOrderList(@Param('id') id: string) {
+    return await this.ordersService.getOrderList(id);
   }
 
   @ApiOperation({ summary: '해당 주문 1개 가져오기' })
-  @ApiBody({
-    type: orderIdDto,
-    description: 'id는 orderid',
-  })
-  @Post('getByOrderId')
-  async getUserOrderInfo(@Body() body: orderIdDto) {
-    return await this.ordersService.getOrder(body.id);
+  @Get('getByOrderId/:id')
+  async getUserOrderInfo(@Param('id') id: string) {
+    return await this.ordersService.getOrder(id);
   }
 
   @ApiOperation({ summary: '주문 하기' })

@@ -31,8 +31,8 @@ export class ProductRepository {
     return products;
   }
 
-  async getCategory(category) {
-    const products = await this.productsModel.find(category);
+  async getCategory(category: string) {
+    const products = await this.productsModel.find({ category });
     return products;
   }
 
@@ -46,5 +46,20 @@ export class ProductRepository {
     } else {
       new HttpException('db error 해당하는 상품 ID는 없어요 ㅇㅋ?', 400);
     }
+  }
+
+  async deleteProduct(_id: string) {
+    return await this.productsModel.deleteOne({ _id });
+  }
+
+  async updateProduct(_id: string, body: ProductRequestDto) {
+    const product = await this.productsModel.findById({ _id });
+    product.name = body.name;
+    product.quantity = body.quantity;
+    product.manufacture = body.manufacture;
+    product.category = body.category;
+    product.price = body.price;
+    product.content = body.content;
+    return product.save();
   }
 }

@@ -24,8 +24,8 @@ export class ProductsService {
     return await this.productsRepository.getRecentProduct();
   }
 
-  async getCategory(body: string) {
-    return await this.productsRepository.getCategory(body);
+  async getCategory(categoryName: string) {
+    return await this.productsRepository.getCategory(categoryName);
   }
 
   async uploadProductImg(id: string, files: Express.Multer.File[]) {
@@ -33,5 +33,13 @@ export class ProductsService {
       return `products/${files[i].filename}`;
     });
     return await this.productsRepository.uploadProductImg(id, filesName);
+  }
+
+  async deleteProduct(id: string) {
+    return await this.productsRepository.deleteProduct(id);
+  }
+
+  async updateProduct(id: string, body: ProductRequestDto) {
+    return await this.productsRepository.updateProduct(id, body);
   }
 }

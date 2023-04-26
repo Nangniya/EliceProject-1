@@ -6,6 +6,7 @@
     <title>주문결제상세</title>
     <script src="orderDefault.js" defer></script>
     <link rel="stylesheet" type="text/css" href="orderDefault.css" />
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   </head>
   <body>
     <div class="order-content-wrapper">
@@ -14,63 +15,82 @@
       <div class="order-info-container">
         <div class="user-info-content">
           <h4>주문자 정보</h4>
-          <ul>
-            <li>주문자 : 박세진</li>
-            <li>연락처 : 010-1234-1234</li>
+          <ul class="user-info-content-ul">
+            <li>주문자 : <div id="user-info-content-name"></div></li>
+            <!-- <li>연락처 : <span id="user-info-content-phoneNum">010-1234-1234</span></li> -->
+            <li>이메일 : <div id="user-info-content-email"></div></li>
           </ul>
         </div>
 
         <div class="delivery-info-content">
           <h4>배송지정보</h4>
           <ul>
-            <li>주소 : (04799) 서울 성동구 아차산로17길 48 성수낙낙</li>
-            <li>연락처 : 010-1234-1234</li>
+            <!-- <li>주소 : (04799) 서울 성동구 아차산로17길 48 성수낙낙</li> -->
+
             <li>
-              배송메세지 :
-              <select name="selectDeliveryMessage">
-                <option value=""></option>
-                <option value="1">부재시 연락 부탁드립니다.</option>
-                <option value="2">부재시 경비실에 맡겨주세요.</option>
-                <option value="3">조심히 배달하여 주세요.</option>
-              </select>
-            </li>
-            <li>
-              <button id="btnAddressInfo">주소록</button>
+              <div class="address-content-table">
+                <div class="address-content-table row">
+                    <div class="address-content-table column header">연락처</div>
+                    <div class="address-content-table column phone-input">
+                      <select id="address-content-select-wrapper-phone"></select> -
+                      <input type="text" id="inputPhoneNum2"> -
+                      <input type="text" id="inputPhoneNum3">
+                    </div>
+                </div>
+                <div class="address-content-table row">
+                    <div class="address-content-table column header">주소</div>
+                    <div class="address-content-table column">
+                        <input type="text" id="sample6_postcode" placeholder="우편번호">
+                        <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                        <div class="column-inline-block"><input type="text" id="sample6_address" placeholder="주소"></div>
+                        <div class="column-inline-block"><input type="text" id="sample6_detailAddress" placeholder="상세주소"></div>
+                </div>
+                <div class="address-content-table row">
+                    <div class="address-content-table column header">배송요청사항</div>
+                    <div class="address-content-table column phone-input">
+                      <select id="address-content-select-wrapper-message"></select>
+                    </div>
+                </div>
             </li>
           </ul>
         </div>
 
-        <div class="order-detail-content">
+        <div class="order-detail-content-wrapper">
           <h4>주문상세</h4>
-          <!-- 장바구니에서 선택한 상품의 정보를 가져온다 -->
-          <ul>
-            <li><img src="productImage01.jpg" /></li>
-            <li id="productName">케로케로케로피 페이스 쿠션</li>
-            |
-            <li id="quantity">2개</li>
-            |
-            <li id="">36,500원</li>
-            |
-            <li id="">73,000원</li>
-          </ul>
+          <div class="order-detail-content">
+            <ul>
+              <li id="productImage"><img src="productImage01.jpg" /></li>
+              <li id="productName">케로케로케로피 페이스 쿠션</li>
+              |
+              <li id="quantity">2개</li>
+              |
+              <li id="price">36,500원</li>
+              |
+              <li id="supplyPrice">73,000원</li>
+            </ul>
+          </div>
         </div>
 
         <div class="pay-info-content">
           <h4>결제상세</h4>
           <ul>
-            <li>결제금액 : 73,000원</li>
+            <li>결제금액 : <span id="sumSupplyPrice"></span>원</li>
           </ul>
         </div>
         <!--
             <div class="">
                 결제수단
             </div>
-    -->
-        <div class="buttonGroup">
-          <button id="btnOrderCancel">주문취소</button
-          ><!-- 주문취소 시 홈화면으로 돌아간다-->
+        -->
+        <div class="buttonGroup order-create">
+          <button id="btnOrderCreateCancel">주문취소</button>
           <button id="btnOrderConfirm">결제하기</button><br />
           <button id="btnMoveCart">장바구니로 돌아가기</button>
+        </div>          
+        <div class="buttonGroup order-detail">
+          <button id="btnOrderDetailCancel">주문취소</button>
+          <button id="btnOrderConfirm">주문수정</button><br />
+          <button id="btnMoveOrderList">주문내역으로 돌아가기</button>
         </div>
       </div>
     </div>

@@ -3,7 +3,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { UserRequestDto } from './dto/user.request.dto';
 import { User } from './users.schema';
-import { userCartDto } from './dto/user.cart.dto';
 
 @Injectable()
 export class UsersRepository {
@@ -34,11 +33,5 @@ export class UsersRepository {
   ): Promise<User | null> {
     const user = await this.userModel.findById(userId);
     return user;
-  }
-
-  async addToCart(id: string, cartData: userCartDto) {
-    const user = await this.userModel.findById(id);
-    user.cart.push(cartData);
-    return user.save();
   }
 }
