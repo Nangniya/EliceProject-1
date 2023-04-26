@@ -194,9 +194,6 @@ async function uploadImg2(productId) {
       `http://localhost:8000/api/products/upload/${productId}`,
       {
         method: 'POST',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
         body: formData,
       },
     );
