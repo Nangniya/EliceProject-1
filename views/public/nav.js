@@ -34,6 +34,11 @@ fetch(`http://localhost:8000/api/users`, {
                     >장바구니</a
                   >
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/mypage"
+                    >마이페이지</a
+                  >
+                </li>
               </ul>
               <form class="d-flex" role="search">
                 <input

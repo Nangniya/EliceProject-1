@@ -66,7 +66,7 @@ async function getProductList() {
     <button id="product-modify-btn-${productData[i]._id}">수정</button>
   </div>
   </div>`;
-    productListContainer.insertAdjacentHTML('beforeend', element);
+    productListContainer.insertAdjacentHTML('afterbegin', element);
     if (!productData[i].imgUrl.length) {
       const imageBox = document.querySelector(
         `#product-image-${productData[i]._id}`,
@@ -152,7 +152,7 @@ async function uploadImg2(productId) {
     if (response.ok) {
       // 성공적으로 응답 받은 경우 처리
       alert('이미지 추가 성공');
-      location.reload();
+      getProductList();
     } else {
       // 오류 응답 처리
       console.error('이미지 추가 실패', response.status);
@@ -181,7 +181,7 @@ async function deleteProduct(productId) {
 
       if (response.ok) {
         alert('상품 삭제 완료');
-        location.reload();
+        getProductList();
       } else {
         console.error('상품 삭제 실패:', response.status);
         alert('상품 삭제 실패:' + response.status);
@@ -304,7 +304,7 @@ async function modifyProduct3(productId) {
     );
     if (response.ok) {
       alert('상품 수정 성공');
-      location.reload();
+      getProductList();
     } else {
       console.error('상품 수정 실패:', response.status);
       alert('상품 수정 실패:' + response.status);
@@ -380,7 +380,7 @@ async function addProduct(e) {
     });
     if (response.ok) {
       alert('상품 추가 성공');
-      location.reload();
+      getProductList();
     } else {
       console.error('상품 추가 실패:', response.status);
       alert('상품 추가 실패:' + response.status);
@@ -422,7 +422,7 @@ async function getOrderList() {
       orderData[i]._id
     }">삭제</button>
   </div>`;
-    orderListContainer.insertAdjacentHTML('beforeend', element);
+    orderListContainer.insertAdjacentHTML('afterbegin', element);
 
     const deliveryStatus = document.getElementById(
       `order-status-${orderData[i]._id}`,
@@ -455,7 +455,7 @@ async function deleteOrder(orderId) {
 
       if (response.ok) {
         alert('주문 삭제 완료');
-        location.reload();
+        getOrderList();
       } else {
         console.error('주문 삭제 실패:', response.status);
         alert('주문 삭제 실패:' + response.status);
@@ -485,7 +485,7 @@ async function modifyOrder(orderId) {
     );
     if (response.ok) {
       alert('주문 수정 성공');
-      location.reload();
+      getOrderList();
     } else {
       console.error('주문 수정 실패:', response.status);
       alert('주문 수정 실패:' + response.status);
@@ -518,7 +518,7 @@ async function getCategoryList() {
     <button id="category-modify-btn-${categoryData[i]._id}">수정</button>
   </div>
   </div>`;
-    categoryListContainer.insertAdjacentHTML('beforeend', element);
+    categoryListContainer.insertAdjacentHTML('afterbegin', element);
 
     const deleteBtn = document.querySelector(
       `#category-delete-btn-${categoryData[i]._id}`,
@@ -553,7 +553,7 @@ async function deleteCategory(categoryId) {
 
       if (response.ok) {
         alert('카테고리 삭제 완료');
-        location.reload();
+        getCategoryList();
       } else {
         console.error('카테고리 삭제 실패:', response.status);
         alert('카테고리 삭제 실패:' + response.status);
@@ -599,7 +599,7 @@ async function addCategory(e) {
     );
     if (response.ok) {
       alert('카테고리 추가 성공');
-      location.reload();
+      getCategoryList();
     } else {
       console.error('카테고리 추가 실패:', response.status);
       alert('카테고리 추가 실패:' + response.status);
@@ -631,7 +631,7 @@ async function modifyCategory(categoryId) {
     });
   // 현재 카테고리 이름을 input값에 넣기
   const categoryData = await fetch(
-    `http://localhost:8000/api/categories/${categoryId}`,
+    `http://localhost:8000/api/categories/id/${categoryId}`,
   ).then((res) => res.json());
   document.querySelector('#modify-category-modal-nameInput').value =
     categoryData.name;
@@ -656,7 +656,7 @@ async function modifyCategory2(categoryId) {
     );
     if (response.ok) {
       alert('카테고리 수정 성공');
-      location.reload();
+      getCategoryList();
     } else {
       console.error('카테고리 수정 실패:', response.status);
       alert('카테고리 수정 실패:' + response.status);

@@ -20,6 +20,11 @@ export class CategoriesController {
   async createCategory(@Body() body: categoryRequestDto) {
     return await this.categoriesService.createCategory(body);
   }
+  @ApiOperation({ summary: '카테고리 하나 가져오기 by Id' })
+  @Get('id/:id')
+  async getById(@Param('id') id: string) {
+    return await this.categoriesService.getById(id);
+  }
 
   @ApiOperation({ summary: '카테고리 가져오기' })
   @Get()

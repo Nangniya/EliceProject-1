@@ -23,27 +23,24 @@ fetch('/api/categories')
     document.querySelector('.items').innerHTML += itemsHtml;
 
     function handleButtonClick(event) {
-      // console.log(event.target.innerText);
       let testhtml = '';
-      fetch('/api/products')
+      fetch(`/api/products/category/${event.target.innerText}`)
         .then((response) => response.json())
         .then((data) => {
           for (let i = 0; i < data.length; i++) {
-            // console.log(data[i].category);
-            if (event.target.innerText == data[i].category) {
-              testhtml += `<div class="item">
+            testhtml += `<div class="item">
               <p class="item-title">상품명 : ${data[i].name}<p>
               <p class="item-price">가격 : ${data[i].price}<p>
               </div>
             `;
-            }
+            console.log(data[i]);
           }
           if (testhtml) {
             document.querySelector('.test').innerHTML = testhtml;
           } else
-            document.querySelector(
-              '.test',
-            ).innerHTML = `<p class="item-title">해당 카테고리 상품없음<p>`;
+            document.querySelector('.test').innerHTML = `<div class="item">
+            <p class="item-title">상품없음<p>
+            </div>`;
         });
     }
     document.querySelectorAll('.category_title').forEach((button) => {
@@ -87,4 +84,10 @@ fetch('/api/products')
           `;
     }
     document.querySelector('.best-item-conatiner').innerHTML = itemsHtml;
+    function newitemClick(event) {
+      window.location.href = `http://localhost:8000/detail?id=${event.target.id}`;
+    }
+    document.querySelectorAll('.item').forEach((button) => {
+      button.addEventListener('click', newitemClick);
+    });
   });

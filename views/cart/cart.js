@@ -14,6 +14,7 @@ localStorage.setItem('cart', cartSaveData);
 
 const cartData = JSON.parse(localStorage.getItem('cart'));
 console.log(cartData);
+
 // 로컬스토리지에 있는 장바구니 리스트 화면에 출력
 function addCartItemList(cartList) {
   let cartListContent = '';
