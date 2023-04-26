@@ -1,14 +1,7 @@
 // import { addCommas } from "/useful-functions.js";
 
 let cartItemList = document.querySelector('#cart-item-list');
-let cartDetailList = localStorage.getItem('cart');
-let cartList = [JSON.parse(cartDetailList)];
-// const cartTempData = [
-//   { name: '엘리스 의자 - BEIGE', price: 20000, manufacture: '집꾸미기' },
-//   { name: '엘리스 책상 - WHITE', price: 30000, manufacture: '러브홈' },
-//   { name: '엘비스 소파 - WHITE', price: 40000, manufacture: '마이홈' },
-//   { name: '알렉스 거울', price: 10000, manufacture: '집플러스' },
-// ];
+let cartList = [JSON.parse(localStorage.getItem('cart'))];
 
 // 로컬스토리지에 있는 장바구니 리스트 화면에 출력
 function addCartItemList(cartList) {
