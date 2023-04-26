@@ -9,7 +9,7 @@ import { MulterModule } from '@nestjs/platform-express';
 @Module({
   imports: [
     MulterModule.register({
-      dest: './uploads',
+      dest: './upload',
     }),
     MongooseModule.forFeature([
       { name: Products.name, schema: ProductsSchema },

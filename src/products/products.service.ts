@@ -30,7 +30,7 @@ export class ProductsService {
 
   async uploadProductImg(id: string, files: Express.Multer.File[]) {
     const filesName = files.map((arg, i) => {
-      return `products/${files[i].filename}`;
+      return files[i].filename;
     });
     return await this.productsRepository.uploadProductImg(id, filesName);
   }
