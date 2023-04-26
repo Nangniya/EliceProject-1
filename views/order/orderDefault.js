@@ -6,11 +6,6 @@ const btnAddressInfo = document.querySelector('#btnAddressInfo');
 const btnGroupOrderCreate = document.querySelector('.order-create');
 const btnGroupOrderDetail = document.querySelector('.order-detail');
 
-
-// urlSearch = new URLSearchParams(window.location.search);
-// url = window.location.href;
-// console.log(url);
-
 const urlParams = new URL(location.href).searchParams;
 // console.log(urlParams);
 const urlOrderId = urlParams.get('orderId');
@@ -26,6 +21,7 @@ if (urlOrderId !== null && urlOrderId !== undefined) {
   btnGroupOrderDetail.style.display = 'none';
 }
 
+//주문취소 버튼클릭
 btnOrderCreateCancel.addEventListener('click', function () {
   window.location.href = '../index.html';
 });
@@ -57,7 +53,6 @@ btnMoveCart.addEventListener('click', function () {
   window.location.href = '../cart/';
 });
 
-
 //주문자 정보 가져오기
 async function getUser() {
   const res = await fetch('http://localhost:8000/api/users', {
@@ -73,93 +68,24 @@ async function getUser() {
   }
   const data = await res.json();
   console.log(data);
-  // console.log(data.data.name);
-  // console.log(data.data.email);
 
   let name = data.data.name;
   let email = data.data.email;
+  let address = data.data.address;
+  let phone = data.data.phoneNumber;
 
-  document.getElementById('user-info-content-name').innerHTML = name;
-  document.getElementById('user-info-content-email').innerHTML = email;
-}
-
-
-//단가 콤마 반영
-function priceToString(price) {
-  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-}
-
-
-// 상품 정보 가져오기
-// function getProductInfo(productId) {
-
-//     fetch('http://localhost:8000/api/products')
-//     .then((response) => response.json())
-//     .then((product) => {
-//         // console.log(product);
-//         // console.log(product[0]);
-//         // console.log(product[1]);
-
-//         console.log(product[0].productId);
-//         console.log(product[0].name);
-//         console.log(product[0].price);
-//         console.log(product[0].imgUrl);
-//         console.log(product[0].content);
-//     });
-
-// // }
-
-function getUserOrderList() {
-  fetch('http://localhost:8000/api/orders')
-    //fetch('http://localhost:8000/api/orders/getByOrderId')
-    .then((response) => response.json())
-    .then((data) => {
-
-      console.log(data);
-
-      // console.log(data[0]);
-      // console.log(data[0].orderedProducts);
-      // console.log(data[0].orderedProducts[0].productId);
-      // console.log(data[0].orderedProducts[0].quantity);
-
-      for (let i = 0; i < data.length; i++) {
-        // console.log(data[i]);
-
-        let orderId = data[i]._id;
-        let userId = data[i].userId;
-        let deliveryStatus = data[i].deliveryStatus;
-        let createAt = data[i].createdAt;
-        let price = data[i].price;
-        // let quantity = data[i].quantity;
-        let orderedProducts = data[i]; //주문한 품목들
-
-        // //주문번호에 따른 상품목록
-        // for (let j = 0; j < data.length; j++) {
-
-        //     console.log(data[i].orderedProducts[j]);
-        //     console.log(data[i].orderedProducts[j].productId);      //왜 안되지?
-        //     console.log(data[i].orderedProducts[j].quantity);
-        // }
-
-        // let supplyPrice = data[i].price * quantity;     //공급가
-        // let orderDate = createAt.substr(0, 10);
-
-        // let temp_html = '';
-
-        // temp_html += `<div class="order-detail-content">
-        //                 <ul>
-        //                     <li id="productImage"><img src="${productImage}" /></li>
-        //                     <li id="productName">${productName}</li>
-        //                     |
-        //                     <li id="quantity">${quantity}개</li>
-        //                     |
-        //                     <li id="price">${price}원</li>
-        //                     |
-        //                     <li id="supplyPrice">${supplyPrice}원</li>
-        //                 </ul>
-        //             </div>`;
-      }
-    });
+  document.getElementById(
+    'user-info-content-name',
+  ).innerHTML = `주문자   :    ${name}`;
+  document.getElementById(
+    'user-info-content-email',
+  ).innerHTML = `이메일 : ${email}`;
+  document.getElementById(
+    'user-info-content-address',
+  ).innerHTML = `주소 : ${address}`;
+  document.getElementById(
+    'user-info-content-phoneNumber',
+  ).innerHTML = `휴대전화 : ${phone}`;
 }
 
 /** 배송지 정보 */
@@ -181,8 +107,12 @@ const addressContentMessage = document.getElementById(
   'address-content-select-wrapper-message',
 );
 
-
-const deliveryMessageList = ['배송 요청사항 없음', '배송 전 연락 부탁드립니다.', '부재시 경비실(관리실)에 맡겨주세요.', '파손 위험이 있으니 조심히 배달하여 주세요. 감사합니다.'];
+const deliveryMessageList = [
+  '배송 요청사항 없음',
+  '배송 전 연락 부탁드립니다.',
+  '부재시 경비실(관리실)에 맡겨주세요.',
+  '파손 위험이 있으니 조심히 배달하여 주세요. 감사합니다.',
+];
 
 window.addEventListener('load', () => {
   deliveryMessageList.forEach((number) => {
@@ -191,7 +121,6 @@ window.addEventListener('load', () => {
     addressContentMessage.append(selectOptionDeliveryMessage);
   });
 });
-
 
 /** 다음 주소 API  */
 function sample6_execDaumPostcode() {
@@ -207,7 +136,8 @@ function sample6_execDaumPostcode() {
       //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
       if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
         addr = data.roadAddress;
-      } else { // 사용자가 지번 주소를 선택했을 경우(J)
+      } else {
+        // 사용자가 지번 주소를 선택했을 경우(J)
         addr = data.jibunAddress;
       }
 
@@ -220,7 +150,8 @@ function sample6_execDaumPostcode() {
         }
         // 건물명이 있고, 공동주택일 경우 추가한다.
         if (data.buildingName !== '' && data.apartment === 'Y') {
-          extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+          extraAddr +=
+            extraAddr !== '' ? ', ' + data.buildingName : data.buildingName;
         }
         // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
         if (extraAddr !== '') {
@@ -228,22 +159,19 @@ function sample6_execDaumPostcode() {
         }
         // 조합된 참고항목을 해당 필드에 넣는다. --> 없어서 주석처리
         // document.getElementById("sample6_extraAddress").value = extraAddr;
-
-      } else {    //--> 없어서 주석처리
+      } else {
+        //--> 없어서 주석처리
         // document.getElementById("sample6_extraAddress").value = '';
       }
 
       // 우편번호와 주소 정보를 해당 필드에 넣는다.
       document.getElementById('sample6_postcode').value = data.zonecode;
-      document.getElementById("sample6_address").value = addr;
+      document.getElementById('sample6_address').value = addr;
       // 커서를 상세주소 필드로 이동한다.
-      document.getElementById("sample6_detailAddress").focus();
-    }
+      document.getElementById('sample6_detailAddress').focus();
+    },
   }).open();
 }
-
 getUser();
-getUserOrderList();
 
-
-
+localStorage.setItem('test1', '의자');
