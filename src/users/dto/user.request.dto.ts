@@ -5,4 +5,6 @@ export class UserRequestDto extends PickType(User, [
   'email',
   'name',
   'password',
+  'address',
+  'phoneNumber',
 ] as const) {}

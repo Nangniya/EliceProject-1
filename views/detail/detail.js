@@ -8,18 +8,6 @@ const plusBtn = document.querySelector('.plus');
 const minusBtn = document.querySelector('.minus');
 const salesCount = document.querySelector('.salesCount');
 
-const DetailTempData = [
-  {
-    category: 'Chairs',
-    name: '엘리스 의자 - BEIGE',
-    price: 20000,
-    details:
-      '엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙엘리스트랙',
-  },
-];
-
-const DetailSaveData = JSON.stringify(DetailTempData);
-localStorage.setItem('detail', DetailSaveData);
 const urlParam = window.location.search;
 const param = urlParam.replace('?', '').split(/[=?&]/)[1];
 fetch(`http://localhost:8000/api/products/id/${param}`)
@@ -33,44 +21,6 @@ fetch(`http://localhost:8000/api/products/id/${param}`)
     }
     rendering();
   });
-
-function saveData(salseCount, storeName) {
-  if (window.indexedDB) {
-    const databaseName = 'cart';
-    const version = 1;
-    const request = indexedDB.open(databaseName, version);
-
-    const data = {
-      name: item_name.innerHTML,
-      category: itemcategory.innerHTML,
-      price: item_price.innerHTML,
-      sales: salesCount.innerText,
-    };
-    console.log(data);
-    request.onupgradeneeded = function () {
-      //장바구니용 objectStore
-      request.result.createObjectStore('items', { autoIncrement: true });
-      //바로구매용 objectStore
-      request.result.createObjectStore('nowBuy', { keyPath: 'id' });
-    };
-
-    request.onsuccess = function () {
-      localStorage.setItem('storeName', storeName);
-      const objStore = request.result
-        .transaction(`${storeName}`, 'readwrite')
-        .objectStore(`${storeName}`);
-
-      if (storeName == 'items') {
-        isExist(data, objStore);
-      } else {
-        objStore.add(data);
-      }
-    };
-    request.onerror = function (event) {
-      alert(event.target.errorCode);
-    };
-  }
-}
 
 plusBtn.addEventListener('click', () => {
   if (parseInt(salesCount.innerText) >= 10) {
@@ -91,8 +41,26 @@ minusBtn.addEventListener('click', () => {
 });
 
 //장바구니 담기
-cartBtn.addEventListener('click', function () {
-  saveData(salesCount, 'items');
+cartBtn.addEventListener('click', () => {
+  const data = {
+    name: item_name.innerHTML,
+    category: itemcategory.innerHTML,
+    price: item_price.innerHTML,
+    sales: salesCount.innerText,
+  };
+  if (localStorage.getItem('cart') == null) {
+    localStorage.setItem('cart', JSON.stringify([data]));
+  } else {
+    let cartList = JSON.parse(localStorage.getItem('cart'));
+    for (let i = 0; i < cartList.length; i++) {
+      if (cartList[i].name === data.name) {
+        cartList[i].sales = cartList[i].sales * 1 + data.sales * 1;
+      } else {
+        cartList.push(data);
+      }
+    }
+    localStorage.setItem('cart', JSON.stringify(cartList));
+  }
   const moveTocart = confirm(
     '상품이 장바구니에 담겼습니다.\n장바구니로 이동하시겠습니까?',
   );
@@ -102,15 +70,15 @@ cartBtn.addEventListener('click', function () {
 });
 
 buyNowBtn.addEventListener('click', function () {
-  // if (localStorage.getItem("loggedIn") === "true") {
+  const data = {
+    name: item_name.innerHTML,
+    category: itemcategory.innerHTML,
+    price: item_price.innerHTML,
+    sales: salesCount.innerText,
+  };
   const buyNow = confirm('바로 구매하시겠습니까?');
   if (buyNow === true) {
-    // saveData(salesCount, 'nowBuy');
-    // localStorage.setItem('keys', localStorage.getItem('itemDetail'));
-    window.location.href = '/order/orderDefault.html';
-    return;
+    localStorage.setItem('buy-cart', JSON.stringify([data]));
+    window.location.href = '/order/detail.html';
   }
-  return;
-  // }
-  //   alert('로그인을 먼저 해주세요.');
 });

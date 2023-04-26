@@ -2,7 +2,6 @@ import { Prop, Schema, SchemaFactory, SchemaOptions } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { Document } from 'mongoose';
-import { userCartDto } from './dto/user.cart.dto';
 
 const options: SchemaOptions = {
   collection: 'users',
@@ -48,7 +47,11 @@ export class User extends Document {
     example: '대전 동구 가양동',
     description: 'email',
   })
+  @Prop({
+    required: true,
+  })
   @IsString()
+  @IsNotEmpty()
   address: string;
 
   @ApiProperty({
@@ -56,13 +59,11 @@ export class User extends Document {
     description: 'phoneNumber',
   })
   @IsString()
-  phoneNumber: string;
-
-  @ApiProperty({
-    example: '[productId: "sample", quantity: "100"]',
-    description: 'cart',
+  @Prop({
+    required: true,
   })
-  cart: userCartDto[];
+  @IsNotEmpty()
+  phoneNumber: string;
 
   @ApiProperty({
     example: 'test',
@@ -81,7 +82,6 @@ export class User extends Document {
     name: string;
     address: string;
     phoneNumber: string;
-    cart: userCartDto[];
     orderId: string[];
   };
 }
@@ -95,7 +95,6 @@ _UsersSchema.virtual('readOnlyData').get(function (this: User) {
     name: this.name,
     address: this.address,
     phoneNumber: this.phoneNumber,
-    cart: this.cart,
     orderId: this.orderId,
   };
 });

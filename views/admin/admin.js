@@ -1,3 +1,16 @@
+function showPage() {
+  var targetValue = "iamadmin"; // 지정된 값
+  var input = prompt("비밀번호를 입력하세요:"); // 입력 필드를 포함한 사용자 정의 창 생성
+
+  if (input === targetValue) { // 입력 값과 지정된 값 비교
+      document.querySelector('body').style.display = "block"; // 입력 값과 일치할 경우 페이지 보여주기
+  } else {
+      alert("입력한 값이 일치하지 않습니다."); // 입력 값과 일치하지 않을 경우 경고 메시지 표시
+  }
+}
+window.onload = showPage();
+
+
 const navMenus = document.getElementsByClassName('nav-menu');
 const menuContentSection = document.getElementById('menu-content-wrapper');
 
@@ -20,6 +33,15 @@ Array.from(navMenus).forEach((menuElem) => {
       getProductList(); // getProductList 함수 실행
       const addProductBtn = document.getElementById('add-product-btn');
       addProductBtn.addEventListener('click', loadModal); //상품추가 버튼에 이벤트리스너 달기
+
+      // 'tab-toggle' 클래스 부착
+      menuElem.classList.add('tab-toggle');
+
+      // 다른 관리 버튼에서 'tab-toggle' 클래스 제거
+      const otherNavMenus = Array.from(navMenus).filter(elem => elem !== menuElem);
+      otherNavMenus.forEach(otherMenuElem => {
+        otherMenuElem.classList.remove('tab-toggle');
+      });
     }
 
     //카테고리관리 버튼인 경우
@@ -27,11 +49,29 @@ Array.from(navMenus).forEach((menuElem) => {
       getCategoryList(); //getCategoryList 함수 실행
       const addCategoryBtn = document.getElementById('add-category-btn');
       addCategoryBtn.addEventListener('click', loadCategoryModal); //카테고리추가 버튼에 이벤트리스너 달기
+
+      // 'tab-toggle' 클래스 부착
+      menuElem.classList.add('tab-toggle');
+
+      // 다른 관리 버튼에서 'tab-toggle' 클래스 제거
+      const otherNavMenus = Array.from(navMenus).filter(elem => elem !== menuElem);
+      otherNavMenus.forEach(otherMenuElem => {
+        otherMenuElem.classList.remove('tab-toggle');
+      });
     }
 
     //주문관리 버튼인 경우
     if (menuId === 'order') {
       getOrderList(); //getCategoryList 함수 실행
+
+      // 'tab-toggle' 클래스 부착
+      menuElem.classList.add('tab-toggle');
+
+      // 다른 관리 버튼에서 'tab-toggle' 클래스 제거
+      const otherNavMenus = Array.from(navMenus).filter(elem => elem !== menuElem);
+      otherNavMenus.forEach(otherMenuElem => {
+        otherMenuElem.classList.remove('tab-toggle');
+      });
     }
   });
 });
@@ -62,11 +102,11 @@ async function getProductList() {
   <div class-"product-manufacture">${productData[i].manufacture}</div>
   <div class-"product-quantity">${productData[i].content}</div>
   <div class="product-btns">
-    <button id="product-delete-btn-${productData[i]._id}">삭제</button>
     <button id="product-modify-btn-${productData[i]._id}">수정</button>
+    <button class="delete-botton" id="product-delete-btn-${productData[i]._id}">삭제</button>
   </div>
   </div>`;
-    productListContainer.insertAdjacentHTML('beforeend', element);
+    productListContainer.insertAdjacentHTML('afterbegin', element);
     if (!productData[i].imgUrl.length) {
       const imageBox = document.querySelector(
         `#product-image-${productData[i]._id}`,
@@ -152,7 +192,7 @@ async function uploadImg2(productId) {
     if (response.ok) {
       // 성공적으로 응답 받은 경우 처리
       alert('이미지 추가 성공');
-      location.reload();
+      getProductList();
     } else {
       // 오류 응답 처리
       console.error('이미지 추가 실패', response.status);
@@ -181,7 +221,7 @@ async function deleteProduct(productId) {
 
       if (response.ok) {
         alert('상품 삭제 완료');
-        location.reload();
+        getProductList();
       } else {
         console.error('상품 삭제 실패:', response.status);
         alert('상품 삭제 실패:' + response.status);
@@ -304,7 +344,7 @@ async function modifyProduct3(productId) {
     );
     if (response.ok) {
       alert('상품 수정 성공');
-      location.reload();
+      getProductList();
     } else {
       console.error('상품 수정 실패:', response.status);
       alert('상품 수정 실패:' + response.status);
@@ -380,7 +420,7 @@ async function addProduct(e) {
     });
     if (response.ok) {
       alert('상품 추가 성공');
-      location.reload();
+      getProductList();
     } else {
       console.error('상품 추가 실패:', response.status);
       alert('상품 추가 실패:' + response.status);
@@ -422,7 +462,7 @@ async function getOrderList() {
       orderData[i]._id
     }">삭제</button>
   </div>`;
-    orderListContainer.insertAdjacentHTML('beforeend', element);
+    orderListContainer.insertAdjacentHTML('afterbegin', element);
 
     const deliveryStatus = document.getElementById(
       `order-status-${orderData[i]._id}`,
@@ -437,7 +477,10 @@ async function getOrderList() {
     const selector = document.getElementById(
       `order-status-${orderData[i]._id}`,
     );
-    selector.addEventListener('change', () => modifyOrder(orderData[i]._id));
+    selector.addEventListener('change', () => {
+      const selectedStatus = selector.value;
+      if(confirm(`주문 상태를 ${selectedStatus}(으)로 변경하시겠습니까?`)){
+        modifyOrder(orderData[i]._id)}});
   }
 }
 async function deleteOrder(orderId) {
@@ -455,7 +498,7 @@ async function deleteOrder(orderId) {
 
       if (response.ok) {
         alert('주문 삭제 완료');
-        location.reload();
+        getOrderList();
       } else {
         console.error('주문 삭제 실패:', response.status);
         alert('주문 삭제 실패:' + response.status);
@@ -485,7 +528,7 @@ async function modifyOrder(orderId) {
     );
     if (response.ok) {
       alert('주문 수정 성공');
-      location.reload();
+      getOrderList();
     } else {
       console.error('주문 수정 실패:', response.status);
       alert('주문 수정 실패:' + response.status);
@@ -509,16 +552,19 @@ async function getCategoryList() {
   // 리스트 있으면 초기화
   categoryListContainer.innerHTML = '';
   for (let i = 0; i < categoryData.length; i++) {
+    const categoryQuantity = await fetch(`
+    http://localhost:8000/api/products/category/${categoryData[i].name}`).then((res) => res.json());
+
     const element = `<div class="category-list-content">
   <div class="category-id">${categoryData[i]._id}</div>
   <div class="category-name">${categoryData[i].name}</div>
-  <div class-"category-quantity">${categoryData[i].quantity}</div>
+  <div class-"category-quantity">${categoryQuantity.length}</div>
   <div class="category-btns">
-    <button id="category-delete-btn-${categoryData[i]._id}">삭제</button>
     <button id="category-modify-btn-${categoryData[i]._id}">수정</button>
+    <button class="category-delete-button" id="category-delete-btn-${categoryData[i]._id}">삭제</button>
   </div>
   </div>`;
-    categoryListContainer.insertAdjacentHTML('beforeend', element);
+    categoryListContainer.insertAdjacentHTML('afterbegin', element);
 
     const deleteBtn = document.querySelector(
       `#category-delete-btn-${categoryData[i]._id}`,
@@ -553,7 +599,7 @@ async function deleteCategory(categoryId) {
 
       if (response.ok) {
         alert('카테고리 삭제 완료');
-        location.reload();
+        getCategoryList();
       } else {
         console.error('카테고리 삭제 실패:', response.status);
         alert('카테고리 삭제 실패:' + response.status);
@@ -599,7 +645,7 @@ async function addCategory(e) {
     );
     if (response.ok) {
       alert('카테고리 추가 성공');
-      location.reload();
+      getCategoryList();
     } else {
       console.error('카테고리 추가 실패:', response.status);
       alert('카테고리 추가 실패:' + response.status);
@@ -631,7 +677,7 @@ async function modifyCategory(categoryId) {
     });
   // 현재 카테고리 이름을 input값에 넣기
   const categoryData = await fetch(
-    `http://localhost:8000/api/categories/${categoryId}`,
+    `http://localhost:8000/api/categories/id/${categoryId}`,
   ).then((res) => res.json());
   document.querySelector('#modify-category-modal-nameInput').value =
     categoryData.name;
@@ -656,7 +702,7 @@ async function modifyCategory2(categoryId) {
     );
     if (response.ok) {
       alert('카테고리 수정 성공');
-      location.reload();
+      getCategoryList();
     } else {
       console.error('카테고리 수정 실패:', response.status);
       alert('카테고리 수정 실패:' + response.status);
