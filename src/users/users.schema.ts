@@ -47,6 +47,9 @@ export class User extends Document {
     example: '대전 동구 가양동',
     description: 'email',
   })
+  @Prop({
+    required: true,
+  })
   @IsString()
   @IsNotEmpty()
   address: string;
@@ -56,6 +59,9 @@ export class User extends Document {
     description: 'phoneNumber',
   })
   @IsString()
+  @Prop({
+    required: true,
+  })
   @IsNotEmpty()
   phoneNumber: string;
 
