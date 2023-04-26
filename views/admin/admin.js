@@ -1,5 +1,5 @@
 function showPage() {
-  var targetValue = "iamdmin"; // 지정된 값
+  var targetValue = "iamadmin"; // 지정된 값
   var input = prompt("비밀번호를 입력하세요:"); // 입력 필드를 포함한 사용자 정의 창 생성
 
   if (input === targetValue) { // 입력 값과 지정된 값 비교
