@@ -97,7 +97,7 @@ Array.from(navMenus).forEach((menuElem) => {
 // 상품조회 : 상품관리 누르면 상품리스트 표 나옴
 
 async function getProductList() {
-  const productData = await fetch('http://localhost:8000/api/products').then(
+  const productData = await fetch('/api/products').then(
     (res) => res.json(),
   );
   const productListContainer = document.querySelector('#productList');
@@ -134,7 +134,7 @@ async function getProductList() {
         `#product-image-${productData[i]._id}`,
       );
       console.log(productData[i].imgUrl[0]);
-      imageBox.innerHTML = `<img src="http://localhost:8000/media/${productData[i].imgUrl[0]}" alt="${productData[i].name} 사진" width="70"/>`;
+      imageBox.innerHTML = `<img src="/media/${productData[i].imgUrl[0]}" alt="${productData[i].name} 사진" width="70"/>`;
     }
     // 삭제 버튼에 이벤트 리스너 부여
     const deleteBtn = document.querySelector(
@@ -191,7 +191,7 @@ async function uploadImg2(productId) {
   try {
     // POST 요청 보내기
     const response = await fetch(
-      `http://localhost:8000/api/products/upload/${productId}`,
+      `/api/products/upload/${productId}`,
       {
         method: 'POST',
         body: formData,
@@ -219,7 +219,7 @@ async function deleteProduct(productId) {
   if (confirm('상품을 삭제하시겠습니까?')) {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/products/${productId}`,
+        `/api/products/${productId}`,
         {
           method: 'DELETE',
           headers: {
@@ -253,7 +253,7 @@ async function modifyProduct(productId) {
   const modalCategory = document.querySelector(
     '#product-modify-modal-categoryInput',
   );
-  const categories = await fetch('http://localhost:8000/api/categories').then(
+  const categories = await fetch('/api/categories').then(
     (res) => res.json(),
   );
   // 목록 있을 경우 초기화
@@ -281,7 +281,7 @@ async function modifyProduct(productId) {
 // input 값에 현재 데이터 정보 채워넣는 함수
 async function modifyProduct2(productId) {
   const data = await fetch(
-    `http://localhost:8000/api/products/id/${productId}`,
+    `/api/products/id/${productId}`,
   ).then((res) => res.json());
   console.log(data);
 
@@ -335,7 +335,7 @@ async function modifyProduct3(productId) {
 
   try {
     const response = await fetch(
-      `http://localhost:8000/api/products/${productId}`,
+      `/api/products/${productId}`,
       {
         method: 'PATCH',
         headers: {
@@ -372,7 +372,7 @@ async function loadModal() {
 
   //get요청으로 카테고리 받아오기
   const modalCategory = document.querySelector('#modal-categoryInput');
-  const categories = await fetch('http://localhost:8000/api/categories').then(
+  const categories = await fetch('/api/categories').then(
     (res) => res.json(),
   );
 
@@ -413,7 +413,7 @@ async function addProduct(e) {
 
   // POST 요청으로 상품 추가
   try {
-    const response = await fetch('http://localhost:8000/api/products/create', {
+    const response = await fetch('/api/products/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -445,7 +445,7 @@ async function addProduct(e) {
 
 // 전체 주문 조회
 async function getOrderList() {
-  const orderData = await fetch('http://localhost:8000/api/orders').then(
+  const orderData = await fetch('/api/orders').then(
     (res) => res.json(),
   );
   const orderListContainer = document.querySelector('#orderList');
@@ -498,7 +498,7 @@ async function deleteOrder(orderId) {
   if (confirm('주문을 삭제하시겠습니까?')) {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/orders/id/${orderId}`,
+        `/api/orders/id/${orderId}`,
         {
           method: 'DELETE',
           headers: {
@@ -528,7 +528,7 @@ async function modifyOrder(orderId) {
   const deliveryStatus = orderStatus.value;
   try {
     const response = await fetch(
-      `http://localhost:8000/api/orders/delivery/${orderId}`,
+      `/api/orders/delivery/${orderId}`,
       {
         method: 'PATCH',
         headers: {
@@ -555,7 +555,7 @@ async function modifyOrder(orderId) {
 
 // 카테고리 조회
 async function getCategoryList() {
-  const categoryData = await fetch('http://localhost:8000/api/categories').then(
+  const categoryData = await fetch('/api/categories').then(
     (res) => res.json(),
   );
   console.log(categoryData);
@@ -564,7 +564,7 @@ async function getCategoryList() {
   categoryListContainer.innerHTML = '';
   for (let i = 0; i < categoryData.length; i++) {
     const categoryQuantity = await fetch(`
-    http://localhost:8000/api/products/category/${categoryData[i].name}`).then(
+    /api/products/category/${categoryData[i].name}`).then(
       (res) => res.json(),
     );
 
@@ -601,7 +601,7 @@ async function deleteCategory(categoryId) {
   if (confirm('카테고리를 삭제하시겠습니까?')) {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/categories/${categoryId}`,
+        `/api/categories/${categoryId}`,
         {
           method: 'DELETE',
           headers: {
@@ -647,7 +647,7 @@ async function addCategory(e) {
   // POST 요청으로 카테고리 추가
   try {
     const response = await fetch(
-      'http://localhost:8000/api/categories/createCategory',
+      '/api/categories/createCategory',
       {
         method: 'POST',
         headers: {
@@ -690,7 +690,7 @@ async function modifyCategory(categoryId) {
     });
   // 현재 카테고리 이름을 input값에 넣기
   const categoryData = await fetch(
-    `http://localhost:8000/api/categories/id/${categoryId}`,
+    `/api/categories/id/${categoryId}`,
   ).then((res) => res.json());
   document.querySelector('#modify-category-modal-nameInput').value =
     categoryData.name;
@@ -704,7 +704,7 @@ async function modifyCategory2(categoryId) {
   const name = categoryName.value;
   try {
     const response = await fetch(
-      `http://localhost:8000/api/categories/${categoryId}`,
+      `/api/categories/${categoryId}`,
       {
         method: 'PATCH',
         headers: {

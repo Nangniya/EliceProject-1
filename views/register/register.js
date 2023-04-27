@@ -79,7 +79,7 @@ async function handleSubmit(e) {
   try {
     const data = { email, name, password, address, phoneNumber };
 
-    const result = await post('http://localhost:8000/api/users/signup', data);
+    const result = await post('/api/users/signup', data);
     console.log(result);
 
     alert(`정상적으로 회원가입되었습니다.`);

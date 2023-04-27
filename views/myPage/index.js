@@ -1,67 +1,49 @@
-window.onload = function () {
-  let user = {};
+getUser(); //user 정보 받기
 
-  let userId = user.id;
-  let orderList = document.getElementById('order-list');
-
-  fetch('http://localhost:8000/api/users', {
-    method: 'POST',
-
+// user 정보 받는 함수
+async function getUser() {
+  const res = await fetch('/api/users', {
     headers: {
-      'Content-Type': 'application/json',
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
+  });
+  if (!res.ok) {
+    const errorContent = await res.json();
+    const { reason } = errorContent;
 
-    method: 'GET',
-  })
-    .then((response) => {
-      // Handle the response
+    throw new Error(reason);
+  }
+  const userData = await res.json();
+  const userId = userData.data.id;
+  getUserOrderList(userId);
+}
 
-      return response.json();
-    })
-    .then((data) => {
-      user = data;
-      console.log(user);
-
-      fetch(`http://localhost:8000/api/orders/getByuserId/${data.data.id}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      })
-        .then((res) => {
-          return res.json();
-        })
-        .then((data1) => {
-          console.log(data1);
-
-          for (let i = 0; i < data1.length; i++) {
-            orderList.innerHTML += `<li>
-            <div class="product-left">
-              <div class="product-img">
-                <a href="">
-                  <img src="https://placehold.co/79x79" alt="" />
-                </a>
-              </div>
-              <div class="product-name">
-                <a href=""> 우아한 상품 </a>
-              </div>
+// 현재 주문한 내역 정보 받기
+async function getUserOrderList(userId) {
+  console.log(userId);
+  const data = await fetch(
+    `/api/orders/getByuserId/${userId}`,
+  ).then((res) => res.json());
+  const orderListWrapper = document.querySelector('.mypage-content');
+  for (let i = 0; i < data.length; i++) {
+    const element = `
+        <div class="main__profile">
+            <div class="main__header">
+                <div class="top">
+                    <h4>주문번호: ${data[i]._id}</h4>&nbsp;&nbsp;
+                </div>
+                <div class="middle">
+                    <ul>
+                        <li><b>주문일자</b>: ${data[i].createdAt.slice(
+                          0,
+                          7,
+                        )}</li>
+                        <li><b>주문 상태</b>: ${data[i].deliveryStatus}</li>
+                        <li><b>결제금액</b>: ${data[i].price}원</b></li>
+                    </ul>
+                </div>
             </div>
-            <div class="product-right">
-              <div class="purhcase-date">${data1[i].createdAt}</div>
-              <div class="product-id">${data1[i]._id}</div>
-              <div class="quantity">${data1[i].orderedProducts[0].quantity}</div>
-              <div class="product-price">${data1[i].price}</div>
-            </div>
-          </li>`;
-          }
-        });
-    })
-    .catch((error) => {
-      // Handle the error
-      console.error(error);
-    });
-};
-
-console.log(localStorage.getItem('token'));
+        </div>`;
+    orderListWrapper.insertAdjacentHTML('afterbegin', element);
+  }
+}
