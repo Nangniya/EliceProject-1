@@ -165,11 +165,13 @@ function getUserOrderListsample6_execDaumPostcode() {
   });
 }
 getUser();
+<<<<<<< HEAD
 getUserOrderList(urlOrderId);
+=======
+>>>>>>> c5b59cac34fc58334ab4b35e9527579f44a2bae5
 
 let data = localStorage.getItem('buy-cart'); // 로컬스토리지에서 받아오는 value 값 받아오기
 const json = JSON.parse(data); //  JSON 형식이라서 객체로 받아오려면 JSON.parse 써야함
-console.log(json);
 
 const orderDetail = document.querySelector('#order-detail-content-container'); //주문상세태그
 
@@ -207,4 +209,18 @@ Promise.all(promises).then(() => {
 
 btnOrderConfirm.addEventListener('click', function () {
   const confirmMsg = '결제하시겠습니까?';
+<<<<<<< HEAD
 });
+=======
+
+  if (confirm(confirmMsg)) {
+    alert('주문이 완료되었습니다.!');
+    window.location.href = './orderConfirm.html';
+  }
+
+
+
+});
+
+
+>>>>>>> c5b59cac34fc58334ab4b35e9527579f44a2bae5
