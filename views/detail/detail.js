@@ -54,7 +54,11 @@ cartBtn.addEventListener('click', () => {
     let cartList = JSON.parse(localStorage.getItem('cart'));
     for (let i = 0; i < cartList.length; i++) {
       if (cartList[i].name === data.name) {
-        cartList[i].sales = cartList[i].sales * 1 + data.sales * 1;
+        if (data.sales == 1) {
+          cartList[i].sales = 1;
+        } else {
+          cartList[i].sales = cartList[i].sales * 1 + data.sales * 1;
+        }
       } else {
         cartList.push(data);
       }
