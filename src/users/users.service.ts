@@ -1,5 +1,9 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UserRequestDto, UserUpdateDto } from './dto/user.request.dto';
+import {
+  UserRequestDto,
+  UserUpdateDto,
+  orderIdAddUserDto,
+} from './dto/user.request.dto';
 import { UsersRepository } from './users.repository';
 import * as bcrypt from 'bcrypt';
 
@@ -35,7 +39,7 @@ export class UsersService {
     return await this.usersRepository.deleteUser(id);
   }
 
-  async addOrder(body: { orderId: string }, id: string) {
+  async addOrder(body: orderIdAddUserDto, id: string) {
     return await this.usersRepository.addOrder(body, id);
   }
 }
