@@ -260,3 +260,27 @@ const payContainer = document.querySelector('#pay-info-content-container'); //�
 payContainer.innerHTML += `
 <div>총가격:${sum}</div>
 `;
+
+fetch('http://localhost:8000/api/orders', {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    userId: currentUser,
+    address: address,
+    phoneNum: phoneNum,
+    receiver: userName,
+    deliveryMessage: deliveryMessage,
+    orderedProducts: [
+      {
+        "productId": "643e4d7dcd5d39e480d32032",
+        "quantity": 10
+      }
+    ],
+    price: 10000
+
+  }),
+}).then((response) => response.json())
+  .then((data) => console.log(data))
+
