@@ -1,4 +1,4 @@
-## 1. 서비스 소개
+## 서비스 소개
 
 #### 제품 등록, 장바구니 추가, 주문하기 등 쇼핑몰의 핵심 서비스를 구현합니다. 
 1. 회원가입, 로그인, 회원정보 수정 등 **유저 정보 관련 CRUD** 
@@ -10,13 +10,13 @@
 
 <br />
 
-### 1-1. API 문서
+### API 문서
 
 ### https://documenter.getpostman.com/view/23952739/2s847JrX6f
 
 <br>
 
-### 1-2. 데모 영상
+### 데모 영상
 
 <details><summary>사용자 회원가입, 로그인</summary>
 
@@ -66,7 +66,7 @@
 
 <br />
 
-### 1-3. 페이지 별 화면
+### 페이지 별 화면
 
 |  |  |
 | ------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------|
@@ -78,29 +78,18 @@
 <br />
 
 
-## 2. 기술 스택
+## 기술 스택
 
 ![image](https://i.ibb.co/N34mXzy/image.png)
 
 <br />
 
-### 2-1. 프론트엔드
-
-- **Vanilla javascript**, html, css (**Bulma css**)
-- Font-awesome 
-- Daum 도로명 주소 api 
-- 이외
-
-### 2-2. 백엔드 
-
-- **Express** (nodemon, babel-node로 실행됩니다.)
-- Mongodb, Mongoose
-- cors
-- 이외
 
 ## Collaboration Tools
 
 - Figma : 초반 기획시 빠른 레이아웃을 잡기 위해 사용
+- Goggle Sheet : 필요한 데이터 주고받는 input, output 설정
+- swagger : API 요청 양식 공유
 - Discord : 화면공유로 서로 도움주고 , 수시로 스크럼 잡는 용도
 - Gitlab : Code Repository
 - Postman Teams : API 테스트 진행
@@ -113,22 +102,22 @@
 
 
 
-## 3. 인프라 구조
+## 인프라 구조
 
 ![image](https://i.ibb.co/9tGxmx0/image.png)<br />
 
-### 3-1. 폴더 구조
+### 폴더 구조
 - 프론트: `src/views` 폴더 
 - 백: src/views 이외 폴더 전체
 - 실행: **프론트, 백 동시에, express로 실행**
 
 <br />
 
-### 3-2. 데이터 구조
+### 데이터 구조
 
 ![image](https://media.discordapp.net/attachments/1096002327334375504/1100987485766553611/image.png?width=966&height=427)<br />
 
-## 4. 제작자)
+## 제작자
 
 | 이름 | 담당 업무 |
 | ------ | ------ |
@@ -140,14 +129,26 @@
 
 <br />
 
+### 프론트엔드
 
+- **Vanilla javascript**, html, css (**Bootstrap css**)
+- Daum 도로명 주소 api 
+- 이외
+- 준희
+  - 상품 상세 페이지, 장바구니 페이지 
+- 나연
+  - 로그인, 회원가입 페이지, 관리자 페이지
+- 용섭
+  - 쇼핑몰 메인 홈페이지, nav
+- 세진
+  - 주문 조회 페이지, 주문 결제 페이지
 
+### 백엔드 
 
-
-
-
-
-
+- **Express** (nodemon, babel-node로 실행됩니다.)
+- Mongodb, Mongoose
+- cors
+- 봉섭
 
 
 <p align="center">
