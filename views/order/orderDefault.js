@@ -72,6 +72,7 @@ async function getUser() {
   }
 
   const data = await res.json();
+  // console.log(data);
 
   userName = data.data.name;
   email = data.data.email;
@@ -94,7 +95,29 @@ async function getUser() {
     'user-info-content-phoneNumber',
   ).innerHTML = `휴대전화 : ${phoneNum}`;
 
+  return {
+    userId: data.data.id,
+    userName: data.data.name,
+    email: data.data.email,
+    address: data.data.address,
+    phoneNum: data.data.phoneNumber
+  }
 }
+const dataCh = getUser();
+console.log(dataCh);
+console.log(dataCh);
+console.log(dataCh.userId);
+
+
+console.log('aa');
+
+/** POST 로 보낼 데이터 작성 */
+console.log(currentUser);
+console.log(address);
+console.log(phoneNum);
+console.log(userName);
+console.log(deliveryMessage);
+
 
 /** 배송지 정보 설정 */
 const addressContentWrapper = document.getElementById(
@@ -236,14 +259,21 @@ payContainer.innerHTML += `<div>
 
 
 /** POST 로 보낼 데이터 작성 */
+// console.log(currentUser);
+// console.log(address);
+// console.log(phoneNum);
+// console.log(userName);
+// console.log(deliveryMessage);
+
+/** 결제하기 */
+btnOrderConfirm.addEventListener('click', function () {
+
+
 console.log(currentUser);
 console.log(address);
 console.log(phoneNum);
 console.log(userName);
 console.log(deliveryMessage);
-
-/** 결제하기 */
-btnOrderConfirm.addEventListener('click', function () {
 
   const confirmMsg = '결제하시겠습니까?';
 
@@ -280,7 +310,7 @@ btnOrderConfirm.addEventListener('click', function () {
       
   } else {
 
-      return 0;
+      // return 0;
   }
 });
 
