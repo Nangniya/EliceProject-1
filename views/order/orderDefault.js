@@ -1,5 +1,5 @@
 /** 화면 요소 선언 */
-const btnOrderConfirm = document.querySelector('#btnOrderConfirm'); //결제하기버튼
+const btnOrderConfirm = document.querySelector('#btnOrderConfirm');
 const btnMoveCart = document.querySelector('#btnMoveCart');
 const btnMoveOrderList = document.querySelector('#btnMoveOrderList');
 const btnAddressInfo = document.querySelector('#btnAddressInfo');
@@ -95,15 +95,18 @@ async function getUser() {
     'user-info-content-phoneNumber',
   ).innerHTML = `휴대전화 : ${phoneNum}`;
 
+  return {
+    userId: data.data.id,
+    userName: data.data.name,
+    email: data.data.email,
+    address: data.data.address,
+    phoneNum: data.data.phoneNumber
+  }
 }
 const dataCh = getUser();
 console.log(dataCh);
 console.log(dataCh);
 console.log(dataCh.userId);
-function priceToString(price) {
-  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-}
-
 
 
 console.log('aa');
@@ -200,82 +203,203 @@ function sample6_execDaumPostcode() {
     // 커서를 상세주소 필드로 이동한다.
     document.getElementById('sample6_detailAddress').focus();
     },
-  });
+}).open();
 }
-getUser();
-getUserOrderList(urlOrderId);
 
+
+/** 주문상세 */
 let data = localStorage.getItem('buy-cart'); // 로컬스토리지에서 받아오는 value 값 받아오기
 const json = JSON.parse(data); //  JSON 형식이라서 객체로 받아오려면 JSON.parse 써야함
-console.log(json);
+
+let sum = 0; //결제상세에서 총 금액 0원시작
 
 const orderDetail = document.querySelector('#order-detail-content-container'); //주문상세태그
+// let html = '';
 
-let sum = 0; // 결제상세에서 총 금액 0원시작
-const promises = [];
+let cartSum = 0;
+let cartProductName = "";
+let cartProductElePrice = 0;
+let cartProductEleQty = 0;
+let cartProductEleSupplyPrice = 0;
 
 for (let i = 0; i < json.length; i++) {
-  const promise = fetch(`/api/products/id/${json[i].id}`)
-    .then((response) => response.json())
-    .then((data) => {
-      const price = parseInt(data.price);
-      const sales = json[i].sales;
-      const subtotal = price * sales;
-      sum += subtotal;
 
-      orderDetail.innerHTML += `
-        <div class="orderDetail"> 
-        <img class="imageUrl" src="/media/${data.imgUrl[0]}">
-        <div>상품명 : ${data.name}</div>  
-        <div>가격 : ${data.price}</div>  
-        <div>수량 : ${json[i].sales}</div>
-        </div> 
-      `;
-    });
+  cartProductName = json[i].name;
+  cartProductElePrice = parseInt(json[i].price.split(' ')[0]);
+  cartProductEleQty = parseInt(json[i].sales);
+  cartProductEleSupplyPrice = cartProductElePrice * cartProductEleQty;
+  
+  cartSum = cartProductEleSupplyPrice + cartSum;
+  
+  orderDetail.innerHTML += 
+  `<div class="order-detail-content">
+    <ul>
+      <li id="productImage"><img src="productImage01.jpg" /></li>
+      <li>
+        <div>
+          <ul>
+            <li id="productName">상품명: ${cartProductName}</li>
+            <li id="price">가격: ${priceToString(cartProductElePrice)}원</li>
+            <li id="quantity">수량: ${priceToString(cartProductEleQty)}개</li>
+            <li id="supplyPrice">합계: ${priceToString(cartProductEleSupplyPrice)}원</li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>`;
 
-  promises.push(promise);
+  console.log(cartProductName);
+  console.log(cartProductElePrice);
+  console.log(cartProductEleQty);
+  console.log(cartProductEleSupplyPrice);
 }
 
-Promise.all(promises).then(() => {
-  const payContainer = document.querySelector('#pay-info-content-container'); //결제상세 태그
-  payContainer.innerHTML += `
-<div>총가격:${sum}원</div>
-`;
-});
+/** 결제상세 */
+const payContainer = document.querySelector('#pay-info-content-container'); //결제상세 태그
+// payContainer.innerHTML += `<div>총가격:${cartSum}</div>`;
+payContainer.innerHTML += `<div>
+                                결제금액: <span id="sumSupplyPrice"></span>${priceToString(cartSum)}원
+                            </div>`;
+
+
+/** POST 로 보낼 데이터 작성 */
+// console.log(currentUser);
+// console.log(address);
+// console.log(phoneNum);
+// console.log(userName);
+// console.log(deliveryMessage);
+
+/** 결제하기 */
 btnOrderConfirm.addEventListener('click', function () {
+
+  let inputReceiver = document.getElementById('inputReceiver').value;
+  let inputPhoneNum1 = document.getElementById('address-content-select-wrapper-phone').value;
+  let inputPhoneNum2 = document.getElementById('inputPhoneNum2').value;
+  let inputPhoneNum3 = document.getElementById('inputPhoneNum3').value;
+  let sample6_postcode = document.getElementById('sample6_postcode').value;
+  let sample6_address = document.getElementById('sample6_address').value;
+  let sample6_detailAddress = document.getElementById('sample6_detailAddress').value;
+  let deliveryMessage = document.getElementById('address-content-select-wrapper-message').value;
+
+  // console.log(inputReceiver);
+  // console.log(inputPhoneNum1);
+  // console.log(inputPhoneNum2);
+  // console.log(inputPhoneNum3);
+  // console.log(sample6_postcode);
+  // console.log(sample6_address);
+  // console.log(sample6_detailAddress);
+  // console.log(deliveryMessage);
+
   const confirmMsg = '결제하시겠습니까?';
 
-  if (confirm(confirmMsg)) {
-    alert('주문이 완료되었습니다.!');
-    window.location.href = './orderConfirm.html';
-  }
-  const comfirmData = {
-    userId: '643e1ada43da3cb65097f989',
-    address: '대전 가양동',
-    phoneNum: '010-0000-0000',
-    receiver: 'kim',
-    deliveryMessage: 'safe please',
-    orderedProducts: [
-      {
-        productId: '643e4d7dcd5d39e480d32032',
-        quantity: 10,
-      },
-    ],
-    price: 10000,
-  };
-
-  fetch('/api/orders', {
-    method: 'POST',
+  fetch("http://localhost:8000/api/orders", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+        "Content-Type": "application/json",
     },
-    body: JSON.stringify(comfirmData),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log('Success:', data);
-    })
-    .catch((error) => {
-      console.error('error');
-    });
+    body: JSON.stringify({
+        userId: "643e1ada43da3cb65097f989",
+        address: "대전 가양동",
+        phoneNum: "010-0000-0000",
+        receiver: "kim",
+        deliveryMessage: "safe please",
+        orderedProducts: [
+          {
+            productId: "643e4d7dcd5d39e480d32032",
+            quantity: 10
+          }
+        ],
+        price: 10000
+    }),
+}).then((response) => response.json())
+.then((data) => console.log(JSON.parse(data)));
+
+
+  if (confirm(confirmMsg)) {
+
+  } else {
+      alert("관리자에게 문의하세요");
+  }
 });
+
+
+/** 금액 천단위 콤마 변환 함수 */
+function priceToString(price) {
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+
+// /** 상품정보 가져오기 */
+// function getProductInfo(productId) {
+//   fetch('http://localhost:8000/api/products')
+//     .then((response) => response.json())
+//     .then((data) => {
+//       console.log(data);
+
+//       let productInfo = {};
+
+//       for (let i = 0; i < data.length; i++) {
+//         if (data[i]._id === productId) {
+//           productInfo = {
+//             productIdPick: data[i]._id,
+//             category: data[i].category,
+//             name: data[i].name,
+//             price: data[i].price,
+//             imgUrl: data[i].imgUrl[0],
+//             content: data[i].content,
+//           };
+//           break;
+//         }
+//       }
+
+//       return productInfo;
+//     });
+// }
+
+// /** 주문정보 가져오기 */
+// function getUserOrderList(urlOrderId) {
+//   if (urlOrderId == null || urlOrderId == undefined) {
+//     // alert("주문 / 결제페이지입니다.");
+//     // return 0;
+//   } else {
+//     fetch('http://localhost:8000/api/orders/getByOrderId/' + urlOrderId)
+//       .then((response) => response.json())
+//       .then((data) => {
+//         console.log(data);
+
+//         // let orderId = urlOrderId;
+//         let userId = '';
+//         let address = '';
+//         let deliveryStatus = '';
+//         let deliveryMessage = '';
+//         let createAt = '';
+//         let price = '';
+//         let orderedProducts = {};
+
+//         orderId = data._id;
+//         userId = data.userId;
+//         address = data.address;
+//         deliveryStatus = data.deliveryStatus;
+//         deliveryMessage = data.deliveryMessage;
+//         createAt = data.createdAt;
+//         price = data.price;
+//         orderedProducts = data.orderedProducts;
+
+//         let orderedProductList = [];
+
+//         for (let i = 0; i < orderedProducts.length; i++) {
+//           // console.log(orderedProducts[i].productId);
+//           orderedProductList.push(getProductInfo(orderedProducts[i].productId));
+//         }
+//       });
+//   }
+// }
+
+
+/** orderDefault 함수 실행 */
+getUser();  //사용자 정보
+// // getUserOrderList();
+// // getProductInfo();
+
+// getUserOrderList(urlOrderId);   //주문번호에 따른 주문정보 불러오기
+
