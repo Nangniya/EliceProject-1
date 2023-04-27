@@ -9,7 +9,7 @@ fetch('/api/categories')
     var itemsHtml = '';
     for (var i = 0; i < data.length; i++) {
       itemsHtml += `
-        <button type="button" class="btn btn-warning category_title">${data[i].name}</button>
+        <button type="button" class="btn btn-outline-dark category_title">${data[i].name}</button>
           `;
     }
 
