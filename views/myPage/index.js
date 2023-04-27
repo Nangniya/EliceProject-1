@@ -37,15 +37,27 @@ window.onload = function () {
           console.log(data1);
 
           for (let i = 0; i < data1.length; i++) {
-            orderList.innerHTML += `<li>
+            fetch(
+              `http://localhost:8000/api/products/id/${data1[i].orderedProducts[0].productId}`,
+              {
+                method: 'GET',
+              },
+            )
+              .then((res) => {
+                return res.json();
+              })
+              .then((data2) => {
+                console.log(data2);
+
+                orderList.innerHTML += `<li>
             <div class="product-left">
               <div class="product-img">
                 <a href="">
-                  <img src="https://placehold.co/79x79" alt="" />
+                  <img src="/media/${data2.imgUrl}" alt="" />
                 </a>
               </div>
               <div class="product-name">
-                <a href=""> 우아한 상품 </a>
+                <a href=""> ${data2.name} </a>
               </div>
             </div>
             <div class="product-right">
@@ -55,6 +67,7 @@ window.onload = function () {
               <div class="product-price">${data1[i].price}</div>
             </div>
           </li>`;
+              });
           }
         });
     })
