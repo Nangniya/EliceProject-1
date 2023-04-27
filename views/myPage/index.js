@@ -52,12 +52,12 @@ window.onload = function () {
                 orderList.innerHTML += `<li>
             <div class="product-left">
               <div class="product-img">
-                <a href="">
+                <a href="http://localhost:8000/detail/?id=${data2._id}">
                   <img src="/media/${data2.imgUrl}" alt="" />
                 </a>
               </div>
               <div class="product-name">
-                <a href=""> ${data2.name} </a>
+                <a href="http://localhost:8000/detail/?id=${data2._id}"> ${data2.name} </a>
               </div>
             </div>
             <div class="product-right">
