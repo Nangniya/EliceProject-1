@@ -57,7 +57,6 @@ export class UsersRepository {
   }
 
   async addOrder(body: orderIdAddUserDto, _id: string) {
-    const user = await this.userModel.findById({ _id });
     try {
       const user = await this.userModel.findById({ _id });
 
