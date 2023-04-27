@@ -37,8 +37,6 @@ btnMoveOrderList.addEventListener('click', function () {
   window.location.href = '../order/index.html';
 });
 
-
-
 btnMoveCart.addEventListener('click', function () {
   //장바구니로 돌아가기
   window.location.href = '../cart/';
@@ -81,7 +79,6 @@ function priceToString(price) {
   return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
-
 /** 배송지 정보 */
 const addressContentWrapper = document.getElementById(
   'address-content-select-wrapper-phone',
@@ -117,7 +114,7 @@ window.addEventListener('load', () => {
 });
 
 /** 다음 주소 API  */
-function sample6_execDaumPostcode() {
+function getUserOrderListsample6_execDaumPostcode() {
   new daum.Postcode({
     oncomplete: function (data) {
       // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -168,10 +165,7 @@ function sample6_execDaumPostcode() {
   });
 }
 getUser();
-<<<<<<< HEAD
 getUserOrderList(urlOrderId);
-=======
->>>>>>> 5d789a928be8bfe9a51e473f892b14eb4beba7c3
 
 let data = localStorage.getItem('buy-cart'); // 로컬스토리지에서 받아오는 value 값 받아오기
 const json = JSON.parse(data); //  JSON 형식이라서 객체로 받아오려면 JSON.parse 써야함
@@ -210,61 +204,7 @@ Promise.all(promises).then(() => {
 <div>총가격:${sum}원</div>
 `;
 });
+
 btnOrderConfirm.addEventListener('click', function () {
   const confirmMsg = '결제하시겠습니까?';
-
-<<<<<<< HEAD
-fetch('http://localhost:8000/api/orders', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    userId: currentUser,
-    address: address,
-    phoneNum: phoneNum,
-    receiver: userName,
-    deliveryMessage: deliveryMessage,
-=======
-  if (confirm(confirmMsg)) {
-    alert('주문이 완료되었습니다.!');
-    window.location.href = './orderConfirm.html';
-  }
-  const comfirmData = {
-    userId: '643e1ada43da3cb65097f989',
-    address: '대전 가양동',
-    phoneNum: '010-0000-0000',
-    receiver: 'kim',
-    deliveryMessage: 'safe please',
->>>>>>> 5d789a928be8bfe9a51e473f892b14eb4beba7c3
-    orderedProducts: [
-      {
-        productId: '643e4d7dcd5d39e480d32032',
-        quantity: 10,
-      },
-    ],
-    price: 10000,
-<<<<<<< HEAD
-  }),
-})
-  .then((response) => response.json())
-  .then((data) => console.log(data));
-=======
-  };
-
-  fetch('/api/orders', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(comfirmData),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log('Success:', data);
-    })
-    .catch((error) => {
-      console.error('error');
-    });
 });
->>>>>>> 5d789a928be8bfe9a51e473f892b14eb4beba7c3

@@ -1,21 +1,22 @@
 /* Default CSS */
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 img {
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
 a {
-    text-decoration: none;
-    color: #000;
-    cursor: pointer;
+  text-decoration: none;
+  color: #000;
+  cursor: pointer;
 }
 
-ol, ul {
-    list-style: none;
+ol,
+ul {
+  list-style: none;
 }
 
 /* .order-list-wrapper {
@@ -36,116 +37,109 @@ ol, ul {
 } */
 
 body {
-    background-color: #D7CCC8;
+  background-color: #d7ccc8;
 }
 
 .order-confirm-content-container {
-    width: 1100px;
-    margin: 30px auto;
-    padding: 15px 0px 45px 0px; 
-    background-color: #ffffff;
+  width: 1100px;
+  margin: 30px auto;
+  padding: 15px 0px 45px 0px;
+  background-color: #ffffff;
 
-    border: 1px solid #e0e0e0;
+  border: 1px solid #e0e0e0;
 }
 .order-confirm-content-container h2 {
-    text-align: center;
-    margin: 30px 0px; 
+  text-align: center;
+  margin: 30px 0px;
 }
-<<<<<<< HEAD
 .main__section {
-    width: 100%;
-    height:auto;
-    margin: 20 auto;    
-    /* padding: 30px 20px 0px 20px; */
-
-    border: 0px;
-=======
+  width: 100%;
+  height: auto;
+  margin: 20 auto;
+  /* padding: 30px 20px 0px 20px; */
+  border: 0px;
+}
 .order-content-box-wrapper {
-    width: 953px;
-    height: auto;
-    margin: 0 auto;
-    padding: 30px 20px 0px 20px;
->>>>>>> ea7bb6150f20c62baf9a781daa7dd6edbe5afed9
+  width: 953px;
+  height: auto;
+  margin: 0 auto;
+  padding: 30px 20px 0px 20px;
 
-    box-sizing: border-box;
-    /*background-color: #F5F5F5;*/
-    display: flex;
-    justify-content: center;
+  box-sizing: border-box;
+  /*background-color: #F5F5F5;*/
+  display: flex;
+  justify-content: center;
 }
 .order-content-box {
-    /*margin: 0px 30px 44px 30px;*/
-    width: 800px;
-    margin: 20px auto;
-    display: flex;
-    border: 1px #e0e0e0 solid;
-    padding: 20px;
-<<<<<<< HEAD
-    margin: 30px 0px;
-    justify-content: center;
-    width: 80%;   
-=======
-    /* background-color: green; */
->>>>>>> ea7bb6150f20c62baf9a781daa7dd6edbe5afed9
+  /*margin: 0px 30px 44px 30px;*/
+  width: 800px;
+  margin: 20px auto;
+  display: flex;
+  border: 1px #e0e0e0 solid;
+  padding: 20px;
+  margin: 30px 0px;
+  justify-content: center;
+  width: 80%;
 }
 .order-content-box > .order-content-box-image {
-    width: 230px;
-    margin-right: 30px;
-    display: flex;
-    justify-content: center;
-    cursor: pointer;
-    /* background-color: green; */
+  width: 230px;
+  margin-right: 30px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  /* background-color: green; */
 }
 .order-content-box > .order-content-box-image > img {
-    border-radius: 50px;
+  border-radius: 50px;
 }
 .order-content-box-header > .top {
-    height: 40px;
-    margin-bottom: 20px;
+  height: 40px;
+  margin-bottom: 20px;
 
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 
-/*    background-color: green;*/
+  /*    background-color: green;*/
 }
 .order-content-box-header > .top > h2 {
-    margin-right: 20px;
+  margin-right: 20px;
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    font-size: 28px;
-    line-height: 30px;
+  font-size: 28px;
+  line-height: 30px;
 }
 .order-content-box-header > .top > button {
-    width: 90px;
-    height: 30px;
-    margin-right: 10px;
-    
-    background-color: #fff;
-    border: 1px #8e8e8e solid;
-    border-radius: 4px;
-    font-weight: 700;
-    color: #262626;
+  width: 90px;
+  height: 30px;
+  margin-right: 10px;
 
-    cursor: pointer;
+  background-color: #fff;
+  border: 1px #8e8e8e solid;
+  border-radius: 4px;
+  font-weight: 700;
+  color: #262626;
+
+  cursor: pointer;
 }
 .order-content-box-header > .top > img {
-    margin-right: 10px;
-    cursor: pointer;
+  margin-right: 10px;
+  cursor: pointer;
 }
 .order-content-box-header > .middle {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 .order-content-box-header > .middle > ul {
-    display: flex;
-} 
+  display: flex;
+}
 .order-content-box-header > .middle > ul > li {
-    margin-right: 40px;
+  margin-right: 40px;
 }
 .order-content-box-header > .middle > ul > li > b {
-    font-weight: 700;
+  font-weight: 700;
 }
 .order-content-box-header > h3 {
-    font-weight: 700;
+  font-weight: 700;
 }
