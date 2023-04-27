@@ -68,6 +68,7 @@ export class UsersController {
   })
   @Patch('addOrder/:id')
   async userAddOrder(@Body() body: orderIdAddUserDto, @Param('id') id: string) {
+    console.log('---------------hi');
     return await this.usersService.addOrder(body, id);
   }
 
