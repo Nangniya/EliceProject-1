@@ -2,7 +2,7 @@ getUser(); //user 정보 받기
 
 // user 정보 받는 함수
 async function getUser() {
-  const res = await fetch('http://localhost:8000/api/users', {
+  const res = await fetch('/api/users', {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
@@ -22,7 +22,7 @@ async function getUser() {
 async function getUserOrderList(userId) {
   console.log(userId);
   const data = await fetch(
-    `http://localhost:8000/api/orders/getByuserId/${userId}`,
+    `/api/orders/getByuserId/${userId}`,
   ).then((res) => res.json());
   const orderListWrapper = document.getElementById('order-content-box-wrapper');
   for (let i = 0; i < data.length; i++) {
@@ -34,7 +34,7 @@ async function getUserOrderList(userId) {
                 </div>
                 <div class="middle">
                     <ul>
-                        <li><b>주문일자</b>: ${data[i].updatedAt.slice(
+                        <li><b>주문일자</b>: ${data[i].createdAt.slice(
                           0,
                           7,
                         )}</li>
@@ -45,14 +45,5 @@ async function getUserOrderList(userId) {
             </div>
         </div>`;
     orderListWrapper.insertAdjacentHTML('afterbegin', element);
-    const orderDetail = document.getElementById(
-      `btnOrderDetail-${data[i]._id}`,
-    );
-    orderDetail.addEventListener('click', () => getOrderDetail(data[i]._id));
   }
-}
-
-function getOrderDetail(orderId) {
-  console.log(orderId);
-  // 해당 주문 상세 페이지로 이동하는 함수
 }

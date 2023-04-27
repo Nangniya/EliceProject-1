@@ -1,4 +1,3 @@
-
 const itemcategory = document.querySelector('.category');
 const item_name = document.querySelector('.itemName');
 const item_price = document.querySelector('.price');
@@ -58,14 +57,14 @@ cartBtn.addEventListener('click', () => {
   if (localStorage.getItem('cart') == null) {
     localStorage.setItem('cart', JSON.stringify([data]));
   } else {
-    let cartList = JSON.parse(localStorage.getItem('cart'));
-    for (let i = 0; i < cartList.length; i++) {
-      if (cartList[i].id === data.id) {
-        cartList[i].sales = cartList[i].sales + data.sales;
-      } else {
-        cartList.push(data);
-        return;
-      }
+    const cartList = JSON.parse(localStorage.getItem('cart'));
+    const sIdx = cartList.findIndex((obj) => obj.id === data.id) + 1;
+    // console.log(data);
+    // console.log(sIdx);
+    if (sIdx) {
+      cartList[sIdx - 1].sales = cartList[sIdx - 1].sales * 1 + data.sales;
+    } else {
+      cartList.push(data);
     }
     localStorage.setItem('cart', JSON.stringify(cartList));
   }
