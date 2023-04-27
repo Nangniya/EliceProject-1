@@ -35,7 +35,7 @@ fetch(`http://localhost:8000/api/users`, {
                   >
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/myPageCopy"
+                  <a class="nav-link active" aria-current="page" href="/myPage"
                     >마이페이지</a
                   >
                 </li>
