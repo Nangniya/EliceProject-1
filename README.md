@@ -124,7 +124,11 @@
 
 <br />
 
-## 4. 제작자
+### 3-2. 데이터 구조
+
+![image](https://media.discordapp.net/attachments/1096002327334375504/1100987485766553611/image.png?width=966&height=427)<br />
+
+## 4. 제작자)
 
 | 이름 | 담당 업무 |
 | ------ | ------ |
