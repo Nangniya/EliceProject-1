@@ -80,7 +80,6 @@ fetch('/api/products')
             <img id=${data[i]._id} src="/media/${data[i].imgUrl[0]}"  alt="..." />
             <div class="item-title">상품명 : ${data[i].name}</div>
             <div class="item-price">가격 : ${data[i].price}</div>
-            
             </div>
           `;
     }

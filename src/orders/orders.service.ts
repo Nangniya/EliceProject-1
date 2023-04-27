@@ -30,7 +30,7 @@ export class OrdersService {
   async orderRequest(body: OrderRequestDto) {
     const order = await this.ordersRepository.createOrder(body);
     if (order) {
-      return '주문을 완료 했습니다.';
+      return order;
     } else {
       throw new UnauthorizedException('validation 형식이 올바르지 않습니다.');
     }
