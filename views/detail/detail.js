@@ -12,7 +12,6 @@ const imgUrl = document.querySelector('.imgUrl');
 const urlParam = window.location.search;
 const param = urlParam.replace('?', '').split(/[=?&]/)[1];
 
-
 fetch(`http://localhost:8000/api/products/id/${param}`)
   .then((response) => response.json())
   .then((data) => {
@@ -51,6 +50,9 @@ let cartArray = [];
 cartBtn.addEventListener('click', () => {
   const data = {
     id: param,
+    name: item_name.innerHTML,
+    category: itemcategory.innerHTML,
+    price: item_price.innerHTML,
     sales: parseInt(salesCount.innerText),
   };
 
