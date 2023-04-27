@@ -27,13 +27,24 @@ function addCartItemList(cartList) {
                     <p class="work-name">${cartList[0][i].name}</p>
                     <p>${cartList[0][i].category}</p>
                     </div>
+                    <div>
+                    <button class="minus-button" type="button"><p id=${
+                      cartList[0][i].id
+                    }>-</p></button>
+                    </div>
+                      <p class="salesCount">${cartList[0][i].sales}</p>
+                    <div>
+                    <button class="plus-button" type="button"><p id=${
+                      cartList[0][i].id
+                    }>+</p></button>
+                    </div>
                     <div class="cart-item-column item-info-right">
                     <button class="item-delete-btn" type="button"><i class="fa-solid fa-trash-can" id=${
                       cartList[0][i].id
                     }></i></button>
                     <p class="work-price">${
                       parseInt(cartList[0][i].price) * cartList[0][i].sales
-                    } 원</p>
+                    }원</p>
                     </div>
                 </li>`;
       document.querySelector('.cart-total-price').innerHTML = `${parseInt(
@@ -74,7 +85,7 @@ function itemDelete(e) {
     const newCartList = JSON.parse(localStorage.getItem('cart'));
     for (let i = 0; i < newCartList.length; i++) {
       if (newCartList[i].id == e.target.id) {
-        newCartList.filter(newCartList[i]);
+        newCartList.splice(newCartList[i], 1);
       }
     }
     console.log(newCartList);
@@ -84,6 +95,8 @@ function itemDelete(e) {
 
     localStorage.setItem('cart', JSON.stringify(newCartList));
     addCartItemList(newCartList);
+
+    window.location.reload();
   }
 }
 
@@ -124,3 +137,40 @@ function buyAllItem() {
 }
 
 buyAllBtn.addEventListener('click', buyAllItem);
+
+const plusBtn = document.querySelector('.plus-button');
+plusBtn.addEventListener('click', (e) => {
+  let cartList = JSON.parse(localStorage.getItem('cart'));
+  console.log(cartList[0]);
+  for (let i = 0; i < cartList.length; i++) {
+    if (cartList[i].id == e.target.id) {
+      // cartList[0][i].sales = cartList[0][i].sales + 1;
+      if (window.confirm('해당 상품의 개수를 추가하시겠습니까?')) {
+        console.log('suc');
+        cartList[i].sales = parseInt(cartList[i].sales) + 1;
+        console.log(cartList);
+
+        window.location.reload();
+      }
+    }
+  }
+  localStorage.setItem('cart', JSON.stringify(cartList));
+});
+
+const minusBtn = document.querySelector('.minus-button');
+minusBtn.addEventListener('click', (e) => {
+  let cartList = JSON.parse(localStorage.getItem('cart'));
+  for (let i = 0; i < cartList.length; i++) {
+    if (cartList[i].id == e.target.id) {
+      // cartList[0][i].sales = cartList[0][i].sales + 1;
+      if (window.confirm('해당 상품의 개수를 줄이시겠습니까?')) {
+        console.log('suc');
+        cartList[i].sales = parseInt(cartList[i].sales) - 1;
+        console.log(cartList);
+
+        window.location.reload();
+      }
+    }
+  }
+  localStorage.setItem('cart', JSON.stringify(cartList));
+});
