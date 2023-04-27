@@ -98,6 +98,19 @@
 - cors
 - 이외
 
+## Collaboration Tools
+
+- Figma : 초반 기획시 빠른 레이아웃을 잡기 위해 사용
+- Discord : 화면공유로 서로 도움주고 , 수시로 스크럼 잡는 용도
+- Gitlab : Code Repository
+- Postman Teams : API 테스트 진행
+
+## Scrum
+
+- 평일 아침 10시, 저녁 9시 Discord 회의
+- 어제할일, 오늘할일, 막히는 상황 스크럼 회의때 공유
+- 필요시 수시로 프론트/백엔드/전체 스크럼 잡아서 진행
+
 
 
 ## 3. 인프라 구조
