@@ -52,7 +52,8 @@ export class UsersController {
   })
   @Post('updateUser/:id')
   async updateUser(@Body() body: UserUpdateDto, @Param('id') id: string) {
-    return await this.usersService.updateUser(body, id);
+    console.log(body, id);
+    //return await this.usersService.updateUser(body, id);
   }
 
   @ApiOperation({ summary: '회원 탈퇴' })
