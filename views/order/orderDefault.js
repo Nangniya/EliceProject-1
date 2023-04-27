@@ -312,8 +312,22 @@ btnOrderConfirm.addEventListener('click', function () {
         price: 10000
     }),
 }).then((response) => response.json())
-.then((data) => console.log(JSON.parse(data)));
+.then((data) => {
 
+  console.log(data._id);
+  console.log(data.userId);
+
+  fetch(`/api/users/addOrder/${data.userId}`, {
+    method: "PATCH",
+    headers: {
+        "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      orderId: data._id
+    })
+  })
+
+});
 
   if (confirm(confirmMsg)) {
 
