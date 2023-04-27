@@ -240,8 +240,6 @@ function sample6_execDaumPostcode() {
 getUser();
 getUserOrderList(urlOrderId);
 
-
-
 let data = localStorage.getItem('buy-cart'); // 로컬스토리지에서 받아오는 value 값 받아오기
 const json = JSON.parse(data); //  JSON 형식이라서 객체로 받아오려면 JSON.parse 써야함
 
@@ -262,9 +260,9 @@ payContainer.innerHTML += `
 `;
 
 fetch('http://localhost:8000/api/orders', {
-  method: "POST",
+  method: 'POST',
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
   body: JSON.stringify({
     userId: currentUser,
@@ -274,13 +272,12 @@ fetch('http://localhost:8000/api/orders', {
     deliveryMessage: deliveryMessage,
     orderedProducts: [
       {
-        "productId": "643e4d7dcd5d39e480d32032",
-        "quantity": 10
-      }
+        productId: '643e4d7dcd5d39e480d32032',
+        quantity: 10,
+      },
     ],
-    price: 10000
-
+    price: 10000,
   }),
-}).then((response) => response.json())
-  .then((data) => console.log(data))
-
+})
+  .then((response) => response.json())
+  .then((data) => console.log(data));
