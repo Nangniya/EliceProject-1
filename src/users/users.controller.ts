@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
   UseFilters,
   UseGuards,
@@ -11,7 +12,7 @@ import { ApiBody, ApiOperation } from '@nestjs/swagger';
 import { AuthService } from 'src/auth/auth.service';
 import { LoginRequestDto } from 'src/auth/dto/login.request.dto';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
-import { UserRequestDto } from './dto/user.request.dto';
+import { UserRequestDto, UserUpdateDto } from './dto/user.request.dto';
 import { UsersService } from './users.service';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
@@ -41,6 +42,16 @@ export class UsersController {
   @Post('signup')
   async sighUp(@Body() body: UserRequestDto) {
     return await this.usersService.signUp(body);
+  }
+
+  @ApiOperation({ summary: '회원 정보 변경' })
+  @ApiBody({
+    description: 'User Update',
+    type: UserUpdateDto,
+  })
+  @Post('updateUser/:id')
+  async updateUser(@Body() body: UserUpdateDto, @Param('id') id: string) {
+    return await this.usersService.updateUser(body, id);
   }
 
   @ApiOperation({ summary: '로그인' })
