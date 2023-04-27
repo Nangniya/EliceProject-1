@@ -59,7 +59,7 @@ async function modifyUser(userId) {
   console.log(name, address, phoneNumber);
   try {
     const response = await fetch(`/api/users/updateUser/${userId}`, {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
