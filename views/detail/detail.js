@@ -45,6 +45,9 @@ let cartArray = [];
 cartBtn.addEventListener('click', () => {
   const data = {
     id: param,
+    name: item_name.innerHTML,
+    category: itemcategory.innerHTML,
+    price: item_price.innerHTML,
     sales: parseInt(salesCount.innerText),
   };
 
