@@ -34,6 +34,7 @@ export class UsersRepository {
     const user = await this.userModel.findById(userId);
     return user;
   }
+
   async updateUser(body: UserUpdateDto, _id: string) {
     const { name, address, phoneNumber } = body;
     const user = await this.userModel.findById({ _id });
@@ -41,5 +42,9 @@ export class UsersRepository {
     user.address = address;
     user.phoneNumber = phoneNumber;
     return user.save();
+  }
+
+  async deleteUser(_id: string) {
+    return await this.userModel.deleteOne({ _id });
   }
 }

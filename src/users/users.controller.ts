@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -52,6 +53,15 @@ export class UsersController {
   @Post('updateUser/:id')
   async updateUser(@Body() body: UserUpdateDto, @Param('id') id: string) {
     return await this.usersService.updateUser(body, id);
+  }
+
+  @ApiOperation({ summary: '회원 탈퇴' })
+  @ApiBody({
+    description: 'user delete',
+  })
+  @Delete('deleteUser/:id')
+  async deleteUser(@Param('id') id: string) {
+    return await this.usersService.deleteUser(id);
   }
 
   @ApiOperation({ summary: '로그인' })
