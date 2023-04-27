@@ -154,6 +154,8 @@ a:hover {
 
 .mypage-content .order-list li .product-left img {
   margin: 3.9%;
+  width: 79px;
+  height: 79px;
 }
 
 .mypage-content .order-list li .product-left .product-name {
