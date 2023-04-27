@@ -37,8 +37,6 @@ btnMoveOrderList.addEventListener('click', function () {
   window.location.href = '../order/index.html';
 });
 
-
-
 btnMoveCart.addEventListener('click', function () {
   //장바구니로 돌아가기
   window.location.href = '../cart/';
@@ -171,7 +169,6 @@ getUser();
 
 let data = localStorage.getItem('buy-cart'); // 로컬스토리지에서 받아오는 value 값 받아오기
 const json = JSON.parse(data); //  JSON 형식이라서 객체로 받아오려면 JSON.parse 써야함
-console.log(json);
 
 const orderDetail = document.querySelector('#order-detail-content-container'); //주문상세태그
 
@@ -213,33 +210,9 @@ btnOrderConfirm.addEventListener('click', function () {
     alert('주문이 완료되었습니다.!');
     window.location.href = './orderConfirm.html';
   }
-  const comfirmData = {
-    userId: '643e1ada43da3cb65097f989',
-    address: '대전 가양동',
-    phoneNum: '010-0000-0000',
-    receiver: 'kim',
-    deliveryMessage: 'safe please',
-    orderedProducts: [
-      {
-        productId: '643e4d7dcd5d39e480d32032',
-        quantity: 10,
-      },
-    ],
-    price: 10000,
-  };
 
-  fetch('/api/orders', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(comfirmData),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log('Success:', data);
-    })
-    .catch((error) => {
-      console.error('error');
-    });
+
+
 });
+
+
