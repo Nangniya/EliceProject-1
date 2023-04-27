@@ -238,8 +238,49 @@ function sample6_execDaumPostcode() {
 }
 
 getUser();
-// getUserOrderList();
-// getProductInfo();
-
-// getProductInfo('644627867145207d8a0ff1b7');
 getUserOrderList(urlOrderId);
+
+
+
+let data = localStorage.getItem('buy-cart'); // 로컬스토리지에서 받아오는 value 값 받아오기
+const json = JSON.parse(data); //  JSON 형식이라서 객체로 받아오려면 JSON.parse 써야함
+
+let sum = 0; //결제상세에서 총 금액 0원시작
+
+const orderDetail = document.querySelector('#order-detail-content-container'); //주문상세태그
+let html = '';
+
+for (let i = 0; i < json.length; i++) {
+  sum += parseInt(json[i].price); //가격 합산
+  orderDetail.innerHTML += `
+<div>상품명:${json[i].name}   가격:${json[i].price}  수량${json[i].sales}개</div>
+`;
+}
+const payContainer = document.querySelector('#pay-info-content-container'); //결제상세 태그
+payContainer.innerHTML += `
+<div>총가격:${sum}</div>
+`;
+
+fetch('http://localhost:8000/api/orders', {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    userId: currentUser,
+    address: address,
+    phoneNum: phoneNum,
+    receiver: userName,
+    deliveryMessage: deliveryMessage,
+    orderedProducts: [
+      {
+        "productId": "643e4d7dcd5d39e480d32032",
+        "quantity": 10
+      }
+    ],
+    price: 10000
+
+  }),
+}).then((response) => response.json())
+  .then((data) => console.log(data))
+

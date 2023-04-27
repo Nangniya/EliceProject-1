@@ -1,6 +1,3 @@
-// const searchbtn = document.querySelector('.searchbtn');
-// const searchinput = document.querySelector('.searchinput');
-
 const basketbtn = document.querySelector('#basket');
 const loginbtn = document.querySelector('#login');
 const mypage = document.querySelector('#mypage');
@@ -29,6 +26,7 @@ fetch('/api/categories')
         .then((data) => {
           for (let i = 0; i < data.length; i++) {
             testhtml += `<div class="item" id=${data[i]._id}>
+            <img id=${data[i]._id} src="http://localhost:8000/media/${data[i].imgUrl[0]}" alt="..." />
               <p class="item-title">상품명 : ${data[i].name}<p>
               <p class="item-price">가격 : ${data[i].price}<p>
               </div>
@@ -61,8 +59,9 @@ fetch('/api/products/recent')
     var itemsHtml = '';
     for (var i = 0; i < data.length; i++) {
       itemsHtml += `<div class="item new-item" id=${data[i]._id}>
-            <p class="item-title">상품명 : ${data[i].name}<p>
-            <p class="item-price">가격 : ${data[i].price}<p>
+      <img id=${data[i]._id} src="http://localhost:8000/media/${data[i].imgUrl[0]}" alt="..." />
+            <div class="item-title">상품명 : ${data[i].name}</div>
+            <div class="item-price">가격 : ${data[i].price}</div>
             </div>
           `;
     }
@@ -76,15 +75,16 @@ fetch('/api/products/recent')
       button.addEventListener('click', newitemClick);
     });
   });
-
 fetch('/api/products')
   .then((response) => response.json())
   .then((data) => {
     var itemsHtml = '';
     for (var i = 0; i < data.length; i++) {
       itemsHtml += `<div class="item" id=${data[i]._id}>
-            <p class="item-title">상품명 : ${data[i].name}<p>
-            <p class="item-price">가격 : ${data[i].price}<p>
+            <img id=${data[i]._id} src="http://localhost:8000/media/${data[i].imgUrl[0]}"  alt="..." />
+            <div class="item-title">상품명 : ${data[i].name}</div>
+            <div class="item-price">가격 : ${data[i].price}</div>
+            
             </div>
           `;
     }
