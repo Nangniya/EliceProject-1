@@ -23,7 +23,7 @@ fetch(`http://localhost:8000/api/products/id/${param}`)
       itemcategory.innerHTML = `${data.category}`;
       item_name.innerHTML = `${data.name}`;
       item_price.innerHTML = `${data.price}` + ' 원';
-      details.innerHTML = `${data.details}`;
+      details.innerHTML = `${data.content}`;
     }
     rendering();
   });
