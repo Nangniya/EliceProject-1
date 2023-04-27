@@ -71,9 +71,9 @@
 
 |  |  |
 | ------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------|
-| ![image](https://i.ibb.co/jyxjcd3/image.png) | ![image](https://i.ibb.co/hDpRy2L/register.png) |
+| ![image](https://i.ibb.co/jyxjcd3/image.png) | ![image](https://i.ibb.co/m6QCGhb/register.png) |
 |    메인 페이지                                |      회원가입 화면                            |
-| ![image](https://i.ibb.co/VDjgRGr/login.png) |                                         |
+| ![image](https://i.ibb.co/GkxWyDB/login.png) |                                         |
 |    로그인 페이지                              |     앞으로 추가할 페이지                         |
 
 <br />
