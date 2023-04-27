@@ -3,30 +3,88 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>주문내역조회</title>
-    <script src="orderList.js" defer></script>
-    <script src="../public/nav.js"></script>
-    <link rel="stylesheet" type="text/css" href="orderList.css" />
-    <!-- 부트스트랩 CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
-      crossorigin="anonymous"
-    />
-    <!-- 부트스트랩JS -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-      crossorigin="anonymous"
-    ></script>
+    <title>주문결제상세</title>
+    <script src="orderDefault.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="orderDefault.css" />
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   </head>
   <body>
-    <div id="whereNav"></div>
-    <!-- 현재 ID의 전체주문내역 정보를 가져온다 -->
-    <div class="order-list-wrapper">
-      <h2>주문내역조회</h2>
-      <section id="order-content-box-wrapper" class="main__section"></section>
+    <div class="order-content-wrapper">
+      <h2>주문 / 결제</h2>
+
+      <div class="order-info-container">
+        <div class="user-info-content">
+          <h4>주문자 정보</h4>
+          <ul class="user-info-content-ul">
+            <div id="user-info-content-name"></div>
+            <div id="user-info-content-phoneNumber"></div>
+            <div id="user-info-content-email"></div>
+            <div id="user-info-content-address"></div>
+          </ul>
+          
+          <!-- <ul class="user-info-content-ul">
+            <li>주문자 : <div id="user-info-content-name"></div></li>
+            <li>연락처 : <p id="user-info-content-phoneNumber"></p></li>
+            <li>이메일 : <div id="user-info-content-email"></div></li>
+            <li>주소 : <div id="user-info-content-address"></div></li>
+          </ul> -->
+        </div>
+
+        <div class="delivery-info-content">
+          <h4>배송지정보</h4>
+          <ul>
+            <li>
+              <div class="address-content-table">
+                <div class="address-content-table row">
+                    <div class="address-content-table column header">연락처</div>
+                    <div class="address-content-table column phone-input">
+                      <select id="address-content-select-wrapper-phone"></select> -
+                      <input type="text" id="inputPhoneNum2"> -
+                      <input type="text" id="inputPhoneNum3">
+                    </div>
+                </div>
+                <div class="address-content-table row">
+                    <div class="address-content-table column header">주소</div>
+                    <div class="address-content-table column">
+                        <input type="text" id="sample6_postcode" placeholder="우편번호">
+                        <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                        <div class="column-inline-block"><input type="text" id="sample6_address" placeholder="주소"></div>
+                        <div class="column-inline-block"><input type="text" id="sample6_detailAddress" placeholder="상세주소"></div>
+                </div>
+                <div class="address-content-table row">
+                    <div class="address-content-table column header">배송요청사항</div>
+                    <div class="address-content-table column phone-input">
+                      <select id="address-content-select-wrapper-message"></select>
+                    </div>
+                </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="order-detail-content-wrapper">
+          <h4>주문상세</h4>
+          <div class="order-detail-content-container test" id="order-detail-content-container">
+
+          </div>
+        </div>
+
+        <div class="pay-info-content">
+          <h4>결제상세</h4>
+          <div class="pay-info-content-container" id="pay-info-content-container">
+          </div>
+        </div>
+
+        <div class="buttonGroup order-create">
+          <button id="btnOrderCreateCancel">주문취소</button>
+          <button id="btnOrderConfirm">결제하기</button><br />
+          <button id="btnMoveCart">장바구니로 돌아가기</button>
+        </div>          
+        <div class="buttonGroup order-detail">
+          <button id="btnOrderDetailCancel">주문취소</button>
+          <button id="btnOrderConfirm">주문수정</button><br />
+          <button id="btnMoveOrderList">주문내역으로 돌아가기</button>
+        </div>
+      </div>
     </div>
   </body>
 </html>

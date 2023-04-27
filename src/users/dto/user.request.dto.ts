@@ -8,3 +8,9 @@ export class UserRequestDto extends PickType(User, [
   'address',
   'phoneNumber',
 ] as const) {}
+
+export class UserUpdateDto extends PickType(User, [
+  'name',
+  'address',
+  'phoneNumber',
+] as const) {}

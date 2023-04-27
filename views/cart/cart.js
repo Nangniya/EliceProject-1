@@ -2,7 +2,6 @@
 
 let cartItemList = document.querySelector('#cart-item-list');
 let cartList = [JSON.parse(localStorage.getItem('cart'))];
-console.log(cartList[0][1]);
 
 // 로컬스토리지에 있는 장바구니 리스트 화면에 출력
 function addCartItemList(cartList) {
@@ -30,7 +29,7 @@ function addCartItemList(cartList) {
                     </div>
                     <div class="cart-item-column item-info-right">
                     <button class="item-delete-btn" type="button"><i class="fa-solid fa-trash-can" id=${
-                      cartList[0][i].productId
+                      cartList[0][i].id
                     }></i></button>
                     <p class="work-price">${
                       parseInt(cartList[0][i].price) * cartList[0][i].sales
@@ -72,11 +71,17 @@ const itemDeleteBtns = document.querySelectorAll('.item-delete-btn');
 
 function itemDelete(e) {
   if (window.confirm('선택하신 상품을 장바구니에서 삭제하시겠습니까?')) {
-    const newCartList = JSON.parse(localStorage.getItem('cart')).filter(
-      (elem) => {
-        return elem.productId !== e.target.id;
-      },
-    );
+    const newCartList = JSON.parse(localStorage.getItem('cart'));
+    for (let i = 0; i < newCartList.length; i++) {
+      if (newCartList[i].id == e.target.id) {
+        newCartList.filter(newCartList[i]);
+      }
+    }
+    console.log(newCartList);
+    // newCartList.filter((elem) => {
+    //   return elem.id !== e.target.id;
+    // });
+
     localStorage.setItem('cart', JSON.stringify(newCartList));
     addCartItemList(newCartList);
   }

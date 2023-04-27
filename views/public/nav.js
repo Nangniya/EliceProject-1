@@ -58,7 +58,7 @@ fetch(`http://localhost:8000/api/users`, {
       const logOut = document.querySelector('.log-out');
       logOut.addEventListener('click', () => {
         alert('로그아웃이 되었습니다.');
-        window.location.href = 'http://localhost:8000'; // 이동할 페이지의 URL을 입력하세요.
+        window.location.href = '/'; // 이동할 페이지의 URL을 입력하세요.
         window.localStorage.removeItem('token');
       });
     } else {

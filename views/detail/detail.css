@@ -21,6 +21,7 @@ main {
 .container {
   display: flex;
   flex-direction: column;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
   width: 600px;
@@ -35,7 +36,7 @@ main {
 }
 .imageUrl {
   width: 600px;
-  height: 400px;
+  height: 300px;
   border-radius: 4%;
   align-items: center;
   /* object-fit: scale-down; */

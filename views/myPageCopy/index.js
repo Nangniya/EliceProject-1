@@ -21,10 +21,10 @@ async function getUser() {
 // 현재 주문한 내역 정보 받기
 async function getUserOrderList(userId) {
   console.log(userId);
-  const data = await fetch(
-    `/api/orders/getByuserId/${userId}`,
-  ).then((res) => res.json());
-  const orderListWrapper = document.getElementById('order-content-box-wrapper');
+  const data = await fetch(`/api/orders/getByuserId/${userId}`).then((res) =>
+    res.json(),
+  );
+  const orderListWrapper = document.querySelector('.mypage-content');
   for (let i = 0; i < data.length; i++) {
     const element = `
         <div class="main__profile">
