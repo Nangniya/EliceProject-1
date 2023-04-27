@@ -74,7 +74,7 @@ function itemDelete(e) {
   if (window.confirm('선택하신 상품을 장바구니에서 삭제하시겠습니까?')) {
     const newCartList = JSON.parse(localStorage.getItem('cart')).filter(
       (elem) => {
-        return elem.productId !== e.target.id;
+        return elem.name !== e.target.name;
       },
     );
     localStorage.setItem('cart', JSON.stringify(newCartList));

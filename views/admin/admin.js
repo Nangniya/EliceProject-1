@@ -1,13 +1,13 @@
 function showPage() {
-  if (!localStorage.getItem('admin')) {
+  if (!sessionStorage.getItem('admin')) {
     const targetValue = 'iamadmin'; // 지정된 값
     const input = prompt('비밀번호를 입력하세요:'); // 입력 필드를 포함한 사용자 정의 창 생성
 
     if (input === targetValue) {
       // 입력 값과 지정된 값 비교
-      localStorage.setItem('admin', 'true');
+      sessionStorage.setItem('admin', 'true');
       document.querySelector('body').style.display = 'block'; // 입력 값과 일치할 경우 페이지 보여주기
-      console.log(localStorage.getItem('admin'));
+      console.log(sessionStorage.getItem('admin'));
     } else {
       alert('입력한 값이 일치하지 않습니다.'); // 입력 값과 일치하지 않을 경우 경고 메시지 표시
     }
@@ -133,6 +133,7 @@ async function getProductList() {
       const imageBox = document.querySelector(
         `#product-image-${productData[i]._id}`,
       );
+      console.log(productData[i].imgUrl[0]);
       imageBox.innerHTML = `<img src="http://localhost:8000/media/${productData[i].imgUrl[0]}" alt="${productData[i].name} 사진" width="70"/>`;
     }
     // 삭제 버튼에 이벤트 리스너 부여
