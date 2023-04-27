@@ -1,3 +1,138 @@
+## 1. 서비스 소개
+
+#### 제품 등록, 장바구니 추가, 주문하기 등 쇼핑몰의 핵심 서비스를 구현합니다. 
+1. 회원가입, 로그인, 회원정보 수정 등 **유저 정보 관련 CRUD** 
+2. **제품 목록**을 조회 및, **제품 상세 정보**를 조회 가능함. 
+3. 장바구니에 제품을 추가할 수 있으며, **장바구니에서 CRUD** 작업이 가능함.
+4. 장바구니는 서버 DB가 아닌, 프론트 단에서 저장 및 관리됨 (localStorage, indexedDB 등)
+5. 장바구니에서 주문을 진행하며, **주문 완료 후 조회 및 삭제**가 가능함.
+6. 추가 기능 ...
+
+<br />
+
+### 1-1. API 문서
+
+### https://documenter.getpostman.com/view/23952739/2s847JrX6f
+
+<br>
+
+### 1-2. 데모 영상
+
+<details><summary>사용자 회원가입, 로그인</summary>
+
+![image](https://user-images.githubusercontent.com/91174156/172159634-1e105633-9948-464e-a540-5429200a1353.gif)
+
+</details>
+
+<details><summary>카테고리 추가 및 반영</summary>
+
+추후 관련 영상을 삽입하세요 (하기 2가지 방법 가능)
+1. 화면녹화 -> 유튜브 업로드 -> 유튜브 링크 삽입  
+2. 화면움짤녹화 -> 움짤삽입 (https://www.screentogif.com/ 활용가능)
+   
+</details>
+
+<details><summary>제품 추가 및 반영</summary>
+
+추후 관련 영상을 삽입하세요 (하기 2가지 방법 가능)
+1. 화면녹화 -> 유튜브 업로드 -> 유튜브 링크 삽입  
+2. 화면움짤녹화 -> 움짤삽입 (https://www.screentogif.com/ 활용가능)
+
+</details>
+
+<details><summary>장바구니 기능</summary>
+
+추후 관련 영상을 삽입하세요 (하기 2가지 방법 가능)
+1. 화면녹화 -> 유튜브 업로드 -> 유튜브 링크 삽입  
+2. 화면움짤녹화 -> 움짤삽입 (https://www.screentogif.com/ 활용가능)
+
+</details>
+
+<details><summary>주문 기능</summary>
+
+추후 관련 영상을 삽입하세요 (하기 2가지 방법 가능)
+1. 화면녹화 -> 유튜브 업로드 -> 유튜브 링크 삽입  
+2. 화면움짤녹화 -> 움짤삽입 (https://www.screentogif.com/ 활용가능)
+
+</details>
+
+<details><summary>관리자 페이지</summary>
+
+추후 관련 영상을 삽입하세요 (하기 2가지 방법 가능)
+1. 화면녹화 -> 유튜브 업로드 -> 유튜브 링크 삽입  
+2. 화면움짤녹화 -> 움짤삽입 (https://www.screentogif.com/ 활용가능)
+
+</details>
+
+<br />
+
+### 1-3. 페이지 별 화면
+
+|  |  |
+| ------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------|
+| ![image](https://i.ibb.co/jyxjcd3/image.png) | ![image](https://i.ibb.co/Q860RKz/image.png) |
+|    메인 페이지                                |      회원가입 화면                            |
+| ![image](https://i.ibb.co/RpYN379/image.png) |                                         |
+|    로그인 페이지                              |     앞으로 추가할 페이지                         |
+
+<br />
+
+
+## 2. 기술 스택
+
+![image](https://i.ibb.co/N34mXzy/image.png)
+
+<br />
+
+### 2-1. 프론트엔드
+
+- **Vanilla javascript**, html, css (**Bulma css**)
+- Font-awesome 
+- Daum 도로명 주소 api 
+- 이외
+
+### 2-2. 백엔드 
+
+- **Express** (nodemon, babel-node로 실행됩니다.)
+- Mongodb, Mongoose
+- cors
+- 이외
+
+
+
+## 3. 인프라 구조
+
+![image](https://i.ibb.co/9tGxmx0/image.png)<br />
+
+### 3-1. 폴더 구조
+- 프론트: `src/views` 폴더 
+- 백: src/views 이외 폴더 전체
+- 실행: **프론트, 백 동시에, express로 실행**
+
+<br />
+
+## 4. 제작자
+
+| 이름 | 담당 업무 |
+| ------ | ------ |
+| 이준희 | FE(팀장) |
+| 김나연 | FE |
+| 이용섭 | FE |
+| 박세진 | FE |
+| 김봉섭 | BE |
+
+<br />
+
+
+
+
+
+
+
+
+
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
