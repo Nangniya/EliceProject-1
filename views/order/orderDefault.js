@@ -285,6 +285,8 @@ console.log(deliveryMessage);
       // alert('주문이 완료되었습니다.');
       // window.location.href = './orderConfirm.html';
 
+
+      
           fetch("http://localhost:8000/api/orders", {
           method: "POST",
           headers: {
