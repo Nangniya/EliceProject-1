@@ -4,7 +4,9 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
+  Put,
   UseFilters,
   UseGuards,
   UseInterceptors,
@@ -50,9 +52,21 @@ export class UsersController {
     description: 'User Update',
     type: UserUpdateDto,
   })
-  @Post('updateUser/:id')
+  @Put('updateUser/:id')
   async updateUser(@Body() body: UserUpdateDto, @Param('id') id: string) {
     return await this.usersService.updateUser(body, id);
+  }
+
+  @ApiOperation({ summary: '주문 추가' })
+  @ApiBody({
+    description: 'User Update',
+  })
+  @Patch('addOrder/:id')
+  async userAddOrder(
+    @Body() body: { orderId: string },
+    @Param('id') id: string,
+  ) {
+    return await this.usersService.addOrder(body, id);
   }
 
   @ApiOperation({ summary: '회원 탈퇴' })

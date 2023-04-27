@@ -24,6 +24,7 @@ async function getUserOrderList(userId) {
   const data = await fetch(`/api/orders/getByuserId/${userId}`).then((res) =>
     res.json(),
   );
+
   const orderListWrapper = document.querySelector('.mypage-content');
   for (let i = 0; i < data.length; i++) {
     const element = `
