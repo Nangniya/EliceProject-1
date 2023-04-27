@@ -32,7 +32,7 @@ async function getUser() {
   const phoneNumberInput = document.getElementById('member-number-edit');
 
   nameInput.value = userData.data.name;
-  emailInput.value = userData.data.email;
+  emailInput.innerHTML = userData.data.email;
   addressInput.value = userData.data.address;
   phoneNumberInput.value = userData.data.phoneNumber;
 
@@ -47,27 +47,27 @@ async function getUser() {
 
 
 async function modifyUser(userId) {
-  console.log(userId);
 
   const nameInput = document.getElementById('member-name-edit');
-  const emailInput = document.getElementById('member-email-edit');
   const addressInput = document.getElementById('member-address-edit');
   const phoneNumberInput = document.getElementById('member-number-edit');
 
   const name = nameInput.value;
-  const email = emailInput.value;
   const address = addressInput.value;
   const phoneNumber = phoneNumberInput.value;
+
+  console.log(name, address, phoneNumber);
   try {
-    const response = fetch(`/api/users/updateUser/${userId}`, {
+    const response = await fetch(`/api/users/updateUser/${userId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: { name, address, phoneNumber }
-    })
+      body: JSON.stringify({ name, address, phoneNumber })
+    });
     if (response.ok) {
       alert('회원 수정 성공');
+      getUser();
     } else {
       console.error('회원 수정 실패:', response.status);
       alert('회원 수정 실패:' + response.status);
@@ -95,6 +95,8 @@ async function deleteUser(userId) {
 
       if (response.ok) {
         alert('탈퇴 되었습니다.');
+        localStorage.removeItem('token'); 
+        window.location.href = "/";
       } else {
         console.error('탈퇴 실패:', response.status);
         alert('탈퇴실패:' + response.status);
