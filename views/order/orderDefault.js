@@ -1,3 +1,4 @@
+/** 화면 요소 선언 */
 const btnOrderConfirm = document.querySelector('#btnOrderConfirm');
 const btnMoveCart = document.querySelector('#btnMoveCart');
 const btnMoveOrderList = document.querySelector('#btnMoveOrderList');
@@ -6,7 +7,8 @@ const btnAddressInfo = document.querySelector('#btnAddressInfo');
 const btnGroupOrderCreate = document.querySelector('.order-create');
 const btnGroupOrderDetail = document.querySelector('.order-detail');
 
-// URL의 orderId 가져오기
+
+/** URL의 orderId 가져오기 - orderId 유무에 따라 페이지 변경 */
 const urlParams = new URL(location.href).searchParams;
 const urlOrderId = urlParams.get('orderId');
 
@@ -20,6 +22,8 @@ if (urlOrderId !== null && urlOrderId !== undefined) {
   btnGroupOrderDetail.style.display = 'none';
 }
 
+
+/** 화면 버튼 이벤트 */
 btnOrderCreateCancel.addEventListener('click', function () {
   window.location.href = '../index.html';
 });
@@ -37,63 +41,23 @@ btnMoveOrderList.addEventListener('click', function () {
   window.location.href = '../order/index.html';
 });
 
-
-
-btnOrderConfirm.addEventListener('click', function () {
-
-    const confirmMsg = '결제하시겠습니까?';
-
-    let input_userName = document.getElementById('user-info-content-name').innerHTML;
-    let input_address = document.getElementById('user-info-content-address').innerHTML;
-    let input_phoneNum = document.getElementById('user-info-content-phoneNumber').innerHTML;
-    let input_receiver = document.getElementById('user-info-content-name').innerHTML;
-    let input_deliveryMessage = document.getElementById('address-content-select-wrapper-message').value;
-
-    // let input_orderedProducts = {};
-    // let input_price = {};
-
-    if (confirm(confirmMsg)) {
-
-        // alert('주문이 완료되었습니다.');
-        // window.location.href = './orderConfirm.html';
-
-            fetch("http://localhost:8000/api/orders", {
-            method: "POST", // POST
-            headers: { // 헤더 조작
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-    
-                userId: "643e1ada43da3cb65097f989",
-                address: "대전 가양동",
-                phoneNum: "010-0000-0000",
-                receiver: "kim",
-                deliveryMessage: "safe please",
-                orderedProducts: [
-                    {
-                        "productId": "643e4d7dcd5d39e480d32032",
-                        "quantity": 10
-                    }
-                ],
-                price: 10000
-                
-            }),
-        })
-        .then((response) => response.json())
-        .then((data) => console.log(data))
-        
-    } else {
-
-        return 0;
-    }
-});
-
 btnMoveCart.addEventListener('click', function () {
   //장바구니로 돌아가기
   window.location.href = '../cart/';
 });
 
-//주문자 정보 가져오기
+
+
+/** 주문자 정보 가져오기 */
+let currentUser = "";
+
+let userName = "";
+let address = "";
+let email = "";
+let phoneNum = "";
+let receiver= "";
+let deliveryMessage = "";
+
 async function getUser() {
   const res = await fetch('http://localhost:8000/api/users', {
     headers: {
@@ -109,14 +73,17 @@ async function getUser() {
 
   const data = await res.json();
 
-  let name = data.data.name;
-  let email = data.data.email;
-  let address = data.data.address;
-  let phone = data.data.phoneNumber;
+  userName = data.data.name;
+  email = data.data.email;
+  address = data.data.address;
+  phoneNum = data.data.phoneNumber;
+
+  currentUser = data.data.id;
+  // console.log(currentUser);
 
   document.getElementById(
     'user-info-content-name',
-  ).innerHTML = `주문자   :    ${name}`;
+  ).innerHTML = `주문자   :    ${userName}`;
   document.getElementById(
     'user-info-content-email',
   ).innerHTML = `이메일 : ${email}`;
@@ -125,79 +92,11 @@ async function getUser() {
   ).innerHTML = `주소 : ${address}`;
   document.getElementById(
     'user-info-content-phoneNumber',
-  ).innerHTML = `휴대전화 : ${phone}`;
+  ).innerHTML = `휴대전화 : ${phoneNum}`;
+
 }
 
-function priceToString(price) {
-  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-}
-
-//상품정보 가져오기
-function getProductInfo(productId) {
-  fetch(`http://localhost:8000/api/products/${productId}`)
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-
-      let productInfo = {};
-
-      for (let i = 0; i < data.length; i++) {
-        if (data[i]._id === productId) {
-          productInfo = {
-            productIdPick: data[i]._id,
-            category: data[i].category,
-            name: data[i].name,
-            price: data[i].price,
-            imgUrl: data[i].imgUrl[0],
-            content: data[i].content,
-          };
-          break;
-        }
-      }
-
-      return productInfo;
-    });
-}
-
-function getUserOrderList(urlOrderId) {
-  if (urlOrderId == null || urlOrderId == undefined) {
-    // alert("주문 / 결제페이지입니다.");
-    // return 0;
-  } else {
-    fetch('http://localhost:8000/api/orders/getByOrderId/' + urlOrderId)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-
-        // let orderId = urlOrderId;
-        let userId = '';
-        let address = '';
-        let deliveryStatus = '';
-        let deliveryMessage = '';
-        let createAt = '';
-        let price = '';
-        let orderedProducts = {};
-
-        orderId = data._id;
-        userId = data.userId;
-        address = data.address;
-        deliveryStatus = data.deliveryStatus;
-        deliveryMessage = data.deliveryMessage;
-        createAt = data.createdAt;
-        price = data.price;
-        orderedProducts = data.orderedProducts;
-
-        let orderedProductList = [];
-
-        for (let i = 0; i < orderedProducts.length; i++) {
-          // console.log(orderedProducts[i].productId);
-          orderedProductList.push(getProductInfo(orderedProducts[i].productId));
-        }
-      });
-  }
-}
-
-/** 배송지 정보 */
+/** 배송지 정보 설정 */
 const addressContentWrapper = document.getElementById(
   'address-content-select-wrapper-phone',
 );
@@ -230,6 +129,7 @@ window.addEventListener('load', () => {
     addressContentMessage.append(selectOptionDeliveryMessage);
   });
 });
+
 
 /** 다음 주소 API  */
 function sample6_execDaumPostcode() {
@@ -283,10 +183,185 @@ function sample6_execDaumPostcode() {
 }).open();
 }
 
-getUser();
-// getUserOrderList();
-// getProductInfo();
 
-// getProductInfo('644627867145207d8a0ff1b7');
-getUserOrderList(urlOrderId);
+/** 주문상세 */
+let data = localStorage.getItem('buy-cart'); // 로컬스토리지에서 받아오는 value 값 받아오기
+const json = JSON.parse(data); //  JSON 형식이라서 객체로 받아오려면 JSON.parse 써야함
+
+let sum = 0; //결제상세에서 총 금액 0원시작
+
+const orderDetail = document.querySelector('#order-detail-content-container'); //주문상세태그
+// let html = '';
+
+let cartSum = 0;
+let cartProductName = "";
+let cartProductElePrice = 0;
+let cartProductEleQty = 0;
+let cartProductEleSupplyPrice = 0;
+
+for (let i = 0; i < json.length; i++) {
+
+  cartProductName = json[i].name;
+  cartProductElePrice = parseInt(json[i].price.split(' ')[0]);
+  cartProductEleQty = parseInt(json[i].sales);
+  cartProductEleSupplyPrice = cartProductElePrice * cartProductEleQty;
+  
+  cartSum = cartProductEleSupplyPrice + cartSum;
+  
+  orderDetail.innerHTML += 
+  `<div class="order-detail-content">
+    <ul>
+      <li id="productImage"><img src="productImage01.jpg" /></li>
+      <li>
+        <div>
+          <ul>
+            <li id="productName">상품명: ${cartProductName}</li>
+            <li id="price">가격: ${priceToString(cartProductElePrice)}원</li>
+            <li id="quantity">수량: ${priceToString(cartProductEleQty)}개</li>
+            <li id="supplyPrice">합계: ${priceToString(cartProductEleSupplyPrice)}원</li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>`;
+
+}
+
+/** 결제상세 */
+const payContainer = document.querySelector('#pay-info-content-container'); //결제상세 태그
+// payContainer.innerHTML += `<div>총가격:${cartSum}</div>`;
+payContainer.innerHTML += `<div>
+                                결제금액: <span id="sumSupplyPrice"></span>${priceToString(cartSum)}원
+                            </div>`;
+
+
+/** POST 로 보낼 데이터 작성 */
+console.log(currentUser);
+console.log(address);
+console.log(phoneNum);
+console.log(userName);
+console.log(deliveryMessage);
+
+/** 결제하기 */
+btnOrderConfirm.addEventListener('click', function () {
+
+  const confirmMsg = '결제하시겠습니까?';
+
+  // let input_orderedProducts = {};
+  // let input_price = {};
+
+  if (confirm(confirmMsg)) {
+
+      // alert('주문이 완료되었습니다.');
+      // window.location.href = './orderConfirm.html';
+
+          fetch("http://localhost:8000/api/orders", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+              userId: currentUser,
+              address: address,
+              phoneNum: phoneNum,
+              receiver: userName,
+              deliveryMessage: deliveryMessage,
+              orderedProducts: [
+                  {
+                      "productId": "643e4d7dcd5d39e480d32032",
+                      "quantity": 10
+                  }
+              ],
+              price: 10000
+              
+          }),
+      }).then((response) => response.json())
+      .then((data) => console.log(data))
+      
+  } else {
+
+      return 0;
+  }
+});
+
+
+/** 금액 천단위 콤마 변환 함수 */
+function priceToString(price) {
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+
+// /** 상품정보 가져오기 */
+// function getProductInfo(productId) {
+//   fetch('http://localhost:8000/api/products')
+//     .then((response) => response.json())
+//     .then((data) => {
+//       console.log(data);
+
+//       let productInfo = {};
+
+//       for (let i = 0; i < data.length; i++) {
+//         if (data[i]._id === productId) {
+//           productInfo = {
+//             productIdPick: data[i]._id,
+//             category: data[i].category,
+//             name: data[i].name,
+//             price: data[i].price,
+//             imgUrl: data[i].imgUrl[0],
+//             content: data[i].content,
+//           };
+//           break;
+//         }
+//       }
+
+//       return productInfo;
+//     });
+// }
+
+// /** 주문정보 가져오기 */
+// function getUserOrderList(urlOrderId) {
+//   if (urlOrderId == null || urlOrderId == undefined) {
+//     // alert("주문 / 결제페이지입니다.");
+//     // return 0;
+//   } else {
+//     fetch('http://localhost:8000/api/orders/getByOrderId/' + urlOrderId)
+//       .then((response) => response.json())
+//       .then((data) => {
+//         console.log(data);
+
+//         // let orderId = urlOrderId;
+//         let userId = '';
+//         let address = '';
+//         let deliveryStatus = '';
+//         let deliveryMessage = '';
+//         let createAt = '';
+//         let price = '';
+//         let orderedProducts = {};
+
+//         orderId = data._id;
+//         userId = data.userId;
+//         address = data.address;
+//         deliveryStatus = data.deliveryStatus;
+//         deliveryMessage = data.deliveryMessage;
+//         createAt = data.createdAt;
+//         price = data.price;
+//         orderedProducts = data.orderedProducts;
+
+//         let orderedProductList = [];
+
+//         for (let i = 0; i < orderedProducts.length; i++) {
+//           // console.log(orderedProducts[i].productId);
+//           orderedProductList.push(getProductInfo(orderedProducts[i].productId));
+//         }
+//       });
+//   }
+// }
+
+
+/** orderDefault 함수 실행 */
+getUser();  //사용자 정보
+// // getUserOrderList();
+// // getProductInfo();
+
+// getUserOrderList(urlOrderId);   //주문번호에 따른 주문정보 불러오기
 
