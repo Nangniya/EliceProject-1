@@ -15,7 +15,11 @@ import { ApiBody, ApiOperation } from '@nestjs/swagger';
 import { AuthService } from 'src/auth/auth.service';
 import { LoginRequestDto } from 'src/auth/dto/login.request.dto';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
-import { UserRequestDto, UserUpdateDto } from './dto/user.request.dto';
+import {
+  UserRequestDto,
+  UserUpdateDto,
+  orderIdAddUserDto,
+} from './dto/user.request.dto';
 import { UsersService } from './users.service';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
@@ -60,12 +64,10 @@ export class UsersController {
   @ApiOperation({ summary: '주문 추가' })
   @ApiBody({
     description: 'User Update',
+    type: orderIdAddUserDto,
   })
   @Patch('addOrder/:id')
-  async userAddOrder(
-    @Body() body: { orderId: string },
-    @Param('id') id: string,
-  ) {
+  async userAddOrder(@Body() body: orderIdAddUserDto, @Param('id') id: string) {
     return await this.usersService.addOrder(body, id);
   }
 
