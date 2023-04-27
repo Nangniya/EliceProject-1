@@ -96,17 +96,16 @@ body {
 .new-item-conatiner > div,
 .test > div {
   width: 30%;
-  height: 250px;
-  background-color: aliceblue;
+  height: 330px;
 }
 
 .item-title {
-  font-size: 20px;
+  font-size: 15x;
   font-weight: 600;
   margin-left: 5px;
 }
 .item-price {
-  font-size: 15px;
+  font-size: 10px;
   font-weight: 500;
   margin-left: 5px;
 }
@@ -120,7 +119,31 @@ body {
 }
 
 .item img {
-  height: 60%;
+  height: 70%;
   width: 100%;
   margin-bottom: 15px;
+
+  opacity: 1;
+  -webkit-transition: 0.5s ease-in-out;
+  transition: 0.5s ease-in-out;
+}
+.item:hover {
+  opacity: 0.5;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 100px;
+  color: azure;
+  background-color: black;
+  font-size: 40mpx;
+  font-weight: 500;
 }

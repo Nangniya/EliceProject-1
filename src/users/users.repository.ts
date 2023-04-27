@@ -1,7 +1,15 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { UserRequestDto, UserUpdateDto } from './dto/user.request.dto';
+import {
+  UserRequestDto,
+  UserUpdateDto,
+  orderIdAddUserDto,
+} from './dto/user.request.dto';
 import { User } from './users.schema';
 
 @Injectable()
@@ -46,5 +54,14 @@ export class UsersRepository {
 
   async deleteUser(_id: string) {
     return await this.userModel.deleteOne({ _id });
+  }
+  async addOrder(body: orderIdAddUserDto, _id: string) {
+    const user = await this.userModel.findById({ _id });
+    if (user.orderId.find((id) => id == body.orderId)) {
+      throw new UnauthorizedException('해당 주문이 이미 존재합니다.');
+    } else {
+      user.orderId.push(body.orderId);
+    }
+    return user.save();
   }
 }

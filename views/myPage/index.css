@@ -12,6 +12,8 @@ body {
   width: 100%;
 
   margin: 0;
+
+  margin-bottom: 10vh;
 }
 
 #whereNav {
@@ -97,6 +99,7 @@ a:hover {
   width: 97%;
   margin-top: 7vh;
   height: 79vh;
+  height: max-content;
 }
 
 .order-list-option {
@@ -151,6 +154,8 @@ a:hover {
 
 .mypage-content .order-list li .product-left img {
   margin: 3.9%;
+  width: 79px;
+  height: 79px;
 }
 
 .mypage-content .order-list li .product-left .product-name {
@@ -180,4 +185,10 @@ a:hover {
 .menu-list-link {
   text-decoration: none;
   color: #000000;
+}
+
+.container-content .mypage-menu {
+  left: 0;
+  top: 1vh;
+  position: sticky;
 }

@@ -9,7 +9,7 @@ fetch('/api/categories')
     var itemsHtml = '';
     for (var i = 0; i < data.length; i++) {
       itemsHtml += `
-        <button type="button" class="btn btn-warning category_title">${data[i].name}</button>
+        <button type="button" class="btn btn-outline-dark category_title">${data[i].name}</button>
           `;
     }
 
@@ -80,7 +80,6 @@ fetch('/api/products')
             <img id=${data[i]._id} src="/media/${data[i].imgUrl[0]}"  alt="..." />
             <div class="item-title">상품명 : ${data[i].name}</div>
             <div class="item-price">가격 : ${data[i].price}</div>
-            
             </div>
           `;
     }
