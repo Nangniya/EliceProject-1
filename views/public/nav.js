@@ -10,7 +10,7 @@ fetch(`http://localhost:8000/api/users`, {
       const whereNav = document.getElementById('whereNav');
       whereNav.innerHTML = `<nav class="navbar navbar-expand-lg bg-body-tertiary">
           <div class="container-fluid">
-            <a class="navbar-brand" href="/">Team4</a>
+            <a class="navbar-brand" href="/"><img src="/img/nav.png" width=170" height="100"  alt="..."/></a>            
             <button
               class="navbar-toggler"
               type="button"

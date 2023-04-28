@@ -1,10 +1,13 @@
 .container-fluid {
-  width: 80%;
+  width: 70%;
 }
 .category-item {
   width: 22%;
   height: 150px;
   margin: 30px;
+}
+a:hover {
+  cursor: pointer;
 }
 
 .serchsubmit {
@@ -16,13 +19,9 @@ h1 {
   text-align: center;
 }
 
-.navbar-brand {
-  font-size: 35px;
-}
-
 .nav-link {
-  font-size: 17px;
-  margin: 20px;
+  font-size: 20px;
+  margin: 15px;
   white-space: nowrap;
 }
 
