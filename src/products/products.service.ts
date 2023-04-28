@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Products } from './products.schema';
 import { ProductRepository } from './products.repository';
 import { ProductRequestDto } from './dto/product.reqest.dto';
+import { reviewDto } from './dto/prdouct.dto';
 
 @Injectable()
 export class ProductsService {
@@ -15,9 +16,8 @@ export class ProductsService {
     return await this.productsRepository.getAllProducts();
   }
 
-  async getDetailProduct(id: string): Promise<Products> {
-    const product = await this.productsRepository.getDetailProduct(id);
-    return product;
+  async getDetailProduct(id: string) {
+    return await this.productsRepository.getDetailProduct(id);
   }
 
   async getRecentProduct() {
@@ -41,5 +41,9 @@ export class ProductsService {
 
   async updateProduct(id: string, body: ProductRequestDto) {
     return await this.productsRepository.updateProduct(id, body);
+  }
+
+  async orderDecide(id: string, body: reviewDto) {
+    return await this.productsRepository.orderDecide(id, body);
   }
 }

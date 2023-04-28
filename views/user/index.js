@@ -40,16 +40,28 @@ async function getUserOrderList(userId) {
                         )}</li>
                         <li><b>주문 상태</b>: ${
                           data[i].deliveryStatus
-                        }<a href="/review?id=${data[i]._id}"><div id="${
-      data[i]._id
-    }" ></div></a></li>
+                        }<div id="${data[i]._id}" ></div></li>
                         <li><b>결제금액</b>: ${data[i].price}원</b></li>
                     </ul>
                 </div>
             </div>
         </div>`;
     orderListWrapper.insertAdjacentHTML('afterbegin', element);
-    const decide = document.getElementById(data[i]._id);
-    decide.innerHTML = '구매확정';
+
+    if (data[i].deliveryStatus == '배송 완료') {
+      const decide = document.getElementById(data[i]._id);
+      decide.innerHTML = `<a href="/review?id=${data[i]._id}">구매확정</a>`;
+    } else {
+      const decide = document.getElementById(data[i]._id);
+      decide.innerHTML = '주문취소';
+      decide.addEventListener('click', () => {
+        fetch(`/api/orders/id/${data[i]._id}`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+        })
+          .then((res) => res.json())
+          .then((data) => console.log(data));
+      });
+    }
   }
 }
