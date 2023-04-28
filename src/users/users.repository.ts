@@ -5,7 +5,11 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { UserRequestDto, UserUpdateDto } from './dto/user.request.dto';
+import {
+  UserRequestDto,
+  UserUpdateDto,
+  orderIdAddUserDto,
+} from './dto/user.request.dto';
 import { User } from './users.schema';
 
 @Injectable()
@@ -51,13 +55,22 @@ export class UsersRepository {
   async deleteUser(_id: string) {
     return await this.userModel.deleteOne({ _id });
   }
-  async addOrder(body: { orderId: string }, _id: string) {
-    const user = await this.userModel.findById({ _id });
-    if (user.orderId.find((id) => id == body.orderId)) {
-      throw new UnauthorizedException('해당 주문이 이미 존재합니다.');
-    } else {
-      user.orderId.push(body.orderId);
+
+  async addOrder(body: orderIdAddUserDto, _id: string) {
+    try {
+      const user = await this.userModel.findById({ _id });
+
+      if (user.orderId.find((id) => id == body.orderId)) {
+        console.log('1111111111111111111111');
+        throw new HttpException('db error 해당하는 주문은 이미 있어요', 400);
+      } else {
+        console.log('222222222222');
+        user.orderId.push(body.orderId);
+        return user.save();
+      }
+    } catch (error) {
+      console.log('3333333333333');
+      throw new HttpException('db error 해당하는 유저 없음', 400);
     }
-    return user.save();
   }
 }
