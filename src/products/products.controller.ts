@@ -40,8 +40,8 @@ export class ProductsController {
 
   @ApiOperation({ summary: '리뷰 평균이 가장 높은 상품 9개' })
   @Get('bestreview')
-  getTopNineReviewProduct() {
-    return;
+  async getTopNineReviewProduct() {
+    return await this.productsService.getTopNineReviewProduct();
   }
 
   @ApiOperation({ summary: '최근에 등록된 상품 3개' })

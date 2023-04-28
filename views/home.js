@@ -71,7 +71,7 @@ fetch('/api/products/recent')
       button.addEventListener('click', newitemClick);
     });
   });
-fetch('/api/products')
+fetch('/api/products/bestreview')
   .then((response) => response.json())
   .then((data) => {
     var itemsHtml = '';

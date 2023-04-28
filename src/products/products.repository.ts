@@ -19,6 +19,10 @@ export class ProductRepository {
     return await this.productsModel.find();
   }
 
+  async getTopNineReviewProduct() {
+    return await this.productsModel.find().sort({ reviewCNT: -1 }).limit(9);
+  }
+
   async getDetailProduct(productId: string) {
     const product = await this.productsModel.findById(productId);
     return product;

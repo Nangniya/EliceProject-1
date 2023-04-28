@@ -16,6 +16,10 @@ export class ProductsService {
     return await this.productsRepository.getAllProducts();
   }
 
+  async getTopNineReviewProduct() {
+    return await this.productsRepository.getTopNineReviewProduct();
+  }
+
   async getDetailProduct(id: string) {
     return await this.productsRepository.getDetailProduct(id);
   }
