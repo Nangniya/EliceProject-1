@@ -73,7 +73,7 @@
 | ------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------|
 | ![image](https://i.ibb.co/jyxjcd3/image.png) | ![image](https://i.ibb.co/m6QCGhb/register.png) |
 |    메인 페이지                                |      회원가입 화면                            |
-| ![image](https://i.ibb.co/GkxWyDB/login.png) | ![](https://cdn.discordapp.com/attachments/1096002327334375504/1101365325578125443/admin.gif)                                        |
+| ![image](https://i.ibb.co/GkxWyDB/login.png) | ![](https://i.ibb.co/6Y3Dy2C/admin.gif)                                        |
 |    로그인 페이지                              |     관리자 페이지                         |
 
 <br />
