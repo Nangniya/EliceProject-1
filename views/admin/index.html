@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+<<<<<<< HEAD
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -120,6 +121,70 @@
                 </button>
               </div>
             </form>
+=======
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./admin.css" />
+  <script src="./admin.js" type="module" defer></script>
+  <title>Document</title>
+</head>
+<body style="display: none">
+  <div class="main-background">
+  <!--  상품관리, 주문관리, 카테고리관리 -->
+  <nav class="nav-menu-wrapper">
+    <div id="product" class="nav-menu">상품관리</div>
+    <div id="order" class="nav-menu">주문관리</div>
+    <div id="category" class="nav-menu">카테고리관리</div>
+  </nav>
+  <section id="menu-content-wrapper">
+    <!--상품관리 내용-->
+    <div class="menu-content" style="display: none" id="product-menu-content">
+        <div class="product-table-title-wrapper">
+          <p class="product-table-title">카테고리</p>
+          <p class="product-table-title">이름</p>
+          <p class="product-table-title">가격</p>
+          <p class="product-table-title">이미지</p>
+          <p class="product-table-title">수량</p>
+          <p class="product-table-title">제조국</p>
+          <p class="product-table-title">상품설명</p>
+          <button id="add-product-btn">상품추가</button>
+        </div>
+      <!--상품목록-->
+      <div id="productList"></div>
+      <!--상품추가 모달창-->
+      <div id="modal-wrapper" style="display: none">
+        <div id="modal-form">
+          <p>상품 추가</p>
+          <div class="modal-form-input">
+            <p>카테고리</p>
+            <select id="modal-categoryInput"></select>
+          </div>
+          <div class="modal-form-input">
+            <p>상품명</p>
+            <input id="modal-nameInput" type="text"/>
+          </div>
+          <div class="modal-form-input">
+            <p>가격</p>
+            <input id="modal-priceInput" type="number"/>
+          </div>
+          <div class="modal-form-input">
+            <p>제조국</p>
+            <input id="modal-manufactureInput" type="text"/>
+          </div>
+          <div class="modal-form-input">
+            <p>수량</p>
+            <input id="modal-quantityInput" type="number"/>
+          </div>
+          <div class="modal-form-input">
+            <p>상세설명</p>
+            <input id="modal-contentInput" type="text"/>
+          </div>
+          <div class="modal-btns">
+            <button class="modal-btn" id="modal-product-add-btn">추가</button>
+            <button class="modal-btn" id="modal-cancel-btn">취소</button>
+>>>>>>> cb274f678557243f902a54ca70622da849d27e7d
           </div>
         </div>
         <!--주문관리 내용-->
