@@ -82,7 +82,7 @@ export class ProductsController {
   }
 
   @ApiOperation({ summary: '구매 확정하기' })
-  @Patch('orderDeicde/:id')
+  @Patch('orderDecide/:id')
   async orderDecide(@Param('id') id: string, @Body() body: reviewDto) {
     return await this.productsService.orderDecide(id, body);
   }
