@@ -232,8 +232,8 @@ for (let i = 0; i < json.length; i++) {
             <li id="price">가격: ${priceToString(cartProductElePrice)}원</li>
             <li id="quantity">수량: ${priceToString(cartProductEleQty)}개</li>
             <li id="supplyPrice">합계: ${priceToString(
-              cartProductEleSupplyPrice,
-            )}원</li>
+    cartProductEleSupplyPrice,
+  )}원</li>
           </ul>
         </div>
       </li>
@@ -251,16 +251,16 @@ const payContainer = document.querySelector('#pay-info-content-container'); //�
 // payContainer.innerHTML += `<div>총가격:${cartSum}</div>`;
 payContainer.innerHTML += `<div>
                                 결제금액: <span id="sumSupplyPrice"></span>${priceToString(
-                                  cartSum,
-                                )}원
+  cartSum,
+)}원
                             </div>`;
 
 /** 결제하기 */
 btnOrderConfirm.addEventListener('click', function () {
   const confirmMsg = '결제하시겠습니까?';
 
-  fetch("/api/orders", {
-    method: "POST",
+  fetch('/api/orders', {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -304,75 +304,4 @@ function priceToString(price) {
   return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
-// /** 상품정보 가져오기 */
-// function getProductInfo(productId) {
-//   fetch('http://localhost:8000/api/products')
-//     .then((response) => response.json())
-//     .then((data) => {
-//       console.log(data);
 
-//       let productInfo = {};
-
-//       for (let i = 0; i < data.length; i++) {
-//         if (data[i]._id === productId) {
-//           productInfo = {
-//             productIdPick: data[i]._id,
-//             category: data[i].category,
-//             name: data[i].name,
-//             price: data[i].price,
-//             imgUrl: data[i].imgUrl[0],
-//             content: data[i].content,
-//           };
-//           break;
-//         }
-//       }
-
-//       return productInfo;
-//     });
-// }
-
-// /** 주문정보 가져오기 */
-// function getUserOrderList(urlOrderId) {
-//   if (urlOrderId == null || urlOrderId == undefined) {
-//     // alert("주문 / 결제페이지입니다.");
-//     // return 0;
-//   } else {
-//     fetch('http://localhost:8000/api/orders/getByOrderId/' + urlOrderId)
-//       .then((response) => response.json())
-//       .then((data) => {
-//         console.log(data);
-
-//         // let orderId = urlOrderId;
-//         let userId = '';
-//         let address = '';
-//         let deliveryStatus = '';
-//         let deliveryMessage = '';
-//         let createAt = '';
-//         let price = '';
-//         let orderedProducts = {};
-
-//         orderId = data._id;
-//         userId = data.userId;
-//         address = data.address;
-//         deliveryStatus = data.deliveryStatus;
-//         deliveryMessage = data.deliveryMessage;
-//         createAt = data.createdAt;
-//         price = data.price;
-//         orderedProducts = data.orderedProducts;
-
-//         let orderedProductList = [];
-
-//         for (let i = 0; i < orderedProducts.length; i++) {
-//           // console.log(orderedProducts[i].productId);
-//           orderedProductList.push(getProductInfo(orderedProducts[i].productId));
-//         }
-//       });
-//   }
-// }
-
-/** orderDefault 함수 실행 */
-getUser(); //사용자 정보
-// // getUserOrderList();
-// // getProductInfo();
-
-// getUserOrderList(urlOrderId);   //주문번호에 따른 주문정보 불러오기

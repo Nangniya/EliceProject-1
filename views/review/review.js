@@ -52,10 +52,40 @@ const render = async () => {
       }
       return rating;
     }
+
     document.getElementById('decideOrder').addEventListener('click', () => {
       const review = document.getElementById('review').value;
-      console.log(review);
-      console.log(getRating());
+      const reviewCNT = productData.reviewCNT + 1;
+      const reviewAvg =
+        (productData.reviewAVG * productData.reviewCNT + getRating() * 1) /
+        reviewCNT;
+
+      const confirmOrder = confirm('구매를 확정하시겠습니까?');
+      if (confirmOrder === true) {
+        fetch(`/api/products/orderDecide/${productsIds[i].productId}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            reviewCNT: reviewCNT,
+            reviewAVG: reviewAvg,
+            reviewcontent: '' + review,
+          }),
+        }).then((response) => response.json());
+
+        fetch(`/api/orders/delivery/${param}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            deliveryStatus: '구매 확정 완료',
+          }),
+        }).then((response) => response.json());
+
+        window.location.href = '/';
+      }
     });
   }
 };
