@@ -62,7 +62,7 @@ async function getUserOrderList(userId) {
           headers: { 'Content-Type': 'application/json' },
         })
           .then((res) => res.json())
-          .then((data) => console.log(data));
+          .then(() => window.location.reload());
       });
     }
   }

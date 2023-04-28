@@ -5,8 +5,6 @@ let cartList = [JSON.parse(localStorage.getItem('cart'))];
 let unUsercartList = [JSON.parse(localStorage.getItem('unUsercart'))];
 let userCheck = localStorage.getItem('token');
 
-console.log(unUsercartList);
-console.log(userCheck);
 // 로컬스토리지에 있는 장바구니 리스트 화면에 출력
 
 if (userCheck == null) {
@@ -14,46 +12,56 @@ if (userCheck == null) {
 } else {
   addCartItemList(cartList);
 }
-function addCartItemList(cartList) {
+async function addCartItemList(cartList) {
   let cartListContent = '';
-  console.log('cartList: ', cartList);
   if (cartList !== null && cartList.length !== 0) {
     for (let i = 0; i < cartList[0].length; i++) {
+      const imgData = await fetch(`/api/products/id/${cartList[0][i].id}`).then(
+        (response) => response.json(),
+      );
+
       cartListContent += ` 
                 <li class="cart-item">
                     <div class="cart-item-column">
                     <div class="img-container">
-                        <a href="/products/detail?id=${cartList[0][i].productId
-        }" >
-                          <img class="cart-img" src="${cartList[0][i].image
-        }" alt="상품이미지">
+                        <a href="/products/detail?id=${
+                          cartList[0][i].productId
+                        }" >
+                          <img class="cart-img" src="/media/${
+                            imgData.imgUrl[i]
+                          }" alt="상품이미지">
                         </a>
                     </div>
                     </div>
-                    
                     <div class="cart-item-column item-info-left"> 
                     <p class="work-name">${cartList[0][i].name}</p>
                     <p>${cartList[0][i].category}</p>
                     </div>
                     <div>
-                    <button class="minus-button" type="button"><p id=${cartList[0][i].id
-        }>-</p></button>
+                    <button class="minus-button" type="button"><p id=${
+                      cartList[0][i].id
+                    }>-</p></button>
                     </div>
                       <p class="salesCount">${cartList[0][i].sales}</p>
                     <div>
-                    <button class="plus-button" type="button"><p id=${cartList[0][i].id
-        }>+</p></button>
+                    <button class="plus-button" type="button"><p id=${
+                      cartList[0][i].id
+                    }>+</p></button>
                     </div>
                     <div class="cart-item-column item-info-right">
-                    <button class="item-delete-btn" type="button"><i class="fa-solid fa-trash-can" id=${cartList[0][i].id
-        }></i></button>
-                    <p class="work-price">${parseInt(cartList[0][i].price) * cartList[0][i].sales
-        }원</p>
+                    <button class="item-delete-btn" type="button"><i class="fa-solid fa-trash-can" id=${
+                      cartList[0][i].id
+                    }></i></button>
+                    <p class="work-price">${
+                      parseInt(cartList[0][i].price) * cartList[0][i].sales
+                    }원</p>
                     </div>
                 </li>`;
+
       document.querySelector('.cart-total-price').innerHTML = `${parseInt(
         totalPrice(cartList),
       )}원`;
+
       document.querySelector(
         '.all-item-order-btn',
       ).innerHTML = `총 ${totalCount(cartList)}건 주문 계속하기`;
@@ -66,6 +74,82 @@ function addCartItemList(cartList) {
     }
   }
   cartItemList.innerHTML = cartListContent;
+
+  const plusBtn = document.querySelector('.plus-button');
+  plusBtn.addEventListener('click', (e) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      let cartList = JSON.parse(localStorage.getItem('cart'));
+      console.log(cartList[0]);
+      for (let i = 0; i < cartList.length; i++) {
+        if (cartList[i].id == e.target.id) {
+          // cartList[0][i].sales = cartList[0][i].sales + 1;
+          if (window.confirm('해당 상품의 개수를 추가하시겠습니까?')) {
+            console.log('suc');
+            cartList[i].sales = parseInt(cartList[i].sales) + 1;
+            console.log(cartList);
+
+            window.location.reload();
+          }
+        }
+      }
+      localStorage.setItem('cart', JSON.stringify(cartList));
+    } else {
+      let cartList = JSON.parse(localStorage.getItem('unUsercart'));
+      console.log(cartList[0]);
+      for (let i = 0; i < cartList.length; i++) {
+        if (cartList[i].id == e.target.id) {
+          // cartList[0][i].sales = cartList[0][i].sales + 1;
+          if (window.confirm('해당 상품의 개수를 추가하시겠습니까?')) {
+            console.log('suc');
+            cartList[i].sales = parseInt(cartList[i].sales) + 1;
+            console.log(cartList);
+
+            window.location.reload();
+          }
+        }
+      }
+      localStorage.setItem('unUsercart', JSON.stringify(cartList));
+    }
+  });
+
+  const minusBtn = document.querySelector('.minus-button');
+  minusBtn.addEventListener('click', (e) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      let cartList = JSON.parse(localStorage.getItem('cart'));
+      console.log(cartList[0]);
+      for (let i = 0; i < cartList.length; i++) {
+        if (cartList[i].id == e.target.id) {
+          // cartList[0][i].sales = cartList[0][i].sales + 1;
+          if (window.confirm('해당 상품의 개수를 줄이시겠습니까?')) {
+            console.log('suc');
+            cartList[i].sales = parseInt(cartList[i].sales) - 1;
+            console.log(cartList);
+
+            window.location.reload();
+          }
+        }
+      }
+      localStorage.setItem('cart', JSON.stringify(cartList));
+    } else {
+      let cartList = JSON.parse(localStorage.getItem('unUsercart'));
+      console.log(cartList[0]);
+      for (let i = 0; i < cartList.length; i++) {
+        if (cartList[i].id == e.target.id) {
+          // cartList[0][i].sales = cartList[0][i].sales + 1;
+          if (window.confirm('해당 상품의 개수를 줄이시겠습니까?')) {
+            console.log('suc');
+            cartList[i].sales = parseInt(cartList[i].sales) - 1;
+            console.log(cartList);
+
+            window.location.reload();
+          }
+        }
+      }
+      localStorage.setItem('unUsercart', JSON.stringify(cartList));
+    }
+  });
 }
 
 // cart-total-price와 all-item-order-btn 합계 변경
@@ -163,83 +247,7 @@ function buyAllItem() {
     localStorage.setItem('buy-cart', JSON.stringify(buyList));
   }
   alert('상품주문 페이지로 이동합니다.');
-  window.location.replace('/order');
+  window.location.replace('/order/orderDefault.html');
 }
 
 buyAllBtn.addEventListener('click', buyAllItem);
-
-const plusBtn = document.querySelector('.plus-button');
-plusBtn.addEventListener('click', (e) => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    let cartList = JSON.parse(localStorage.getItem('cart'));
-    console.log(cartList[0]);
-    for (let i = 0; i < cartList.length; i++) {
-      if (cartList[i].id == e.target.id) {
-        // cartList[0][i].sales = cartList[0][i].sales + 1;
-        if (window.confirm('해당 상품의 개수를 추가하시겠습니까?')) {
-          console.log('suc');
-          cartList[i].sales = parseInt(cartList[i].sales) + 1;
-          console.log(cartList);
-
-          window.location.reload();
-        }
-      }
-    }
-    localStorage.setItem('cart', JSON.stringify(cartList));
-  } else {
-    let cartList = JSON.parse(localStorage.getItem('unUsercart'));
-    console.log(cartList[0]);
-    for (let i = 0; i < cartList.length; i++) {
-      if (cartList[i].id == e.target.id) {
-        // cartList[0][i].sales = cartList[0][i].sales + 1;
-        if (window.confirm('해당 상품의 개수를 추가하시겠습니까?')) {
-          console.log('suc');
-          cartList[i].sales = parseInt(cartList[i].sales) + 1;
-          console.log(cartList);
-
-          window.location.reload();
-        }
-      }
-    }
-    localStorage.setItem('unUsercart', JSON.stringify(cartList));
-  }
-});
-
-const minusBtn = document.querySelector('.minus-button');
-minusBtn.addEventListener('click', (e) => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    let cartList = JSON.parse(localStorage.getItem('cart'));
-    console.log(cartList[0]);
-    for (let i = 0; i < cartList.length; i++) {
-      if (cartList[i].id == e.target.id) {
-        // cartList[0][i].sales = cartList[0][i].sales + 1;
-        if (window.confirm('해당 상품의 개수를 줄이시겠습니까?')) {
-          console.log('suc');
-          cartList[i].sales = parseInt(cartList[i].sales) - 1;
-          console.log(cartList);
-
-          window.location.reload();
-        }
-      }
-    }
-    localStorage.setItem('cart', JSON.stringify(cartList));
-  } else {
-    let cartList = JSON.parse(localStorage.getItem('unUsercart'));
-    console.log(cartList[0]);
-    for (let i = 0; i < cartList.length; i++) {
-      if (cartList[i].id == e.target.id) {
-        // cartList[0][i].sales = cartList[0][i].sales + 1;
-        if (window.confirm('해당 상품의 개수를 줄이시겠습니까?')) {
-          console.log('suc');
-          cartList[i].sales = parseInt(cartList[i].sales) - 1;
-          console.log(cartList);
-
-          window.location.reload();
-        }
-      }
-    }
-    localStorage.setItem('unUsercart', JSON.stringify(cartList));
-  }
-});

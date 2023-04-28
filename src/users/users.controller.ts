@@ -48,6 +48,7 @@ export class UsersController {
   })
   @Post('signup')
   async sighUp(@Body() body: UserRequestDto) {
+    console.log(body);
     return await this.usersService.signUp(body);
   }
 

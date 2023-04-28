@@ -9,18 +9,11 @@
   background-color: #978676;
 }
 main {
-<<<<<<< HEAD
-  border-radius: 3%;
-=======
->>>>>>> b78550b5de82ba215b1ecc5a7ab9a881b5723fe8
   margin: auto;
   font-family: 'MaruBuri-Regular';
   width: 600px;
   height: auto;
-<<<<<<< HEAD
-=======
   min-height: 100%;
->>>>>>> b78550b5de82ba215b1ecc5a7ab9a881b5723fe8
   align-items: center;
   margin-top: 30px;
 }

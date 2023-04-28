@@ -4,14 +4,12 @@ const render = async () => {
   const orderData = await fetch(`/api/orders/getByOrderId/${param}`).then(
     (response) => response.json(),
   );
-  console.log(orderData);
   const productsIds = orderData.orderedProducts;
-  console.log(productsIds);
 
   for (let i = 0; i < productsIds.length; i++) {
-    const productData = await fetch(
-      `/api/products/id/${productsIds[i].productId}`,
-    ).then((res) => res.json());
+    const productData = await fetch(`/api/products/id/${productsIds[i]}`).then(
+      (res) => res.json(),
+    );
 
     const mainWrapper = document.getElementById('main');
     const element = `<div class="reviewBox">
@@ -85,8 +83,6 @@ const render = async () => {
             deliveryStatus: '구매 확정 완료',
           }),
         }).then((response) => response.json());
-
-        window.location.href = '/';
       }
     });
   }
