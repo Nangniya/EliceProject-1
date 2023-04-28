@@ -135,6 +135,7 @@ window.addEventListener('load', () => {
 /** 주문상세 */
 const data = localStorage.getItem('buy-cart'); // 로컬스토리지에서 받아오는 value 값 받아오기
 const json = JSON.parse(data); //  JSON 형식이라서 객체로 받아오려면 JSON.parse 써야함
+console.log(json);
 
 const orderDetail = document.querySelector('#order-detail-content-container'); //주문상세태그
 // let html = '';
@@ -206,10 +207,10 @@ btnOrderConfirm.addEventListener('click', function () {
     sample6_postcode +
     ')';
   const inputPhoneNum = inputPhoneNum1 + inputPhoneNum2 + inputPhoneNum3;
-
   const cartIdArray = json.map((arg) => {
     return arg.id;
   });
+
   fetch('/api/orders', {
     method: 'POST',
     headers: {

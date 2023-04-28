@@ -35,7 +35,7 @@ fetch(`http://localhost:8000/api/users`, {
                   >
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/myPage"
+                  <a class="nav-link active" aria-current="page" href="/user"
                     >마이페이지</a
                   >
                 </li>
@@ -89,23 +89,4 @@ fetch(`http://localhost:8000/api/users`, {
         </nav>
     `;
     }
-    const searchbtn = document.querySelector('.searchbtn');
-    const searchinput = document.querySelector('.searchinput');
-    function test(e) {
-      e.preventDefault();
-      fetch('/api/products')
-        .then((response) => response.json())
-        .then((data) => {
-          for (let i = 0; i < data.length; i++) {
-            if (searchinput.value == data[i].name) {
-              alert('상품 있음 해당상품페이지로 이동');
-              searchinput.value = '';
-              return;
-            }
-          }
-          alert('상품이 없슴!');
-          searchinput.value = '';
-        });
-    }
-    searchbtn.addEventListener('click', test);
   });
