@@ -48,9 +48,11 @@ async function getUserOrderList(userId) {
         </div>`;
     orderListWrapper.insertAdjacentHTML('afterbegin', element);
 
+    console.log(data[i].deliveryStatus);
     if (data[i].deliveryStatus == '배송 완료') {
       const decide = document.getElementById(data[i]._id);
       decide.innerHTML = `<a href="/review?id=${data[i]._id}">구매확정</a>`;
+    } else if (data[i].deliveryStatus == '구매 확정 완료') {
     } else {
       const decide = document.getElementById(data[i]._id);
       decide.innerHTML = '주문취소';
