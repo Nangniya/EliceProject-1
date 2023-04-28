@@ -151,26 +151,24 @@ for (let i = 0; i < json.length; i++) {
   cartProductElePrice = parseInt(json[i].price.split(' ')[0]);
   cartProductEleQty = parseInt(json[i].sales);
   cartProductEleSupplyPrice = cartProductElePrice * cartProductEleQty;
-
   cartSum = cartProductEleSupplyPrice + cartSum;
 
-  orderDetail.innerHTML += `<div class="order-detail-content">
-    <ul>
-      <li id="productImage"><img src="productImage01.jpg" /></li>
-      <li>
-        <div>
-          <ul>
-            <li id="productName">상품명: ${cartProductName}</li>
-            <li id="price">가격: ${priceToString(cartProductElePrice)}원</li>
-            <li id="quantity">수량: ${priceToString(cartProductEleQty)}개</li>
-            <li id="supplyPrice">합계: ${priceToString(
-              cartProductEleSupplyPrice,
-            )}원</li>
-          </ul>
-        </div>
-      </li>
-    </ul>
-  </div>`;
+  fetch(`/api/products/id/${json[i].id}`)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      orderDetail.innerHTML += `
+      <div class="detail-container">
+      <img src="/media/${data.imgUrl}" />
+      <div class="text-container">
+      <div>상품명: ${data.name}</div>
+      <div>가격: ${priceToString(data.price)}원</div>
+      <div>수량: ${priceToString(json[i].sales)}개</div>
+      <div>합계: ${priceToString(+json[i].sales * parseInt(data.price))}원</div>
+      </div>
+      </div>
+      `;
+    });
 }
 
 /** 결제상세 */
