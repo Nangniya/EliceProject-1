@@ -36,6 +36,8 @@
 | 메인 페이지                                  | 회원가입 화면                                   |
 | ![image](https://i.ibb.co/mqQmJy3/login.gif) | ![](https://i.ibb.co/h27Cd37/admin.gif)         |
 | 로그인 페이지                                | 관리자 페이지                                   |
+| ![image](https://i.ibb.co/D1xX4FV/detail.gif) | ![]()         |
+| 상품 상세 페이지                               | 장바구니                                   |
 
 <br />
 
