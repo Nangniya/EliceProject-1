@@ -135,6 +135,7 @@ window.addEventListener('load', () => {
 /** 주문상세 */
 const data = localStorage.getItem('buy-cart'); // 로컬스토리지에서 받아오는 value 값 받아오기
 const json = JSON.parse(data); //  JSON 형식이라서 객체로 받아오려면 JSON.parse 써야함
+console.log(json[0].id);
 
 const orderDetail = document.querySelector('#order-detail-content-container'); //주문상세태그
 // let html = '';
@@ -150,35 +151,34 @@ for (let i = 0; i < json.length; i++) {
   cartProductElePrice = parseInt(json[i].price.split(' ')[0]);
   cartProductEleQty = parseInt(json[i].sales);
   cartProductEleSupplyPrice = cartProductElePrice * cartProductEleQty;
-
   cartSum = cartProductEleSupplyPrice + cartSum;
 
-  orderDetail.innerHTML += `<div class="order-detail-content">
-    <ul>
-      <li id="productImage"><img src="productImage01.jpg" /></li>
-      <li>
-        <div>
-          <ul>
-            <li id="productName">상품명: ${cartProductName}</li>
-            <li id="price">가격: ${priceToString(cartProductElePrice)}원</li>
-            <li id="quantity">수량: ${priceToString(cartProductEleQty)}개</li>
-            <li id="supplyPrice">합계: ${priceToString(
-              cartProductEleSupplyPrice,
-            )}원</li>
-          </ul>
-        </div>
-      </li>
-    </ul>
-  </div>`;
+  fetch(`/api/products/id/${json[i].id}`)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      orderDetail.innerHTML += `
+      <div class="detail-container">
+      <img src="/media/${data.imgUrl}" />
+      <div class="text-container">
+      <div>상품명: ${data.name}</div>
+      <div>가격: ${priceToString(data.price)}원</div>
+      <div>수량: ${priceToString(json[i].sales)}개</div>
+      <div>합계: ${priceToString(+json[i].sales * parseInt(data.price))}원</div>
+      </div>
+      </div>
+      `;
+    });
 }
+
 
 /** 결제상세 */
 const payContainer = document.querySelector('#pay-info-content-container'); //결제상세 태그
 // payContainer.innerHTML += `<div>총가격:${cartSum}</div>`;
 payContainer.innerHTML += `<div>
                                 결제금액: <span id="sumSupplyPrice"></span>${priceToString(
-                                  cartSum,
-                                )}원
+  cartSum,
+)}원
                             </div>`;
 
 /** 결제하기 */
