@@ -23,7 +23,7 @@
 
 |  |  |
 | ------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------|
-| ![image](https://i.ibb.co/jyxjcd3/image.png) | ![image](https://i.ibb.co/6cSWKp4/register.gif) |
+| ![image](https://i.ibb.co/XJkWmLK/main.gif) | ![image](https://i.ibb.co/6cSWKp4/register.gif) |
 |    메인 페이지                                |      회원가입 화면                            |
 | ![image](https://i.ibb.co/mqQmJy3/login.gif) | ![](https://i.ibb.co/h27Cd37/admin.gif)                                        |
 |    로그인 페이지                              |     관리자 페이지                         |
