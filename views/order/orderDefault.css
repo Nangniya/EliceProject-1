@@ -24,6 +24,7 @@ ul {
   width: 960px;
   margin: 0 auto;
 }
+
 body {
   background-color: #d7ccc8;
 }
@@ -166,7 +167,7 @@ img {
 .order-info-container > .pay-info-content > h4 {
   margin: 30px 0px 10px 30px;
 }
-.order-info-container > .pay-info-content > ul {
+.order-info-container > .pay-info-content > div {
   margin: 15px 0px 20px 30px;
 }
 /* 버튼 그룹 */
@@ -189,6 +190,7 @@ img {
   /* padding: 5px; */
 }
 .address-content-table.row {
+  width: 750px;
   border-top: 1px solid #c0c0c0;
   display: grid;
   grid-template-columns: 120px 700px;
@@ -227,6 +229,7 @@ img {
   font-size: 10pt;
   padding: 10px;
   /* text-align: center; */
+  /* background-color: green; */
 }
 
 .address-content-table.column.header {
@@ -239,6 +242,11 @@ input {
   margin: 5px;
   width: 70px;
   height: 20px;
+}
+
+.address-content-table.column.phone-input.last-line {
+  width: 610px;
+  border-bottom: 1px solid #c0c0c0;
 }
 
 .address-content-table.column.phone-input
