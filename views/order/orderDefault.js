@@ -79,7 +79,6 @@ function priceToString(price) {
   return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
-
 /** 배송지 정보 */
 const addressContentWrapper = document.getElementById(
   'address-content-select-wrapper-phone',
@@ -115,7 +114,7 @@ window.addEventListener('load', () => {
 });
 
 /** 다음 주소 API  */
-function sample6_execDaumPostcode() {
+function getUserOrderListsample6_execDaumPostcode() {
   new daum.Postcode({
     oncomplete: function (data) {
       // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -166,6 +165,10 @@ function sample6_execDaumPostcode() {
   });
 }
 getUser();
+<<<<<<< HEAD
+=======
+getUserOrderList(urlOrderId);
+>>>>>>> 47f181b (test)
 
 let data = localStorage.getItem('buy-cart'); // 로컬스토리지에서 받아오는 value 값 받아오기
 const json = JSON.parse(data); //  JSON 형식이라서 객체로 받아오려면 JSON.parse 써야함
@@ -203,8 +206,10 @@ Promise.all(promises).then(() => {
 <div>총가격:${sum}원</div>
 `;
 });
+
 btnOrderConfirm.addEventListener('click', function () {
   const confirmMsg = '결제하시겠습니까?';
+<<<<<<< HEAD
 
   if (confirm(confirmMsg)) {
     alert('주문이 완료되었습니다.!');
@@ -216,3 +221,6 @@ btnOrderConfirm.addEventListener('click', function () {
 });
 
 
+=======
+});
+>>>>>>> 47f181b (test)
