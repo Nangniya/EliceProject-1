@@ -81,7 +81,7 @@
 
 ## 기술 스택
 
-![image](https://media.discordapp.net/attachments/1096002327334375504/1101014062164344882/image.png?width=817&height=455)
+![image](https://i.ibb.co/tbySfQG/techstack.png)
 
 <br />
 
