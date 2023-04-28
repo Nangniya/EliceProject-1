@@ -1,8 +1,8 @@
-## 서비스 소개
+## 🏡전국소품자랑
 
-- 인테리어 소품을 판매하는 사이트
+### 인테리어 소품을 판매하는 쇼핑몰
 
-#### 제품 등록, 장바구니 추가, 주문하기 등 쇼핑몰의 핵심 서비스를 구현합니다.
+**제품 등록, 장바구니 추가, 주문하기 등 쇼핑몰의 핵심 서비스를 구현합니다.**
 
 1. 회원가입, 로그인, 회원정보 수정 등 **유저 정보 관련 CRUD**
 2. **제품 목록**을 조회 및, **제품 상세 정보**를 조회 가능함.
@@ -13,85 +13,24 @@
 
 ### API 문서
 
-### https://documenter.getpostman.com/view/23952739/2s847JrX6f
+### http://34.64.90.77/docs
 
 <br>
 
 ### 데모 영상
 
-<details><summary>사용자 회원가입, 로그인</summary>
-
-![image](https://user-images.githubusercontent.com/91174156/172159634-1e105633-9948-464e-a540-5429200a1353.gif)
-
-</details>
-
-<details><summary>카테고리 추가 및 반영</summary>
-
-추후 관련 영상을 삽입하세요 (하기 2가지 방법 가능)
-
-1. 화면녹화 -> 유튜브 업로드 -> 유튜브 링크 삽입
-2. 화면움짤녹화 -> 움짤삽입 (https://www.screentogif.com/ 활용가능)
-
-</details>
-
-<details><summary>제품 추가 및 반영</summary>
-
-추후 관련 영상을 삽입하세요 (하기 2가지 방법 가능)
-
-1. 화면녹화 -> 유튜브 업로드 -> 유튜브 링크 삽입
-2. 화면움짤녹화 -> 움짤삽입 (https://www.screentogif.com/ 활용가능)
-
-</details>
-
-<details><summary>장바구니 기능</summary>
-
-추후 관련 영상을 삽입하세요 (하기 2가지 방법 가능)
-
-1. 화면녹화 -> 유튜브 업로드 -> 유튜브 링크 삽입
-2. 화면움짤녹화 -> 움짤삽입 (https://www.screentogif.com/ 활용가능)
-
-</details>
-
-<details><summary>주문 기능</summary>
-
-추후 관련 영상을 삽입하세요 (하기 2가지 방법 가능)
-
-1. 화면녹화 -> 유튜브 업로드 -> 유튜브 링크 삽입
-2. 화면움짤녹화 -> 움짤삽입 (https://www.screentogif.com/ 활용가능)
-
-</details>
-
-<details><summary>관리자 페이지</summary>
-
-추후 관련 영상을 삽입하세요 (하기 2가지 방법 가능)
-
-1. 화면녹화 -> 유튜브 업로드 -> 유튜브 링크 삽입
-2. 화면움짤녹화 -> 움짤삽입 (https://www.screentogif.com/ 활용가능)
-
-</details>
-
-<br />
-
-### 페이지 별 화면
-
 |                                              |                                                 |
 | -------------------------------------------- | ----------------------------------------------- |
-| ![image](https://i.ibb.co/jyxjcd3/image.png) | ![image](https://i.ibb.co/m6QCGhb/register.png) |
+| ![image](https://i.ibb.co/XJkWmLK/main.gif)  | ![image](https://i.ibb.co/6cSWKp4/register.gif) |
 | 메인 페이지                                  | 회원가입 화면                                   |
-| ![image](https://i.ibb.co/GkxWyDB/login.png) |                                                 |
-| 로그인 페이지                                | 앞으로 추가할 페이지                            |
-| ![image]()                                   |                                                 |
-| 로그인 페이지                                | 앞으로 추가할 페이지                            |
-| ![image]()                                   |                                                 |
-| 페이지                                       | 앞으로 추가할 페이지                            |
-| ![image]()                                   |                                                 |
-| 페이지                                       | 앞으로 추가할 페이지                            |
+| ![image](https://i.ibb.co/mqQmJy3/login.gif) | ![](https://i.ibb.co/h27Cd37/admin.gif)         |
+| 로그인 페이지                                | 관리자 페이지                                   |
 
 <br />
 
 ## 기술 스택
 
-![image](https://i.ibb.co/N34mXzy/image.png)
+![image](https://i.ibb.co/XD39Hk9/techstack.png)
 
 <br />
 
@@ -131,10 +70,11 @@
 | 이름   | 담당 업무 |
 | ------ | --------- |
 | 이준희 | FE(팀장)  |
-| 김나연 | FE        |
+| 김봉섭 | BE        |
 | 이용섭 | FE        |
 | 박세진 | FE        |
-| 김봉섭 | BE        |
+| 김나연 | FE        |
+| 이정민 | FE        |
 
 <br />
 
@@ -154,10 +94,10 @@
 
 ### 백엔드
 
-- **Express** (nodemon, babel-node로 실행됩니다.)
+- **Nest**
 - Mongodb, Mongoose
 - cors
-- 봉섭
+- **봉섭**
 
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
@@ -182,3 +122,53 @@
 </p>
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+
+## Description
+
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+
+## Installation
+
+```bash
+$ yarn install
+```
+
+## Running the app
+
+```bash
+# development
+$ yarn run start
+
+# watch mode
+$ yarn run start:dev
+
+# production mode
+$ yarn run start:prod
+```
+
+## Test
+
+```bash
+# unit tests
+$ yarn run test
+
+# e2e tests
+$ yarn run test:e2e
+
+# test coverage
+$ yarn run test:cov
+```
+
+## Support
+
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+
+## Stay in touch
+
+- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
+- Website - [https://nestjs.com](https://nestjs.com/)
+- Twitter - [@nestframework](https://twitter.com/nestframework)
+
+## License
+
+Nest is [MIT licensed](LICENSE).
