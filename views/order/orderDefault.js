@@ -55,7 +55,7 @@ let receiver = '';
 let deliveryMessage = '';
 
 async function getUser() {
-  const res = await fetch('http://localhost:8000/api/users', {
+  const res = await fetch('/api/users', {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
@@ -259,7 +259,7 @@ payContainer.innerHTML += `<div>
 btnOrderConfirm.addEventListener('click', function () {
   const confirmMsg = '결제하시겠습니까?';
 
-  fetch('http://localhost:8000/api/orders', {
+  fetch('/api/orders', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
