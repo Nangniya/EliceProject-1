@@ -9,11 +9,11 @@
   background-color: #978676;
 }
 main {
+  border-radius: 3%;
   margin: auto;
   font-family: 'MaruBuri-Regular';
   width: 600px;
   height: auto;
-  min-height: 100%;
   align-items: center;
   margin-top: 30px;
 }
@@ -24,14 +24,14 @@ main {
   align-items: center;
   justify-content: center;
   width: 600px;
-  padding: 0px;
-  margin-top: 20px;
 }
 .imgUrl {
+  margin-top: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 600px;
+  width: 100%;
+  object-fit: fill;
 }
 .imageUrl {
   width: 600px;

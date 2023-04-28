@@ -53,7 +53,8 @@ fetch(`http://localhost:8000/api/users`, {
     } else {
       whereNav.innerHTML = `<nav class="navbar navbar-expand-lg bg-body-tertiary">
           <div class="container-fluid">
-            <a class="navbar-brand" href="/">Team4</a>
+
+          <a class="navbar-brand" href="/"><img src="/img/nav.png" width=170" height="100"  alt="..."/></a>   
             <button
               class="navbar-toggler"
               type="button"
@@ -83,17 +84,6 @@ fetch(`http://localhost:8000/api/users`, {
                   >
                 </li>
               </ul>
-              <form class="d-flex" role="search">
-                <input
-                  class="form-control me-1 searchinput"
-                  type="search"
-                  placeholder="상품명 입력"
-                  aria-label="Search"
-                />
-                <button class="btn btn-outline-success serchsubmit searchbtn" type="submit">
-                  검색
-                </button>
-              </form>
             </div>
           </div>
         </nav>
