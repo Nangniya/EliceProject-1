@@ -13,7 +13,7 @@
 
 ### API 문서
 
-### https://documenter.getpostman.com/view/23952739/2s847JrX6f
+### http://34.64.90.77/docs
 
 <br>
 
