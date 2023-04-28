@@ -1,5 +1,9 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UserRequestDto } from './dto/user.request.dto';
+import {
+  UserRequestDto,
+  UserUpdateDto,
+  orderIdAddUserDto,
+} from './dto/user.request.dto';
 import { UsersRepository } from './users.repository';
 import * as bcrypt from 'bcrypt';
 
@@ -25,5 +29,17 @@ export class UsersService {
       password: hashedPassedword,
     });
     return user.readOnlyData;
+  }
+
+  async updateUser(body: UserUpdateDto, id: string) {
+    return await this.usersRepository.updateUser(body, id);
+  }
+
+  async deleteUser(id: string) {
+    return await this.usersRepository.deleteUser(id);
+  }
+
+  async addOrder(body: { orderId: string }, id: string) {
+    return await this.usersRepository.addOrder(body, id);
   }
 }

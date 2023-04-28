@@ -19,12 +19,6 @@ function getUserOrderList() {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      // console.log(data[0]);
-      // console.log(data[0].userId);
-      // console.log(data[0]._id);
-      // console.log(data[0].deliveryStatus);
-      // console.log(data[0].createdAt);
-      // console.log(data[0].price);
 
       let userId = data[0].userId;
       let orderId = data[0]._id;

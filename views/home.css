@@ -1,14 +1,13 @@
-/* .navbar {
-  display: flexbox;
-  justify-content: center;
-} */
 .container-fluid {
-  width: 80%;
+  width: 70%;
 }
 .category-item {
   width: 22%;
   height: 150px;
   margin: 30px;
+}
+a:hover {
+  cursor: pointer;
 }
 
 .serchsubmit {
@@ -20,26 +19,22 @@ h1 {
   text-align: center;
 }
 
-.navbar-brand {
-  font-size: 35px;
-}
-
 .nav-link {
-  font-size: 17px;
-  margin: 20px;
+  font-size: 20px;
+  margin: 15px;
   white-space: nowrap;
 }
 
 .img-slide-container {
   display: flex;
   justify-content: center;
-  margin-top: 30px;
+  margin-top: 5px;
 }
 .img-slide {
   width: 70%;
 }
 .carousel-item {
-  height: 300px;
+  height: 350px;
 }
 
 .carousel-item > img {
@@ -74,6 +69,7 @@ body {
 #myCategory {
   /* width: 80%; */
   margin-top: 20px;
+  margin-bottom: 50px;
   display: flex;
   justify-content: center;
 }
@@ -85,33 +81,64 @@ body {
 .new-item-conatiner,
 .test {
   display: flex;
-}
-.test > div {
-  width: 200px;
-  height: 200px;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-.best-item-conatiner > div {
-  width: 200px;
-  height: 200px;
-}
-.new-item-conatiner > div {
-  width: 200px;
-  height: 200px;
+.best-item-conatiner > div,
+.new-item-conatiner > div,
+.test > div {
+  width: 30%;
+  height: 330px;
 }
 
 .item-title {
-  color: blueviolet;
+  font-size: 15x;
+  font-weight: 600;
+  margin-left: 5px;
 }
 .item-price {
-  color: darkcyan;
+  font-size: 10px;
+  font-weight: 500;
+  margin-left: 5px;
 }
 
 .item {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  width: 33%;
+  align-items: flex-start;
+  height: 100px;
   margin: 15px;
-  background-color: antiquewhite;
+}
+
+.item img {
+  height: 70%;
+  width: 100%;
+  margin-bottom: 15px;
+
+  opacity: 1;
+  -webkit-transition: 0.5s ease-in-out;
+  transition: 0.5s ease-in-out;
+}
+.item:hover {
+  opacity: 0.5;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 100px;
+  color: azure;
+  background-color: black;
+  font-size: 40mpx;
+  font-weight: 500;
 }

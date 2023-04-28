@@ -14,6 +14,7 @@ import { ApiOperation } from '@nestjs/swagger';
 import { ProductRequestDto } from './dto/product.reqest.dto';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { multerOptions } from 'src/common/utils/multer.oprions';
+import { reviewDto } from './dto/prdouct.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -39,8 +40,8 @@ export class ProductsController {
 
   @ApiOperation({ summary: '리뷰 평균이 가장 높은 상품 9개' })
   @Get('bestreview')
-  getTopNineReviewProduct() {
-    return;
+  async getTopNineReviewProduct() {
+    return await this.productsService.getTopNineReviewProduct();
   }
 
   @ApiOperation({ summary: '최근에 등록된 상품 3개' })
@@ -78,5 +79,11 @@ export class ProductsController {
     @Body() body: ProductRequestDto,
   ) {
     return await this.productsService.updateProduct(id, body);
+  }
+
+  @ApiOperation({ summary: '구매 확정하기' })
+  @Patch('orderDecide/:id')
+  async orderDecide(@Param('id') id: string, @Body() body: reviewDto) {
+    return await this.productsService.orderDecide(id, body);
   }
 }

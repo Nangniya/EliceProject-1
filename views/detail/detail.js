@@ -7,17 +7,23 @@ const details = document.querySelector('#details');
 const plusBtn = document.querySelector('.plus');
 const minusBtn = document.querySelector('.minus');
 const salesCount = document.querySelector('.salesCount');
+const imgUrl = document.querySelector('.imgUrl');
 
 const urlParam = window.location.search;
 const param = urlParam.replace('?', '').split(/[=?&]/)[1];
-fetch(`http://localhost:8000/api/products/id/${param}`)
+
+fetch(`/api/products/id/${param}`)
   .then((response) => response.json())
   .then((data) => {
+    console.log(data);
+    imgUrl.innerHTML = `
+    <img class="imageUrl" src="/media/${data.imgUrl[0]}">
+    `;
     function rendering() {
       itemcategory.innerHTML = `${data.category}`;
       item_name.innerHTML = `${data.name}`;
       item_price.innerHTML = `${data.price}` + ' 원';
-      details.innerHTML = `${data.details}`;
+      details.innerHTML = `${data.content}`;
     }
     rendering();
   });
@@ -39,42 +45,62 @@ minusBtn.addEventListener('click', () => {
     salesCount.innerText = parseInt(salesCount.innerText) - 1;
   }
 });
-
+let cartArray = [];
 //장바구니 담기
 cartBtn.addEventListener('click', () => {
   const data = {
+    id: param,
     name: item_name.innerHTML,
     category: itemcategory.innerHTML,
     price: item_price.innerHTML,
-    sales: salesCount.innerText,
+    sales: parseInt(salesCount.innerText),
   };
-  if (localStorage.getItem('cart') == null) {
-    localStorage.setItem('cart', JSON.stringify([data]));
-  } else {
-    let cartList = JSON.parse(localStorage.getItem('cart'));
-    for (let i = 0; i < cartList.length; i++) {
-      if (cartList[i].name === data.name) {
-        if (data.sales == 1) {
-          cartList[i].sales = 1;
-        } else {
-          cartList[i].sales = cartList[i].sales * 1 + data.sales * 1;
-        }
+  if (localStorage.getItem('token') !== null) {
+    if (localStorage.getItem('cart') == null) {
+      localStorage.setItem('cart', JSON.stringify([data]));
+    } else {
+      const cartList = JSON.parse(localStorage.getItem('cart'));
+      const sIdx = cartList.findIndex((obj) => obj.id === data.id) + 1;
+      if (sIdx) {
+        cartList[sIdx - 1].sales = cartList[sIdx - 1].sales * 1 + data.sales;
       } else {
         cartList.push(data);
       }
+      localStorage.setItem('cart', JSON.stringify(cartList));
     }
-    localStorage.setItem('cart', JSON.stringify(cartList));
-  }
-  const moveTocart = confirm(
-    '상품이 장바구니에 담겼습니다.\n장바구니로 이동하시겠습니까?',
-  );
-  if (moveTocart === true) {
-    window.location.href = '/cart';
+    const moveTocart = confirm(
+      '상품이 장바구니에 담겼습니다.\n장바구니로 이동하시겠습니까?',
+    );
+    if (moveTocart === true) {
+      window.location.href = '/cart';
+    }
+  } else {
+    if (localStorage.getItem('unUsercart') == null) {
+      localStorage.setItem('unUsercart', JSON.stringify([data]));
+    } else {
+      const cartList = JSON.parse(localStorage.getItem('unUsercart'));
+      const sIdx = cartList.findIndex((obj) => obj.id === data.id) + 1;
+      // console.log(data);
+      console.log(sIdx);
+      if (sIdx) {
+        cartList[sIdx - 1].sales = cartList[sIdx - 1].sales * 1 + data.sales;
+      } else {
+        cartList.push(data);
+      }
+      localStorage.setItem('unUsercart', JSON.stringify(cartList));
+    }
+    const moveTocart = confirm(
+      '상품이 장바구니에 담겼습니다.\n장바구니로 이동하시겠습니까?',
+    );
+    if (moveTocart === true) {
+      window.location.href = '/cart';
+    }
   }
 });
 
 buyNowBtn.addEventListener('click', function () {
   const data = {
+    id: param,
     name: item_name.innerHTML,
     category: itemcategory.innerHTML,
     price: item_price.innerHTML,
@@ -83,6 +109,6 @@ buyNowBtn.addEventListener('click', function () {
   const buyNow = confirm('바로 구매하시겠습니까?');
   if (buyNow === true) {
     localStorage.setItem('buy-cart', JSON.stringify([data]));
-    window.location.href = '/order/detail.html';
+    window.location.href = '/order/orderDefault.html';
   }
 });

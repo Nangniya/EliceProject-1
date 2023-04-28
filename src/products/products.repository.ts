@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Products } from './products.schema';
 import { ProductRequestDto } from './dto/product.reqest.dto';
+import { reviewDto } from './dto/prdouct.dto';
 
 @Injectable()
 export class ProductRepository {
@@ -10,7 +11,7 @@ export class ProductRepository {
     @InjectModel(Products.name) private readonly productsModel: Model<Products>,
   ) {}
 
-  async create(product: ProductRequestDto): Promise<Products> {
+  async create(product: ProductRequestDto) {
     return await this.productsModel.create(product);
   }
 
@@ -18,7 +19,11 @@ export class ProductRepository {
     return await this.productsModel.find();
   }
 
-  async getDetailProduct(productId: string): Promise<Products> {
+  async getTopNineReviewProduct() {
+    return await this.productsModel.find().sort({ reviewCNT: -1 }).limit(9);
+  }
+
+  async getDetailProduct(productId: string) {
     const product = await this.productsModel.findById(productId);
     return product;
   }
@@ -60,6 +65,14 @@ export class ProductRepository {
     product.category = body.category;
     product.price = body.price;
     product.content = body.content;
+    return product.save();
+  }
+
+  async orderDecide(_id: string, body: reviewDto) {
+    const product = await this.productsModel.findById({ _id });
+    product.reviewCNT = body.reviewCNT;
+    product.reviewAVG = body.reviewAVG;
+    product.review.push(body.reviewcontent);
     return product.save();
   }
 }

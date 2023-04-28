@@ -140,4 +140,17 @@
     padding: 15px 0;
     text-align: center;
   }
+
+  .minus-button {
+    padding: 0px 3px;
+    margin: 0px 8px;
+    font-size : 7px;
+    
+  }
+  .plus-button {
+    padding: 0px 2px;
+    margin: 0px 8px;
+    font-size : 7px;
+  }
+
   

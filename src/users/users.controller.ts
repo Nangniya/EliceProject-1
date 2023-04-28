@@ -1,8 +1,12 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
+  Patch,
   Post,
+  Put,
   UseFilters,
   UseGuards,
   UseInterceptors,
@@ -11,7 +15,11 @@ import { ApiBody, ApiOperation } from '@nestjs/swagger';
 import { AuthService } from 'src/auth/auth.service';
 import { LoginRequestDto } from 'src/auth/dto/login.request.dto';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
-import { UserRequestDto } from './dto/user.request.dto';
+import {
+  UserRequestDto,
+  UserUpdateDto,
+  orderIdAddUserDto,
+} from './dto/user.request.dto';
 import { UsersService } from './users.service';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { SuccessInterceptor } from 'src/common/interceptor/success.interceptor';
@@ -40,7 +48,39 @@ export class UsersController {
   })
   @Post('signup')
   async sighUp(@Body() body: UserRequestDto) {
+    console.log(body);
     return await this.usersService.signUp(body);
+  }
+
+  @ApiOperation({ summary: '회원 정보 변경' })
+  @ApiBody({
+    description: 'User Update',
+    type: UserUpdateDto,
+  })
+  @Put('updateUser/:id')
+  async updateUser(@Body() body: UserUpdateDto, @Param('id') id: string) {
+    return await this.usersService.updateUser(body, id);
+  }
+
+  @ApiOperation({ summary: '주문 추가' })
+  @ApiBody({
+    description: 'User Update',
+  })
+  @Patch('addOrder/:id')
+  async userAddOrder(
+    @Body() body: { orderId: string },
+    @Param('id') id: string,
+  ) {
+    return await this.usersService.addOrder(body, id);
+  }
+
+  @ApiOperation({ summary: '회원 탈퇴' })
+  @ApiBody({
+    description: 'user delete',
+  })
+  @Delete('deleteUser/:id')
+  async deleteUser(@Param('id') id: string) {
+    return await this.usersService.deleteUser(id);
   }
 
   @ApiOperation({ summary: '로그인' })

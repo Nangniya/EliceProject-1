@@ -79,13 +79,13 @@ async function handleSubmit(e) {
   try {
     const data = { email, name, password, address, phoneNumber };
 
-    const result = await post('http://localhost:8000/api/users/signup', data);
+    const result = await post('/api/users/signup', data);
     console.log(result);
 
     alert(`정상적으로 회원가입되었습니다.`);
 
     // 로그인 페이지 이동
-    window.location.href = 'login';
+    window.location.href = '/login';
   } catch (err) {
     console.error(err.stack);
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);

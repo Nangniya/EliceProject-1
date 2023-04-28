@@ -24,10 +24,16 @@
         </div>
 
         <div class="delivery-info-content">
-          <h4>배송지정보</h4>
+          <h4>배송지 정보</h4>
           <ul>
             <li>
               <div class="address-content-table">
+                <div class="address-content-table row">
+                    <div class="address-content-table column header">받는이</div>
+                    <div class="address-content-table column phone-input">
+                      <input type="text" id="inputReceiver">
+                    </div>
+                </div>
                 <div class="address-content-table row">
                     <div class="address-content-table column header">연락처</div>
                     <div class="address-content-table column phone-input">
@@ -46,7 +52,7 @@
                 </div>
                 <div class="address-content-table row">
                     <div class="address-content-table column header">배송요청사항</div>
-                    <div class="address-content-table column phone-input">
+                    <div class="address-content-table column phone-input last-line">
                       <select id="address-content-select-wrapper-message"></select>
                     </div>
                 </div>
@@ -57,7 +63,7 @@
         <div class="order-detail-content-wrapper">
           <h4>주문상세</h4>
           <div class="order-detail-content-container" id="order-detail-content-container">
-<!--           
+          <!--           
           <div class="order-detail-content">
             <ul>
               <li id="productImage"><img src="productImage01.jpg" /></li>
@@ -77,11 +83,6 @@
         <div class="pay-info-content">
           <h4>결제상세</h4>
           <div class="pay-info-content-container" id="pay-info-content-container">
-          <!--
-            <ul>
-              <li>결제금액 : <span id="sumSupplyPrice"></span>원</li>
-            </ul>
-          -->
           </div>
         </div>
 

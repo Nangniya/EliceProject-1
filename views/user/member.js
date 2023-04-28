@@ -15,16 +15,6 @@ async function getUser() {
   const userData = await res.json();
   console.log(userData);
 
-  let name = document.getElementById('member-name');
-  let email = document.getElementById('member-email');
-  let address = document.getElementById('member-address');
-  let phoneNumber = document.getElementById('member-number');
-
-  name.innerHTML = userData.data.name;
-  email.innerHTML = userData.data.email;
-  address.innerHTML = userData.data.address;
-  phoneNumber.innerHTML = userData.data.phoneNumber;
-
   // 수정에 현재 값 채워넣기
   const nameInput = document.getElementById('member-name-edit');
   const emailInput = document.getElementById('member-email-edit');
@@ -38,9 +28,11 @@ async function getUser() {
 
   const userId = userData.data.id;
   // 수정에 이벤트리스너 부여
-  document
-    .querySelector('#modify-user-btn')
-    .addEventListener('click', () => modifyUser(userId));
+  document.querySelector('#modify-user-btn').addEventListener('click', () => {
+    if (confirm(`회원정보를 수정하시겠습니까?`)) {
+      modifyUser(userId);
+    }
+  });
   // 탈퇴에 이벤트리스너 부여
   document
     .querySelector('#delete-user-btn')

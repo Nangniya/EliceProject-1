@@ -5,37 +5,37 @@
   font-weight: normal;
   font-style: normal;
 }
-html,
-body {
-  background: #dcc4ad;
+.nav {
+  background-color: #978676;
 }
 main {
+  margin: auto;
   font-family: 'MaruBuri-Regular';
   width: 600px;
-  margin: 0 auto;
   height: auto;
   min-height: 100%;
-  background: #dcc4ad;
   align-items: center;
+  margin-top: 30px;
 }
 .container {
   display: flex;
   flex-direction: column;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
   width: 600px;
-  padding: 0px;
-  margin-top: 20px;
 }
 .imgUrl {
+  margin-top: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 600px;
+  width: 100%;
+  object-fit: fill;
 }
 .imageUrl {
   width: 600px;
-  height: 400px;
+  height: 300px;
   border-radius: 4%;
   align-items: center;
   /* object-fit: scale-down; */

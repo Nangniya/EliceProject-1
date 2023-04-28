@@ -1,14 +1,7 @@
-// const searchbtn = document.querySelector('.searchbtn');
-// const searchinput = document.querySelector('.searchinput');
-
 const basketbtn = document.querySelector('#basket');
 const loginbtn = document.querySelector('#login');
 const mypage = document.querySelector('#mypage');
 const category = document.querySelector('#myCategory');
-
-if (localStorage.getItem('token')) {
-  console.log('로그인되어있음');
-} else console.log('로그인되어있지않음');
 
 fetch('/api/categories')
   .then((response) => response.json())
@@ -16,7 +9,7 @@ fetch('/api/categories')
     var itemsHtml = '';
     for (var i = 0; i < data.length; i++) {
       itemsHtml += `
-        <button type="button" class="btn btn-warning category_title">${data[i].name}</button>
+        <button type="button" class="btn btn-outline-dark category_title">${data[i].name}</button>
           `;
     }
 
@@ -29,6 +22,7 @@ fetch('/api/categories')
         .then((data) => {
           for (let i = 0; i < data.length; i++) {
             testhtml += `<div class="item" id=${data[i]._id}>
+            <img id=${data[i]._id} src="/media/${data[i].imgUrl[0]}" alt="..." />
               <p class="item-title">상품명 : ${data[i].name}<p>
               <p class="item-price">가격 : ${data[i].price}<p>
               </div>
@@ -41,7 +35,7 @@ fetch('/api/categories')
             <p class="item-title">상품없음<p>
             `;
           function newitemClick(event) {
-            window.location.href = `http://localhost:8000/detail?id=${event.target.id}`;
+            window.location.href = `detail?id=${event.target.id}`;
           }
           document.querySelectorAll('.item').forEach((button) => {
             button.addEventListener('click', newitemClick);
@@ -61,8 +55,9 @@ fetch('/api/products/recent')
     var itemsHtml = '';
     for (var i = 0; i < data.length; i++) {
       itemsHtml += `<div class="item new-item" id=${data[i]._id}>
-            <p class="item-title">상품명 : ${data[i].name}<p>
-            <p class="item-price">가격 : ${data[i].price}<p>
+      <img id=${data[i]._id} src="/media/${data[i].imgUrl[0]}" alt="..." />
+            <div class="item-title">상품명 : ${data[i].name}</div>
+            <div class="item-price">가격 : ${data[i].price}</div>
             </div>
           `;
     }
@@ -70,27 +65,28 @@ fetch('/api/products/recent')
     function newitemClick(event) {
       console.log(event.target);
       console.log(event);
-      window.location.href = `http://localhost:8000/detail?id=${event.target.id}`;
+      window.location.href = `/detail?id=${event.target.id}`;
     }
     document.querySelectorAll('.new-item').forEach((button) => {
       button.addEventListener('click', newitemClick);
     });
   });
 
-fetch('/api/products')
+fetch('/api/products/bestreview')
   .then((response) => response.json())
   .then((data) => {
     var itemsHtml = '';
     for (var i = 0; i < data.length; i++) {
       itemsHtml += `<div class="item" id=${data[i]._id}>
-            <p class="item-title">상품명 : ${data[i].name}<p>
-            <p class="item-price">가격 : ${data[i].price}<p>
+            <img id=${data[i]._id} src="/media/${data[i].imgUrl[0]}"  alt="..." />
+            <div class="item-title">상품명 : ${data[i].name}</div>
+            <div class="item-price">가격 : ${data[i].price}</div>
             </div>
           `;
     }
     document.querySelector('.best-item-conatiner').innerHTML = itemsHtml;
     function newitemClick(event) {
-      window.location.href = `http://localhost:8000/detail?id=${event.target.id}`;
+      window.location.href = `/detail?id=${event.target.id}`;
     }
     document.querySelectorAll('.item').forEach((button) => {
       button.addEventListener('click', newitemClick);
