@@ -36,8 +36,10 @@
 | 메인 페이지                                  | 회원가입 화면                                   |
 | ![image](https://i.ibb.co/mqQmJy3/login.gif) | ![](https://i.ibb.co/h27Cd37/admin.gif)         |
 | 로그인 페이지                                | 관리자 페이지                                   |
-| ![image](https://i.ibb.co/D1xX4FV/detail.gif) | ![]()         |
-| 상품 상세 페이지                               | 장바구니                                   |
+| ![image](https://i.ibb.co/D1xX4FV/detail.gif) | ![](https://i.ibb.co/YjxC03h/mypage.gif)         |
+| 상품 상세 페이지                               | 마이페이지                                   |
+| ![image](https://i.ibb.co/TvhypyG/order.gif) | ![](https://i.ibb.co/w4K5LfR/cart.gif)         |
+| 주문결제 페이지                               | 장바구니                                   |
 
 <br />
 
