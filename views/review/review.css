@@ -1,0 +1,31 @@
+.reviewBox {
+  border: 1px solid;
+  margin: 30px;
+  padding: 30px;
+}
+
+.rating {
+  display: inline-block;
+}
+
+.rating input {
+  display: none;
+}
+
+.rating label {
+  cursor: pointer;
+  width: 55px;
+  height: 55px;
+  margin: 10px;
+  padding: 10;
+  font-size: 40px;
+  line-height: 25px;
+  color: #ddd;
+  text-shadow: 1px 1px #bbb;
+}
+
+.rating input:checked ~ label img {
+  color: #f70;
+  text-shadow: 1px 1px #c60;
+  background-color: yellow;
+}

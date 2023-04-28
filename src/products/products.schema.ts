@@ -2,7 +2,6 @@ import { Prop, Schema, SchemaFactory, SchemaOptions } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { Document } from 'mongoose';
-import { ProductReviewDto } from './dto/prodcut.review.dto';
 
 const options: SchemaOptions = {
   collection: 'products',
@@ -90,7 +89,7 @@ export class Products extends Document {
     default: [],
   })
   @IsNotEmpty()
-  review: ProductReviewDto[];
+  review: string[];
 
   @ApiProperty({
     example: 1000,
@@ -104,6 +103,19 @@ export class Products extends Document {
   @IsNumber()
   @IsNotEmpty()
   reviewCNT: number;
+
+  @ApiProperty({
+    example: 1000,
+    description: 'prodcut reviewAVG',
+    required: true,
+  })
+  @Prop({
+    required: true,
+    default: 0,
+  })
+  @IsNumber()
+  @IsNotEmpty()
+  reviewAVG: number;
 
   @ApiProperty({
     example: 'img url',
@@ -127,6 +139,7 @@ ProductsSchema.virtual('readOnlyData').get(function (this: Products) {
     content: this.content,
     review: this.review,
     reviewCnt: this.reviewCNT,
+    reviewAVG: this.reviewAVG,
     imgUrl: this.imgUrl,
   };
 });
