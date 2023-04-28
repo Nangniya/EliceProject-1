@@ -5,6 +5,8 @@ let cartList = [JSON.parse(localStorage.getItem('cart'))];
 let unUsercartList = [JSON.parse(localStorage.getItem('unUsercart'))];
 let userCheck = localStorage.getItem('token');
 
+console.log(unUsercartList);
+console.log(userCheck);
 // 로컬스토리지에 있는 장바구니 리스트 화면에 출력
 
 if (userCheck == null) {
@@ -15,22 +17,16 @@ if (userCheck == null) {
 function addCartItemList(cartList) {
   let cartListContent = '';
   console.log('cartList: ', cartList);
-
   if (cartList !== null && cartList.length !== 0) {
     for (let i = 0; i < cartList[0].length; i++) {
-      fetch(`http://api/products/id/${cartList[0][i].id}`)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-        });
-
       cartListContent += ` 
                 <li class="cart-item">
                     <div class="cart-item-column">
                     <div class="img-container">
-                          <img class="cart-img" src="${
-                            cartList[0][i].image
-                          }" alt="상품이미지">
+                        <a href="/products/detail?id=${cartList[0][i].productId
+        }" >
+                          <img class="cart-img" src="${cartList[0][i].image
+        }" alt="상품이미지">
                         </a>
                     </div>
                     </div>
@@ -40,26 +36,21 @@ function addCartItemList(cartList) {
                     <p>${cartList[0][i].category}</p>
                     </div>
                     <div>
-                    <button class="minus-button" type="button"><p id=${
-                      cartList[0][i].id
-                    }>-</p></button>
+                    <button class="minus-button" type="button"><p id=${cartList[0][i].id
+        }>-</p></button>
                     </div>
                       <p class="salesCount">${cartList[0][i].sales}</p>
                     <div>
-                    <button class="plus-button" type="button"><p id=${
-                      cartList[0][i].id
-                    }>+</p></button>
+                    <button class="plus-button" type="button"><p id=${cartList[0][i].id
+        }>+</p></button>
                     </div>
                     <div class="cart-item-column item-info-right">
-                    <button class="item-delete-btn" type="button"><i class="fa-solid fa-trash-can" id=${
-                      cartList[0][i].id
-                    }></i></button>
-                    <p class="work-price">${
-                      parseInt(cartList[0][i].price) * cartList[0][i].sales
-                    }원</p>
+                    <button class="item-delete-btn" type="button"><i class="fa-solid fa-trash-can" id=${cartList[0][i].id
+        }></i></button>
+                    <p class="work-price">${parseInt(cartList[0][i].price) * cartList[0][i].sales
+        }원</p>
                     </div>
                 </li>`;
-
       document.querySelector('.cart-total-price').innerHTML = `${parseInt(
         totalPrice(cartList),
       )}원`;
