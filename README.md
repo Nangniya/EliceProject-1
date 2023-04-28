@@ -33,7 +33,7 @@
 
 ## 기술 스택
 
-![image](https://i.ibb.co/tbySfQG/techstack.png)
+![image](https://i.ibb.co/XD39Hk9/techstack.png)
 
 <br />
 
