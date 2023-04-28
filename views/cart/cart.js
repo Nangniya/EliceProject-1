@@ -28,7 +28,7 @@ async function addCartItemList(cartList) {
                           cartList[0][i].productId
                         }" >
                           <img class="cart-img" src="/media/${
-                            imgData.imgUrl[i]
+                            imgData.imgUrl[0]
                           }" alt="상품이미지">
                         </a>
                     </div>
@@ -150,6 +150,47 @@ async function addCartItemList(cartList) {
       localStorage.setItem('unUsercart', JSON.stringify(cartList));
     }
   });
+
+  const itemDeleteBtns = document.querySelectorAll('.item-delete-btn');
+  function itemDelete(e) {
+    const token = localStorage.getItem('token');
+    if (token) {
+      if (window.confirm('선택하신 상품을 장바구니에서 삭제하시겠습니까?')) {
+        const newCartList = JSON.parse(localStorage.getItem('cart'));
+        for (let i = 0; i < newCartList.length; i++) {
+          if (newCartList[i].id == e.target.id) {
+            newCartList.splice(newCartList[i], 1);
+          }
+        }
+        newCartList.filter((elem) => {
+          return elem.id !== e.target.id;
+        });
+
+        localStorage.setItem('cart', JSON.stringify(newCartList));
+        addCartItemList(newCartList);
+
+        window.location.reload();
+      }
+    } else {
+      if (window.confirm('선택하신 상품을 장바구니에서 삭제하시겠습니까?')) {
+        const newCartList = JSON.parse(localStorage.getItem('unUsercart'));
+        for (let i = 0; i < newCartList.length; i++) {
+          if (newCartList[i].id == e.target.id) {
+            newCartList.splice(newCartList[i], 1);
+          }
+        }
+
+        localStorage.setItem('unUsercart', JSON.stringify(newCartList));
+        addCartItemList(newCartList);
+
+        window.location.reload();
+      }
+    }
+  }
+
+  for (const btn of itemDeleteBtns) {
+    btn.addEventListener('click', itemDelete);
+  }
 }
 
 // cart-total-price와 all-item-order-btn 합계 변경
@@ -165,52 +206,6 @@ function totalCount(cartList) {
 }
 
 // 개별 cart list 삭제
-const itemDeleteBtns = document.querySelectorAll('.item-delete-btn');
-
-function itemDelete(e) {
-  const token = localStorage.getItem('token');
-  if (token) {
-    if (window.confirm('선택하신 상품을 장바구니에서 삭제하시겠습니까?')) {
-      const newCartList = JSON.parse(localStorage.getItem('cart'));
-      for (let i = 0; i < newCartList.length; i++) {
-        if (newCartList[i].id == e.target.id) {
-          newCartList.splice(newCartList[i], 1);
-        }
-      }
-      console.log(newCartList);
-      // newCartList.filter((elem) => {
-      //   return elem.id !== e.target.id;
-      // });
-
-      localStorage.setItem('cart', JSON.stringify(newCartList));
-      addCartItemList(newCartList);
-
-      window.location.reload();
-    }
-  } else {
-    if (window.confirm('선택하신 상품을 장바구니에서 삭제하시겠습니까?')) {
-      const newCartList = JSON.parse(localStorage.getItem('unUsercart'));
-      for (let i = 0; i < newCartList.length; i++) {
-        if (newCartList[i].id == e.target.id) {
-          newCartList.splice(newCartList[i], 1);
-        }
-      }
-      console.log(newCartList);
-      // newCartList.filter((elem) => {
-      //   return elem.id !== e.target.id;
-      // });
-
-      localStorage.setItem('unUsercart', JSON.stringify(newCartList));
-      addCartItemList(newCartList);
-
-      window.location.reload();
-    }
-  }
-}
-
-for (const btn of itemDeleteBtns) {
-  btn.addEventListener('click', itemDelete);
-}
 
 // 전체 cart list 삭제
 const allDeleteBtn = document.querySelector('.all-item-delete-btn');
