@@ -13,7 +13,7 @@ function addCartItemList(cartList) {
 
   if (cartList !== null && cartList.length !== 0) {
     for (let i = 0; i < cartList[0].length; i++) {
-      fetch(`http://localhost:8000/api/products/id/${cartList[0][i].id}`)
+      fetch(`http://api/products/id/${cartList[0][i].id}`)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);

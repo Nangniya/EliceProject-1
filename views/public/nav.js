@@ -40,17 +40,6 @@ fetch(`http://localhost:8000/api/users`, {
                   >
                 </li>
               </ul>
-              <form class="d-flex" role="search">
-                <input
-                  class="form-control me-1 searchinput"
-                  type="search"
-                  placeholder="상품명 입력"
-                  aria-label="Search"
-                />
-                <button class="btn btn-outline-success serchsubmit searchbtn" type="submit">
-                  검색
-                </button>
-              </form>
             </div>
           </div>
         </nav>

@@ -232,8 +232,8 @@ for (let i = 0; i < json.length; i++) {
             <li id="price">가격: ${priceToString(cartProductElePrice)}원</li>
             <li id="quantity">수량: ${priceToString(cartProductEleQty)}개</li>
             <li id="supplyPrice">합계: ${priceToString(
-              cartProductEleSupplyPrice,
-            )}원</li>
+    cartProductEleSupplyPrice,
+  )}원</li>
           </ul>
         </div>
       </li>
@@ -251,8 +251,8 @@ const payContainer = document.querySelector('#pay-info-content-container'); //�
 // payContainer.innerHTML += `<div>총가격:${cartSum}</div>`;
 payContainer.innerHTML += `<div>
                                 결제금액: <span id="sumSupplyPrice"></span>${priceToString(
-                                  cartSum,
-                                )}원
+  cartSum,
+)}원
                             </div>`;
 
 /** 결제하기 */

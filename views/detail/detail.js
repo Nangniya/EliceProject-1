@@ -12,7 +12,7 @@ const imgUrl = document.querySelector('.imgUrl');
 const urlParam = window.location.search;
 const param = urlParam.replace('?', '').split(/[=?&]/)[1];
 
-fetch(`http://localhost:8000/api/products/id/${param}`)
+fetch(`http://api/products/id/${param}`)
   .then((response) => response.json())
   .then((data) => {
     console.log(data);
@@ -88,6 +88,6 @@ buyNowBtn.addEventListener('click', function () {
   const buyNow = confirm('바로 구매하시겠습니까?');
   if (buyNow === true) {
     localStorage.setItem('buy-cart', JSON.stringify([data]));
-    window.location.href = '/order/detail.html';
+    window.location.href = '/order';
   }
 });
