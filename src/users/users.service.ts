@@ -39,7 +39,7 @@ export class UsersService {
     return await this.usersRepository.deleteUser(id);
   }
 
-  async addOrder(body: orderIdAddUserDto, id: string) {
+  async addOrder(body: { orderId: string }, id: string) {
     return await this.usersRepository.addOrder(body, id);
   }
 }

@@ -4,7 +4,9 @@ const render = async () => {
   const orderData = await fetch(`/api/orders/getByOrderId/${param}`).then(
     (response) => response.json(),
   );
+  console.log(orderData);
   const productsIds = orderData.orderedProducts;
+  console.log(productsIds);
 
   for (let i = 0; i < productsIds.length; i++) {
     const productData = await fetch(

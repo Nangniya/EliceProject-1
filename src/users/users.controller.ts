@@ -64,11 +64,12 @@ export class UsersController {
   @ApiOperation({ summary: '주문 추가' })
   @ApiBody({
     description: 'User Update',
-    type: orderIdAddUserDto,
   })
   @Patch('addOrder/:id')
-  async userAddOrder(@Body() body: orderIdAddUserDto, @Param('id') id: string) {
-    console.log('---------------hi');
+  async userAddOrder(
+    @Body() body: { orderId: string },
+    @Param('id') id: string,
+  ) {
     return await this.usersService.addOrder(body, id);
   }
 
