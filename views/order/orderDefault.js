@@ -447,7 +447,7 @@ btnOrderConfirm.addEventListener('click', function () {
 
 
 /** orderDefault 함수 실행 */
-getUser();  //사용자 정보
+// getUser();  //사용자 정보
 // // getUserOrderList();
 // // getProductInfo();
 
