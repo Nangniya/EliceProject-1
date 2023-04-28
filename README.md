@@ -25,7 +25,7 @@
 | ------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------|
 | ![image](https://i.ibb.co/jyxjcd3/image.png) | ![image](https://i.ibb.co/mJHH10y/register.gif) |
 |    메인 페이지                                |      회원가입 화면                            |
-| ![image](https://i.ibb.co/GkxWyDB/login.png) | ![](https://i.ibb.co/6Y3Dy2C/admin.gif)                                        |
+| ![image](https://i.ibb.co/KNQgshd/login.gif) | ![](https://i.ibb.co/6Y3Dy2C/admin.gif)                                        |
 |    로그인 페이지                              |     관리자 페이지                         |
 
 <br />
