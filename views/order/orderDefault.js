@@ -23,6 +23,12 @@ if (urlOrderId !== null && urlOrderId !== undefined) {
 }
 
 
+/** 금액 천단위 콤마 변환 함수 */
+function priceToString(price) {
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+
 /** 화면 버튼 이벤트 */
 btnOrderCreateCancel.addEventListener('click', function () {
   window.location.href = '../index.html';
@@ -47,7 +53,6 @@ btnMoveCart.addEventListener('click', function () {
 });
 
 
-
 /** 주문자 정보 가져오기 */
 let currentUser = "";
 
@@ -59,7 +64,7 @@ let receiver= "";
 let deliveryMessage = "";
 
 async function getUser() {
-  const res = await fetch('http://localhost:8000/api/users', {
+  const res = await fetch('/api/users', {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
@@ -103,13 +108,27 @@ async function getUser() {
     phoneNum: data.data.phoneNumber
   }
 }
-const dataCh = getUser();
-console.log(dataCh);
-console.log(dataCh);
-console.log(dataCh.userId);
 
 
-console.log('aa');
+// const dataCh = getUser();
+// console.log(dataCh);
+// console.log(dataCh);
+// console.log(dataCh.userId);
+
+async function getUserData() {
+  try {
+    const data = await getUser();
+    currentUser = data.userId;
+    // 이후 currentUser 변수 사용 가능
+    console.log(currentUser);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+getUser();
+currentUser = getUserData();
+
 
 /** POST 로 보낼 데이터 작성 */
 console.log(currentUser);
@@ -269,6 +288,22 @@ payContainer.innerHTML += `<div>
 // console.log(userName);
 // console.log(deliveryMessage);
 
+
+function getOrderList() {
+	let productInfo = [];
+
+//	for (let i=0; i<json.length; i++)
+	for (let i=0; i<10; i++)
+	{
+//		productInfo.push({"productId": json[i]._id, "quantity": parseInt(json[i].sales)});
+		productInfo.push({"productId": i, "quantity": parseInt(i)});
+
+	}
+
+	return productInfo;
+};
+
+
 /** 결제하기 */
 btnOrderConfirm.addEventListener('click', function () {
 
@@ -281,6 +316,9 @@ btnOrderConfirm.addEventListener('click', function () {
   let sample6_detailAddress = document.getElementById('sample6_detailAddress').value;
   let deliveryMessage = document.getElementById('address-content-select-wrapper-message').value;
 
+  inputAddress = sample6_address + " " + sample6_detailAddress + "(" + sample6_postcode + ")";
+  inputPhoneNum = inputPhoneNum1 + inputPhoneNum2 + inputPhoneNum3;
+
   // console.log(inputReceiver);
   // console.log(inputPhoneNum1);
   // console.log(inputPhoneNum2);
@@ -292,55 +330,53 @@ btnOrderConfirm.addEventListener('click', function () {
 
   const confirmMsg = '결제하시겠습니까?';
 
-  fetch("http://localhost:8000/api/orders", {
+  fetch("/api/orders", {
     method: "POST",
     headers: {
         "Content-Type": "application/json",
     },
     body: JSON.stringify({
-        userId: "643e1ada43da3cb65097f989",
-        address: "대전 가양동",
-        phoneNum: "010-0000-0000",
-        receiver: "kim",
-        deliveryMessage: "safe please",
+        userId: currentUser,
+        address: inputAddress,
+        phoneNum: inputPhoneNum,
+        receiver: inputReceiver,
+        deliveryMessage: deliveryMessage,
         orderedProducts: [
           {
-            productId: "643e4d7dcd5d39e480d32032",
+            productId: "644a76d34d8dadb8b2b7771c",
             quantity: 10
           }
         ],
         price: 10000
     }),
 }).then((response) => response.json())
-.then((data) => {
+  .then((data) => {
 
-  console.log(data._id);
-  console.log(data.userId);
 
-  fetch(`/api/users/addOrder/${data.userId}`, {
-    method: "PATCH",
-    headers: {
-        "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      orderId: data._id
+    console.log('-----');
+    console.log(currentUser);
+    
+    
+    console.log('-----');
+    console.log(data);
+    console.log(data._id);
+    console.log(data.userId);
+
+    fetch(`/api/users/addOrder/${data.userId}`, {
+      // fetch(`/api/users/addOrder/${currentUser}`, {
+      method: "PATCH",
+      headers: {
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        orderId: data._id
+        // orderId: currentUser
+      })
     })
-  })
+
+  });
 
 });
-
-  if (confirm(confirmMsg)) {
-
-  } else {
-      alert("관리자에게 문의하세요");
-  }
-});
-
-
-/** 금액 천단위 콤마 변환 함수 */
-function priceToString(price) {
-  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-}
 
 
 // /** 상품정보 가져오기 */
@@ -416,4 +452,3 @@ getUser();  //사용자 정보
 // // getProductInfo();
 
 // getUserOrderList(urlOrderId);   //주문번호에 따른 주문정보 불러오기
-
